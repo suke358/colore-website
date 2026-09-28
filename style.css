@@ -137,6 +137,17 @@ p { margin: 0 0 1em; }
 .card-recommend { outline: 2px solid var(--green-olive); }
 .badge { position: absolute; top: 14px; left: 14px; z-index: 1; background: var(--pink); color: var(--white); font-size: .78rem; font-weight: 700; padding: .25em 1em; border-radius: 999px; }
 
+.card-price { font-size: 1rem !important; }
+.card-logo { aspect-ratio: 3 / 2; display: grid; place-items: center; background: linear-gradient(135deg, #f3e7d3, #e6d3b5); }
+.card-logo img { width: 128px; height: 128px; aspect-ratio: auto; border-radius: 50%; box-shadow: 0 8px 20px rgba(138,111,78,.25); }
+.card-list { list-style: none; padding: 0; margin: 0 0 .8em; display: flex; flex-wrap: wrap; gap: 8px; }
+.card-list li { background: var(--green-pale); color: var(--green-deep); font-size: .85rem; font-weight: 700; padding: .25em .9em; border-radius: 999px; }
+.small-text { font-size: .8rem !important; }
+.hero-badge { display: inline-block; background: rgba(255,255,255,.75); color: var(--green-deep); font-weight: 700; font-size: .9rem; padding: .45em 1.2em; border-radius: 999px; border: 1px solid rgba(123,135,82,.35); margin-bottom: 1em; }
+.about-point { background: var(--green-pale); border-left: 4px solid var(--green-olive); padding: 16px 20px; border-radius: 0 10px 10px 0; font-size: .95rem; }
+.about-point strong { color: var(--green-deep); }
+.btn-insta { margin-top: 20px; }
+
 /* ---------- ③ 予約 ---------- */
 .reserve { background: var(--green-pale); }
 .reserve-embed { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; min-height: 420px; }
