@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
   <link rel="icon" href="images/logo.png">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -184,8 +184,8 @@
           -->
           <div class="reserve-placeholder">
             <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="10" width="34" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M7 19h34M16 6v8M32 6v8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
-            <p>予約カレンダー表示エリア</p>
-            <p class="small">（RESERVA／Googleカレンダーの埋め込みコードをここに設置します）</p>
+            <p>ここにWeb予約カレンダーが入ります</p>
+            <p class="small">空いている日時を選んで、24時間いつでもご予約いただけるようになります（導入準備中）</p>
           </div>
           <!-- ▲▲▲ 予約カレンダーの埋め込みここまで ▲▲▲ -->
         </div>
@@ -244,6 +244,8 @@
           ※差し替えるまでは送信しても届きません
         -->
         <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <!-- デモ表示：Formspree を紐付けるまでは、送信ボタンを押すと下のメッセージが出ます（送信はされません） -->
+          <p class="form-demo-msg" hidden>デモ版のため、送信は行われません。公開時にはこのフォームからオーナーへメールが届くようになります。</p>
           <div class="form-row">
             <label for="name">お名前 <span class="required">必須</span></label>
             <input type="text" id="name" name="name" placeholder="例）山田 花子" required>
@@ -293,6 +295,16 @@
     document.querySelectorAll('.global-nav a').forEach(function (a) {
       a.addEventListener('click', function () { document.getElementById('nav-toggle').checked = false; });
     });
+    // Formspree 未設定（YOUR_FORM_ID のまま）の間は送信せず、デモ用メッセージを表示
+    var form = document.querySelector('.contact-form');
+    if (form && form.action.indexOf('YOUR_FORM_ID') !== -1) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var msg = form.querySelector('.form-demo-msg');
+        msg.hidden = false;
+        msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
   </script>
 </body>
 </html>

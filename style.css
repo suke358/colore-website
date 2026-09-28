@@ -204,6 +204,8 @@ p { margin: 0 0 1em; }
 }
 .form-row input:focus, .form-row textarea:focus { outline: none; border-color: var(--green-olive); box-shadow: 0 0 0 3px rgba(123,135,82,.2); background: var(--white); }
 
+.form-demo-msg { background: var(--green-pale); color: var(--green-deep); border-radius: 10px; padding: 14px 18px; font-size: .9rem; font-weight: 700; margin-bottom: 24px; }
+
 /* ---------- フッター ---------- */
 .site-footer { background: var(--green-deep); color: #e8ebdc; padding: 60px 0 24px; }
 .footer-inner { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
