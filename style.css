@@ -20,7 +20,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+html { scroll-behavior: smooth; scroll-padding-top: 92px; }
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -70,11 +70,15 @@ p { margin: 0 0 1em; }
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(123, 135, 82, 0.18);
 }
-.header-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 88px; }
 .logo { text-decoration: none; display: flex; align-items: center; gap: 10px; }
-.logo-mark { width: 44px; height: 44px; border-radius: 50%; }
+.logo-mark { width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.logo-wordmark { height: 38px; width: auto; margin: 2px 0; }
+.logo-kana { font-size: .68rem; color: var(--pink); letter-spacing: .3em; }
 .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
-.logo-main small { font-size: .7rem; color: var(--pink); margin-left: .5em; letter-spacing: .15em; }
+.hero-logo { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 1.2em; }
+.hero-logo img { width: clamp(200px, 24vw, 280px); height: auto; }
+.hero-logo span { color: var(--green-olive); font-weight: 700; letter-spacing: .2em; font-size: .95rem; padding-bottom: .5em; }
 .logo-sub { font-size: .72rem; color: var(--text-light); letter-spacing: .12em; }
 .logo-main { font-family: var(--font-head); font-size: 1.45rem; color: var(--green-deep); letter-spacing: .1em; }
 .global-nav { display: flex; align-items: center; gap: 28px; }
@@ -238,7 +242,7 @@ p { margin: 0 0 1em; }
   .nav-toggle:checked + .nav-button span::before { top: 0; transform: rotate(45deg); }
   .nav-toggle:checked + .nav-button span::after { top: 0; transform: rotate(-45deg); }
   .global-nav {
-    position: absolute; top: 68px; left: 0; right: 0;
+    position: absolute; top: 72px; left: 0; right: 0;
     flex-direction: column; gap: 0; background: var(--ivory);
     border-bottom: 1px solid rgba(123,135,82,.2);
     max-height: 0; overflow: hidden; transition: max-height .35s ease;
@@ -247,6 +251,12 @@ p { margin: 0 0 1em; }
   .global-nav .btn-small { width: auto; margin: 16px auto 20px; border-radius: 999px; padding: .7em 2.5em; }
   .nav-toggle:checked ~ .global-nav { max-height: 420px; }
 
+  .header-inner { height: 72px; }
+  .logo-mark { width: 50px; height: 50px; }
+  .logo-wordmark { height: 30px; }
+  .hero-logo { justify-content: center; flex-direction: column; align-items: center; gap: 6px; }
+  .hero-logo img { width: 220px; }
+  .hero-badge { font-size: .78rem; padding: .45em 1em; }
   .hero { padding: 40px 0 64px; }
   .hero-inner { grid-template-columns: 1fr; gap: 40px; }
   .hero-content { text-align: center; }
