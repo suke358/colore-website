@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>よもぎ蒸し/脱毛サロン colore（コロレ）｜山口県防府市</title>
-<meta name="description" content="山口県防府市のプライベートサロン colore（コロレ）。看護師のオーナーが、よもぎ蒸し・脱毛・フェイシャル・ボディケアをご提供しています。">
+<meta name="description" content="山口県防府市岸津のプライベートサロン colore（コロレ）。看護師のオーナーが、よもぎ蒸し・脱毛・フェイシャル・ボディケアをご提供しています。完全予約制。">
 <!-- 本公開前は検索に出さない設定。本公開のときにこの1行を消す -->
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#1d2a23">
+<meta name="theme-color" content="#24342b">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="よもぎ蒸し/脱毛サロン colore（コロレ）">
 <meta property="og:title" content="よもぎ蒸し/脱毛サロン colore（コロレ）｜山口県防府市">
-<meta property="og:description" content="防府市のプライベートサロン。看護師のオーナーが、よもぎ蒸し・脱毛・フェイシャル・ボディケアをご提供しています。">
+<meta property="og:description" content="防府市岸津のプライベートサロン。看護師のオーナーが、よもぎ蒸し・脱毛・フェイシャル・ボディケアをご提供しています。">
 <meta property="og:url" content="https://suke358.github.io/colore-website/">
 <meta property="og:image" content="https://suke358.github.io/colore-website/images/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -21,25 +21,31 @@
 <link rel="apple-touch-icon" href="images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Shippori+Mincho+B1:wght@500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Shippori+Mincho+B1:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BeautySalon","name":"よもぎ蒸し/脱毛サロン colore（コロレ）","url":"https://suke358.github.io/colore-website/","image":"https://suke358.github.io/colore-website/images/og.jpg","telephone":"+81-80-7474-4035","address":{"@type":"PostalAddress","addressRegion":"山口県","addressLocality":"防府市","streetAddress":"岸津2丁目3-10"},"sameAs":["https://www.instagram.com/yomogimushi.colore/"]}
+{"@context":"https://schema.org","@type":"BeautySalon","name":"よもぎ蒸し/脱毛サロン colore（コロレ）","url":"https://suke358.github.io/colore-website/","image":"https://suke358.github.io/colore-website/images/og.jpg","logo":"https://suke358.github.io/colore-website/images/logo-pink.png","telephone":"+81-80-7474-4035","address":{"@type":"PostalAddress","postalCode":"747-0011","addressRegion":"山口県","addressLocality":"防府市","streetAddress":"岸津2丁目3-10 ハイム桜の園203号室","addressCountry":"JP"},"openingHours":"Mo-Su 10:00-18:00","sameAs":["https://www.instagram.com/yomogimushi.colore/"]}
 </script>
 <style>
 /* =========================================================
-   A案：ラグジュアリー
-   深いよもぎ色 × 施術スペースのマントと同じ、くすんだ金色
+   A案（10/6 打ち合わせ反映版）
+   よもぎ色 × 金 をベースに、ロゴのピンクと♡を足して、
+   角を丸くした、あたたかい（アットホームな）トーン
    ========================================================= */
 :root{
-  --forest:#1d2a23;    /* 深いよもぎ色（背景） */
-  --forest-2:#24342b;
-  --gold:#b89a5e;      /* マントの金色 */
-  --gold-soft:#d9c69a;
-  --mist:#eef0eb;      /* 湯気のような白 */
-  --ink:#22302a;
-  --stone:#68736b;
-  --line-dark:rgba(217,198,154,.28);
-  --line-light:#d6d9d0;
+  --forest:#24342b;    /* よもぎ色（濃い背景） */
+  --forest-2:#2d4136;
+  --gold:#c4a466;      /* 金色 */
+  --gold-soft:#e2cf9f;
+  --pink:#fe97b2;      /* ロゴのピンク */
+  --pink-deep:#ef6386; /* ロゴの♡ */
+  --pink-pale:#fdeef2;
+  --cream:#faf5ee;     /* あたたかい白 */
+  --cream-2:#f3ebe0;
+  --ink:#3a3330;
+  --stone:#75695f;
+  --line-dark:rgba(226,207,159,.3);
+  --line-light:#e6dccd;
+  --r:18px;
   --mincho:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho","Noto Serif CJK JP",serif;
   --gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic","Noto Sans CJK JP",sans-serif;
   --latin:"Cormorant Garamond","Shippori Mincho B1",serif;
@@ -47,177 +53,255 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--mist);color:var(--ink);font-family:var(--gothic);font-weight:400;font-size:15.5px;line-height:2.05;letter-spacing:.08em}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--gothic);font-size:16px;line-height:2;letter-spacing:.06em}
 img{max-width:100%;display:block}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
-.wrap{width:min(1100px,100% - 48px);margin-inline:auto}
+:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
+.wrap{width:min(1100px,100% - 40px);margin-inline:auto}
 h1,h2,h3{font-family:var(--mincho);font-weight:500;margin:0;line-height:1.7}
 p{margin:0 0 1.2em}
-.dark{background:var(--forest);color:#e9e6dc}
-.dark .muted{color:#b9bdb2}
+.dark{background:var(--forest);color:#efeadf}
+.dark .muted{color:#cdd0c6}
 .muted{color:var(--stone)}
-/* 写真の色味をそろえる（落ち着いた、あたたかいトーンに） */
-.tone{filter:saturate(.72) contrast(1.04) sepia(.12) brightness(.96)}
+.heart{display:inline-block;width:.9em;height:.9em;vertical-align:-.05em;fill:var(--pink-deep)}
+.photo{border-radius:var(--r);overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- ボタン ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;text-decoration:none;font-weight:500;letter-spacing:.12em;padding:.95em 1.8em;border-radius:999px;transition:transform .2s,background .2s;line-height:1.4;text-align:center}
+.btn:hover{transform:translateY(-1px)}
+.btn svg{width:1.25em;height:1.25em;flex:none}
+.btn-pink{background:var(--pink);color:#fff}
+.btn-pink:hover{background:#f7849f}
+.btn-line{background:#06c755;color:#fff}
+.btn-gold{background:var(--gold);color:var(--forest)}
+.btn-ghost{border:1px solid currentColor}
+.soon{position:relative;opacity:.75;cursor:default}
+.soon:hover{transform:none}
+.soon-tag{display:block;font-size:.72rem;letter-spacing:.08em;margin-top:.5em;color:inherit;opacity:.85}
 
 /* ---------- ヘッダー ---------- */
 .head{position:absolute;inset:0 0 auto 0;z-index:30}
-.head .wrap{display:flex;justify-content:space-between;align-items:center;height:88px;color:#efe9da}
-.word{text-decoration:none;display:flex;align-items:baseline;gap:14px}
-.word b{font-family:var(--latin);font-style:italic;font-weight:500;font-size:2rem;letter-spacing:.04em;line-height:1}
-.word span{font-size:.72rem;letter-spacing:.24em;color:var(--gold-soft)}
-.nav{display:flex;gap:30px;align-items:center;font-size:.85rem}
-.nav a{text-decoration:none;opacity:.86}
-.nav a:hover{opacity:1;color:var(--gold-soft)}
-.nav .rsv{border:1px solid var(--gold);color:var(--gold-soft);padding:.45em 1.4em;opacity:1}
-.nav .rsv:hover{background:var(--gold);color:var(--forest)}
-@media (max-width:860px){.nav a:not(.rsv){display:none}.word span{display:none}}
+.head .wrap{display:flex;justify-content:space-between;align-items:center;height:84px;color:#efeadf}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:46px;height:46px;border-radius:10px}
+.brand span{font-size:.78rem;letter-spacing:.2em;color:var(--gold-soft)}
+.nav{display:flex;gap:26px;align-items:center;font-size:.86rem}
+.nav a{text-decoration:none;opacity:.88}
+.nav a:hover{opacity:1;color:var(--pink)}
+.nav .rsv{background:var(--pink);color:#fff;padding:.5em 1.4em;border-radius:999px;opacity:1}
+.nav .rsv:hover{color:#fff;background:#f7849f}
+@media (max-width:860px){.nav a:not(.rsv){display:none}}
 
 /* ---------- トップ ---------- */
-.hero{min-height:100svh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px}
-.hero .wrap{display:grid;grid-template-columns:1fr auto;gap:72px;align-items:center}
-.hero-photo{justify-self:end;width:min(440px,100%);padding:12px;border:1px solid var(--gold)}
-.hero-photo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:70% 75%}
-.hero-text{display:flex;gap:48px;align-items:flex-start;justify-content:center}
-.hero h1{writing-mode:vertical-rl;font-size:clamp(1.9rem,3.2vw,2.6rem);letter-spacing:.28em;line-height:2.3;font-weight:500;color:#f3efe3;white-space:nowrap}
-.hero-sub{writing-mode:vertical-rl;font-size:.9rem;letter-spacing:.3em;color:var(--gold-soft);line-height:2.6;border-right:1px solid var(--line-dark);padding-right:18px;white-space:nowrap;margin:0}
-.steam{position:absolute;width:150px;height:200px;left:6%;bottom:6%;opacity:.5}
+.hero{position:relative;overflow:hidden;padding:130px 0 96px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+.wordmark{width:min(300px,70%);margin-bottom:34px}
+.hero h1{font-size:clamp(1.6rem,3.1vw,2.4rem);letter-spacing:.16em;line-height:1.9;color:#fbf7ef}
+.catch{font-family:var(--mincho);color:var(--gold-soft);font-size:clamp(1rem,1.6vw,1.15rem);letter-spacing:.16em;margin:22px 0 26px;display:flex;align-items:center;gap:.6em}
+.catch::before{content:"";width:28px;height:1px;background:var(--gold);flex:none}
+.addr{color:#fff;font-size:.92rem;letter-spacing:.08em;line-height:1.85;display:flex;gap:.6em;margin-bottom:34px}
+.addr svg{width:1.1em;height:1.1em;flex:none;margin-top:.35em;fill:var(--pink)}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px}
+.hero-photo{position:relative;justify-self:end;width:min(440px,100%)}
+.hero-photo .photo{aspect-ratio:4/5;border:1px solid var(--gold);padding:10px;background:var(--forest)}
+.hero-photo .photo img{border-radius:12px}
+.hero-photo .badge{position:absolute;left:-22px;bottom:28px;background:var(--cream);color:var(--forest);border-radius:999px;padding:.55em 1.3em;font-size:.82rem;letter-spacing:.14em;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.steam{position:absolute;width:140px;height:190px;right:4%;top:90px;opacity:.35}
 .steam path{fill:none;stroke:var(--gold-soft);stroke-width:1.2;stroke-linecap:round;stroke-dasharray:260;stroke-dashoffset:260;animation:rise 4s ease-out .3s forwards}
 .steam path:nth-child(2){animation-delay:.9s}
 @keyframes rise{to{stroke-dashoffset:0}}
 @media (prefers-reduced-motion:reduce){.steam path{animation:none;stroke-dashoffset:0}}
 @media (max-width:860px){
-  .hero{min-height:auto;padding:120px 0 72px}
-  .hero .wrap{grid-template-columns:1fr;gap:56px}
-  .hero-text{order:-1;justify-content:center}
-  .hero h1{font-size:1.6rem}
-  .hero-sub{font-size:.78rem}
-  .hero-photo{justify-self:center;width:min(82%,340px)}
+  .hero{padding:108px 0 72px}
+  .hero .wrap{grid-template-columns:1fr;gap:48px}
+  .hero-photo{justify-self:center;width:min(88%,360px)}
+  .hero-photo .badge{left:-10px}
   .steam{display:none}
+  .hero-btns .btn{flex:1 1 100%}
 }
 
 /* ---------- 共通 ---------- */
-.sec{padding:140px 0}
-.sec-head{display:flex;align-items:baseline;gap:22px;margin-bottom:56px}
-.sec-head h2{font-size:clamp(1.55rem,2.8vw,2rem);letter-spacing:.16em}
-.sec-head i{font-family:var(--latin);font-style:italic;font-size:1.15rem;color:var(--gold);letter-spacing:.06em}
-@media (max-width:860px){.sec{padding:96px 0}.sec-head{margin-bottom:40px;flex-wrap:wrap;gap:6px 16px}}
+.sec{padding:120px 0}
+.sec-head{margin-bottom:52px}
+.sec-head i{display:flex;align-items:center;gap:.5em;font-family:var(--latin);font-style:italic;font-size:1.1rem;color:var(--pink-deep);letter-spacing:.08em;margin-bottom:4px}
+.dark .sec-head i{color:var(--pink)}
+.sec-head h2{font-size:clamp(1.5rem,2.8vw,2rem);letter-spacing:.14em}
+.center{text-align:center}
+.center .sec-head i,.sec-head.center i{justify-content:center}
+@media (max-width:860px){.sec{padding:84px 0}.sec-head{margin-bottom:36px}}
+
+/* ---------- ごあいさつ ---------- */
+.owner .wrap{display:grid;grid-template-columns:360px 1fr;gap:80px;align-items:center;max-width:1000px}
+.owner .photo{aspect-ratio:4/5;box-shadow:0 18px 40px rgba(58,51,48,.14)}
+.owner-role{display:inline-block;font-size:.8rem;letter-spacing:.2em;background:var(--pink-pale);color:var(--pink-deep);padding:.3em 1.1em;border-radius:999px;margin-bottom:18px}
+.owner h3{font-size:clamp(1.3rem,2.4vw,1.7rem);letter-spacing:.12em;margin-bottom:26px}
+.owner .sign{font-family:var(--mincho);margin-top:8px}
+@media (max-width:860px){.owner .wrap{grid-template-columns:1fr;gap:44px}.owner .photo{width:min(300px,82%);margin-inline:auto}}
 
 /* ---------- よもぎ蒸しとは ---------- */
-.about .wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:96px}
-.about-lead{font-family:var(--mincho);font-size:1.35rem;line-height:2.1;letter-spacing:.14em;border-left:1px solid var(--gold);padding-left:32px}
-.for{list-style:none;padding:0;margin:44px 0 0;border-top:1px solid var(--line-light)}
-.for li{display:grid;grid-template-columns:11em 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--line-light)}
-.for b{font-family:var(--mincho);font-weight:500;letter-spacing:.12em}
-.for span{color:var(--stone);font-size:.92rem}
-.note{font-size:.8rem;color:var(--stone);margin-top:32px;line-height:1.9}
-@media (max-width:860px){.about .wrap{grid-template-columns:1fr;gap:48px}.for li{grid-template-columns:1fr;gap:2px}.about-lead{font-size:1.15rem;padding-left:22px}}
+.about{background:var(--cream-2)}
+.about .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:80px}
+.about-lead{font-family:var(--mincho);font-size:1.3rem;line-height:2.1;letter-spacing:.12em;border-left:2px solid var(--pink);padding-left:28px}
+.for{list-style:none;padding:0;margin:36px 0 0;display:grid;gap:12px}
+.for li{background:#fff;border-radius:14px;padding:18px 22px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:start}
+.for li svg{grid-row:span 2;margin-top:.5em}
+.for b{font-family:var(--mincho);font-weight:500;letter-spacing:.1em}
+.for span{color:var(--stone);font-size:.92rem;line-height:1.8}
+.note{font-size:.8rem;color:var(--stone);margin-top:28px;line-height:1.9}
+.gallery{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:64px}
+.gallery figure{margin:0}
+.gallery .photo{aspect-ratio:4/3}
+.gallery figcaption{font-size:.84rem;color:var(--stone);margin-top:8px;letter-spacing:.1em}
+@media (max-width:860px){.about .wrap{grid-template-columns:1fr;gap:40px}.about-lead{font-size:1.12rem;padding-left:20px}.gallery{grid-template-columns:1fr;margin-top:44px}}
 
-/* ---------- オーナー ---------- */
-.owner .wrap{display:grid;grid-template-columns:auto 1fr;gap:88px;align-items:center;max-width:960px}
-.owner-photo{width:286px;padding:12px;border:1px solid var(--gold)}
-.owner-photo img{width:260px;height:320px;object-fit:cover}
-.owner-role{font-size:.8rem;color:var(--gold-soft);letter-spacing:.3em;margin-bottom:18px;display:block}
-.owner h2{font-size:clamp(1.4rem,2.6vw,1.85rem);letter-spacing:.14em;margin-bottom:30px;color:#f3efe3}
-@media (max-width:860px){.owner .wrap{grid-template-columns:1fr;gap:56px}.owner-photo{width:244px}.owner-photo img{width:220px;height:270px}}
+/* ---------- メニュー・料金 ---------- */
+.menu-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 10px 30px rgba(58,51,48,.07);display:flex;flex-direction:column}
+.card .photo{border-radius:0;aspect-ratio:4/3}
+.card-body{padding:26px 26px 30px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:1.3rem;letter-spacing:.14em;margin-bottom:8px}
+.card p{color:var(--stone);font-size:.93rem;line-height:1.9;margin-bottom:16px}
+.price{margin-top:auto;border-top:1px dashed var(--line-light);padding-top:14px;font-family:var(--mincho);display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.price b{font-size:1.4rem;font-weight:500;color:var(--forest);letter-spacing:.04em}
+.price small{font-family:var(--gothic);font-size:.8rem;color:var(--stone)}
+.price .ask{font-size:.92rem;color:var(--stone)}
+.sub-items{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;padding:0;list-style:none}
+.sub-items li{font-size:.8rem;background:var(--pink-pale);color:#b44a66;border-radius:999px;padding:.15em .9em}
+@media (max-width:960px){.menu-cards{grid-template-columns:1fr;max-width:520px;margin-inline:auto}}
 
-/* ---------- メニュー ---------- */
-.menu-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--gold)}
-.menu-item{display:grid;grid-template-columns:200px 1fr;gap:56px;padding:44px 0;border-bottom:1px solid var(--line-light);align-items:center}
-.menu-item img{width:200px;height:150px;object-fit:cover}
-.menu-item .ph{width:200px;height:150px;background:var(--forest);display:grid;place-items:center}
-.menu-item h3{font-size:1.5rem;letter-spacing:.18em;margin-bottom:10px}
-.menu-item p{color:var(--stone);margin:0;max-width:34em}
-.sub-items{font-family:var(--mincho);letter-spacing:.12em;margin:0 0 10px;display:flex;flex-wrap:wrap;gap:0 1.4em}
-.sub-items span{white-space:nowrap}
-.price-note{margin-top:36px;font-size:.92rem}
-@media (max-width:640px){.menu-item{grid-template-columns:1fr;gap:22px;padding:36px 0}.menu-item img,.menu-item .ph{width:100%;height:190px}}
+.body-menu{margin-top:72px;background:#fff;border-radius:var(--r);padding:48px clamp(20px,5vw,56px)}
+.body-menu h3{font-size:1.35rem;letter-spacing:.14em;margin-bottom:6px;display:flex;align-items:center;gap:.5em}
+.body-menu .lead{color:var(--stone);font-size:.92rem;margin-bottom:24px}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th,.tbl td{padding:14px 4px;border-bottom:1px solid var(--line-light);text-align:left;vertical-align:top}
+.tbl th{font-family:var(--mincho);font-weight:500;white-space:nowrap;width:7.5em;letter-spacing:.1em}
+.tbl td{color:var(--stone);font-size:.92rem;line-height:1.8}
+.tbl td.yen{text-align:right;white-space:nowrap;font-family:var(--mincho);color:var(--forest);font-size:1.12rem;width:6.5em}
+.cols{display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
+.opt h4{font-family:var(--mincho);font-weight:500;letter-spacing:.14em;margin:0 0 8px;font-size:1.05rem}
+.opt .tbl th{width:auto;white-space:normal}
+.extra{margin-top:20px;background:var(--cream);border-radius:12px;padding:16px 20px;font-size:.88rem;color:var(--stone);line-height:1.9}
+@media (max-width:860px){.cols{grid-template-columns:1fr;gap:36px}.tbl th{width:5.5em}}
+@media (max-width:640px){.tbl.course tr{display:grid;grid-template-columns:1fr auto;border-bottom:1px solid var(--line-light);padding:12px 0}.tbl.course th,.tbl.course td{border:none;padding:0;width:auto}.tbl.course td.yen{grid-column:2;grid-row:1}.tbl.course td:not(.yen){grid-column:1/-1;margin-top:4px}}
+.price-note{margin-top:28px;font-size:.88rem}
 
 /* ---------- ご予約 ---------- */
-.reserve .wrap{max-width:900px;text-align:center}
-.reserve .sec-head{justify-content:center}
-.ways{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);margin-top:24px}
-.way{padding:46px 24px}
-.way + .way{border-left:1px solid var(--line-dark)}
-.way h3{font-size:1rem;letter-spacing:.24em;color:var(--gold-soft);margin-bottom:16px}
-.tel{font-family:var(--latin);font-size:clamp(2rem,4.4vw,2.7rem);letter-spacing:.08em;text-decoration:none;color:#f3efe3;line-height:1.3;display:inline-block}
-.way small{display:block;font-size:.8rem;color:#b9bdb2;margin-top:12px;line-height:1.9}
-.btn-gold{display:inline-block;background:var(--gold);color:var(--forest);text-decoration:none;font-weight:500;letter-spacing:.2em;padding:1em 2.4em;transition:background .25s}
-.btn-gold:hover{background:var(--gold-soft)}
-@media (max-width:760px){.ways{grid-template-columns:1fr}.way + .way{border-left:none;border-top:1px solid var(--line-dark)}}
+.reserve .wrap{max-width:1000px}
+.ways{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.way{background:var(--forest-2);border:1px solid var(--line-dark);border-radius:var(--r);padding:34px 22px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.way h3{font-size:1rem;letter-spacing:.2em;color:var(--gold-soft);margin-bottom:6px}
+.way p{font-size:.85rem;color:#cdd0c6;line-height:1.8;margin-bottom:18px}
+.way .btn{width:100%;margin-top:auto}
+.tel{font-family:var(--latin);font-size:1.9rem;letter-spacing:.06em;text-decoration:none;color:#fbf7ef;line-height:1.3;margin-top:auto}
+.rules{margin:40px auto 0;max-width:680px;border:1px solid var(--line-dark);border-radius:var(--r);padding:26px 30px;font-size:.9rem}
+.rules h4{font-family:var(--mincho);font-weight:500;color:var(--gold-soft);letter-spacing:.16em;margin:0 0 10px;font-size:1rem}
+.rules ul{margin:0;padding-left:1.2em;color:#e3e0d6;line-height:2}
+@media (max-width:860px){.ways{grid-template-columns:1fr}.rules{padding:22px 20px}}
 
 /* ---------- 店舗情報 ---------- */
-.access .wrap{display:grid;grid-template-columns:1fr 1fr;gap:72px}
-.info{margin:0;border-top:1px solid var(--gold)}
-.info div{display:grid;grid-template-columns:7.5em 1fr;padding:16px 0;border-bottom:1px solid var(--line-light);font-size:.94rem}
-.info dt{font-family:var(--mincho);letter-spacing:.14em}
-.info dd{margin:0}
-.map{min-height:420px;background:#dfe2db}
-.map iframe{width:100%;height:100%;min-height:420px;border:0;display:block;filter:grayscale(.85) contrast(.95)}
-@media (max-width:860px){.access .wrap{grid-template-columns:1fr;gap:48px}.map,.map iframe{min-height:300px}}
+.access .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.info{margin:0;background:#fff;border-radius:var(--r);padding:8px 26px}
+.info div{display:grid;grid-template-columns:6.5em 1fr;padding:14px 0;border-bottom:1px solid var(--line-light);font-size:.94rem}
+.info div:last-child{border-bottom:none}
+.info dt{font-family:var(--mincho);letter-spacing:.12em}
+.info dd{margin:0;line-height:1.85}
+.info small{color:var(--stone);font-size:.82rem}
+.map{border-radius:var(--r);overflow:hidden;min-height:420px;background:#e8e2d8}
+.map iframe{width:100%;height:100%;min-height:420px;border:0;display:block}
+@media (max-width:860px){.access .wrap{grid-template-columns:1fr;gap:40px}.info{padding:4px 18px}.info div{grid-template-columns:5.5em 1fr}.map,.map iframe{min-height:300px}}
 
-/* ---------- お問い合わせ ---------- */
-.contact{background:#e6e9e2}
-.form{max-width:640px}
-.form label{display:block;font-family:var(--mincho);letter-spacing:.14em;margin-bottom:4px}
-.req{font-family:var(--gothic);font-size:.72rem;color:var(--gold);margin-left:.8em;letter-spacing:.1em}
-.form input,.form textarea{width:100%;font:inherit;letter-spacing:.04em;padding:.7em 0;border:none;border-bottom:1px solid #9aa398;background:transparent;margin-bottom:34px;color:var(--ink)}
-.form textarea{border:1px solid #9aa398;padding:.8em;min-height:150px}
-.form input:focus,.form textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 1px 0 var(--gold)}
-.form button{font:inherit;letter-spacing:.3em;background:var(--forest);color:#f3efe3;border:none;padding:1.1em 3.4em;cursor:pointer;transition:background .25s}
-.form button:hover{background:var(--forest-2)}
-.demo-msg{border-left:2px solid var(--gold);padding:.6em 1em;margin-bottom:24px;background:#f4f1e8}
+/* ---------- SNS ---------- */
+.sns{background:var(--pink-pale)}
+.sns-list{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:880px;margin:0 auto}
+.sns-list a{background:#fff;border-radius:16px;padding:24px 10px 20px;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.9rem;letter-spacing:.08em;transition:transform .2s}
+.sns-list a:hover{transform:translateY(-2px)}
+.sns-list a.soon:hover{transform:none}
+.sns-list svg{width:40px;height:40px}
+.sns-list .soon-tag{margin-top:-4px;color:var(--stone)}
+.sns-lead{max-width:640px;margin:0 auto 36px}
+@media (max-width:640px){.sns-list{grid-template-columns:1fr 1fr}}
 
 /* ---------- フッター ---------- */
-.foot{padding:72px 0 36px;font-size:.85rem}
-.foot .wrap{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
-.foot .word b{font-size:1.7rem}
-.foot nav{display:flex;flex-wrap:wrap;gap:8px 26px}
-.foot nav a{text-decoration:none;opacity:.8}
-.foot nav a:hover{opacity:1;color:var(--gold-soft)}
-.copy{text-align:center;font-family:var(--latin);font-style:italic;color:#8e978e;margin-top:48px;letter-spacing:.1em}
+.foot{padding:64px 0 32px;font-size:.86rem}
+.foot .wrap{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start}
+.foot .brand img{width:64px;height:64px;border-radius:12px}
+.foot address{font-style:normal;color:#cdd0c6;margin-top:16px;line-height:1.9}
+.foot nav{display:flex;flex-wrap:wrap;gap:8px 24px;max-width:480px}
+.foot nav a{text-decoration:none;opacity:.85}
+.foot nav a:hover{opacity:1;color:var(--pink)}
+.copy{text-align:center;font-family:var(--latin);font-style:italic;color:#98a097;margin-top:44px;letter-spacing:.1em}
 
 /* ---------- スマホ下の固定ボタン ---------- */
 .spbar{display:none}
 @media (max-width:860px){
-  .spbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--forest);border-top:1px solid var(--gold);padding-bottom:env(safe-area-inset-bottom)}
-  .spbar a{text-align:center;text-decoration:none;color:#f3efe3;padding:1.05em .5em;font-size:.9rem;letter-spacing:.16em}
-  .spbar a + a{background:var(--gold);color:var(--forest);font-weight:500}
+  .spbar{display:grid;grid-template-columns:1fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--forest);border-top:1px solid var(--gold);padding-bottom:env(safe-area-inset-bottom)}
+  .spbar a{text-align:center;text-decoration:none;color:#fbf7ef;padding:1em .3em;font-size:.86rem;letter-spacing:.1em}
+  .spbar a.l{background:#06c755}
+  .spbar a.r{background:var(--pink)}
   body{padding-bottom:58px}
 }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- ロゴの♡（少し傾けたハート） -->
+  <symbol id="h" viewBox="0 0 24 24"><path transform="rotate(-14 12 12)" d="M12 21s-7.6-4.6-9.6-9.4C1 8.2 3 4.5 6.6 4.5c2.2 0 3.7 1.3 5.4 3.3 1.7-2 3.2-3.3 5.4-3.3 3.6 0 5.6 3.7 4.2 7.1C19.6 16.4 12 21 12 21z"/></symbol>
+</svg>
 
 <header class="head">
   <div class="wrap">
-    <a href="#top" class="word" aria-label="colore トップへ"><b>colóre</b><span>よもぎ蒸し・脱毛サロン</span></a>
+    <a href="#top" class="brand" aria-label="colore トップへ"><img src="images/logo-pink.png" alt="colore" width="46" height="46"><span>よもぎ蒸し・脱毛サロン</span></a>
     <nav class="nav" aria-label="ページ内">
+      <a href="#greeting">ごあいさつ</a>
       <a href="#about">よもぎ蒸しとは</a>
-      <a href="#menu">メニュー</a>
-      <a href="#access">アクセス</a>
-      <a href="#contact">お問い合わせ</a>
+      <a href="#menu">メニュー・料金</a>
+      <a href="#access">店舗情報</a>
       <a href="#reserve" class="rsv">ご予約</a>
     </nav>
   </div>
 </header>
 
 <main id="top">
-  <!-- トップ（見出しは仮。オーナーさんと決めた言葉に差し替える） -->
+  <!-- トップ -->
   <section class="hero dark">
     <svg class="steam" viewBox="0 0 150 200" aria-hidden="true">
       <path d="M50 198c-22-30 22-48 0-82s18-52 4-82"/>
       <path d="M96 198c-22-30 22-48 0-82s18-52 4-82"/>
     </svg>
     <div class="wrap">
-      <div class="hero-text">
-        <h1>心と体が<br>ほっとゆるむ<br>あたたかな時間</h1>
-        <p class="hero-sub">防府・岸津<br>看護師がひらく　プライベートサロン</p>
+      <div>
+        <img class="wordmark" src="images/wordmark-white.png" alt="colore（コロレ）" width="568" height="171">
+        <h1>心と体がほっとゆるむ、<br>あたたかな時間</h1>
+        <!-- 金色の一言（メニュー表の言葉。オーナーさんに確認中） -->
+        <p class="catch">あなたらしい色が輝く、あたたかな毎日へ。</p>
+        <!-- 住所は白 -->
+        <p class="addr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span>〒747-0011　山口県防府市岸津2丁目3-10<br>ハイム桜の園203号室</span></p>
+        <div class="hero-btns">
+          <!-- RESERVA の予約ページができたら href を差し替えて class の soon を外す -->
+          <a class="btn btn-pink" href="#reserve">ネットで予約する</a>
+          <!-- LINE公式アカウントの友だち追加URLをもらったら差し替える -->
+          <a class="btn btn-line" href="#reserve"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>LINEで相談する</a>
+        </div>
       </div>
-      <!-- 写真は高画質のものをもらえたら images/room.jpg を上書き -->
       <figure class="hero-photo" style="margin:0">
-        <img class="tone" src="images/room.jpg" alt="よもぎ蒸しの専用の座椅子が置かれた、coloreの施術スペース" width="489" height="557">
+        <div class="photo"><img src="images/hero.jpg" alt="よもぎ蒸しの専用の座椅子とマントがある、coloreの施術スペース" width="960" height="1200"></div>
+        <span class="badge">完全予約制のプライベートサロン</span>
       </figure>
+    </div>
+  </section>
+
+  <!-- ごあいさつ（いただいた言葉をもとにした下書き。オーナーさんに確認してもらう） -->
+  <section id="greeting" class="sec owner">
+    <div class="wrap">
+      <div class="photo"><img src="images/owner.jpg" alt="coloreのオーナー" width="800" height="1000" loading="lazy"></div>
+      <div>
+        <div class="sec-head" style="margin-bottom:28px"><i><svg class="heart"><use href="#h"/></svg>greeting</i><h2>ごあいさつ</h2></div>
+        <span class="owner-role">看護師　／　サロンオーナー</span>
+        <h3>癒しの時間で、<br>気持ちも身体も前向きに。</h3>
+        <p class="muted">coloreにお越しいただき、ありがとうございます。<br>ひとりひとりに個性があるように、心地よいと感じるケアも人それぞれです。看護師としての経験も大切にしながら、お一人おひとりの体調やお悩みに寄り添います。</p>
+        <p class="muted">忙しい毎日のなかでも、自分らしく、色あざやかに。<br>「綺麗でいたい」という気持ちを応援しながら、ほっと癒される時間をお届けします。どうぞお気軽にお越しください。</p>
+      </div>
     </div>
   </section>
 
@@ -225,86 +309,120 @@ p{margin:0 0 1.2em}
   <section id="about" class="sec about">
     <div class="wrap">
       <div>
-        <div class="sec-head"><h2>よもぎ蒸しとは</h2><i>about</i></div>
+        <div class="sec-head"><i><svg class="heart"><use href="#h"/></svg>about</i><h2>よもぎ蒸しとは</h2></div>
         <p class="about-lead">よもぎの香りと、<br>やわらかな蒸気に包まれる、<br>自分のためだけの時間。</p>
       </div>
       <div>
         <p>よもぎ蒸しは、韓国で古くから親しまれてきた温活の習慣です。よもぎなどの薬草を煮出した蒸気を、専用の椅子に座ってマントの中で下半身からじっくりと浴びていただきます。</p>
         <p>ぽかぽかとした温かさに包まれて、じんわり汗をかく心地よさを味わえます。忙しい毎日の、ほっとひと息つく時間におすすめです。</p>
         <ul class="for">
-          <li><b>冷えが気になる方に</b><span>ぽかぽかの温かさで、冷えやすい季節も心地よく。</span></li>
-          <li><b>汗をかきたい方に</b><span>ふだん汗をかく機会が少ない方にも。</span></li>
-          <li><b>ひと息つきたい方に</b><span>よもぎのやさしい香りに包まれて、自分をいたわる時間を。</span></li>
+          <li><svg class="heart"><use href="#h"/></svg><b>冷えが気になる方に</b><span>ぽかぽかの温かさで、冷えやすい季節も心地よく。</span></li>
+          <li><svg class="heart"><use href="#h"/></svg><b>汗をかきたい方に</b><span>ふだん汗をかく機会が少ない方にも。</span></li>
+          <li><svg class="heart"><use href="#h"/></svg><b>ひと息つきたい方に</b><span>よもぎのやさしい香りに包まれて、自分をいたわる時間を。</span></li>
         </ul>
         <p class="note">※感じ方には個人差があります。よもぎ蒸しは医療行為ではなく、病気の治療を目的としたものではありません。妊娠中の方・持病のある方は事前にご相談ください。</p>
       </div>
     </div>
-  </section>
-
-  <!-- オーナー（文章は仮。オーナーさんの言葉をもらったら差し替える） -->
-  <section class="sec owner dark">
-    <div class="wrap">
-      <div class="owner-photo"><img class="tone" src="images/owner.jpg" alt="coloreのオーナー" width="260" height="320" loading="lazy"></div>
-      <div>
-        <span class="owner-role">看護師　／　サロンオーナー</span>
-        <h2>体のことも、<br>安心してご相談ください。</h2>
-        <p class="muted">coloreにお越しいただき、ありがとうございます。看護師の視点も大切にしながら、お一人おひとりの体調やお悩みに寄り添い、安心して任せていただけるサロンを目指しています。</p>
-        <p class="muted">忙しい毎日をがんばる女性が、ほっと肩の力を抜ける場所でありたいと思っています。気になることは、どうぞお気軽にご相談ください。</p>
-      </div>
+    <div class="wrap gallery" style="display:grid">
+      <figure><div class="photo"><img src="images/salon-room.jpg" alt="ベッドとよもぎ蒸しの座椅子がある施術スペース" width="1000" height="750" loading="lazy"></div><figcaption>施術スペース</figcaption></figure>
+      <figure><div class="photo"><img src="images/salon-lounge.jpg" alt="丸テーブルと花が飾られた、カウンセリングのスペース" width="1000" height="750" loading="lazy"></div><figcaption>カウンセリングのスペース</figcaption></figure>
     </div>
   </section>
 
-  <!-- メニュー -->
+  <!-- メニュー・料金 -->
   <section id="menu" class="sec menu">
     <div class="wrap">
-      <div class="sec-head"><h2>メニュー</h2><i>menu</i></div>
-      <ul class="menu-list">
-        <li class="menu-item">
-          <img class="tone" src="images/menu-1.jpg" alt="よもぎと乾燥させた薬草" loading="lazy">
-          <div>
+      <div class="sec-head center"><i><svg class="heart"><use href="#h"/></svg>menu</i><h2>メニュー・料金</h2></div>
+      <div class="menu-cards">
+        <article class="card">
+          <div class="photo"><img src="images/menu-yomogi.jpg" alt="よもぎ蒸しの座椅子" width="800" height="600" loading="lazy"></div>
+          <div class="card-body">
             <h3>よもぎ蒸し</h3>
             <p>よもぎなどの薬草を煮出した蒸気を、専用の座椅子に座ってマントの中でじっくり浴びる温活メニューです。</p>
+            <!-- 時間・内容はオーナーさんに確認中 -->
+            <div class="price"><small>1回</small><b>5,500円</b></div>
           </div>
-        </li>
-        <li class="menu-item">
-          <img class="tone" src="images/menu-3.jpg" alt="清潔に整えた施術スペース" loading="lazy">
-          <div>
+        </article>
+        <article class="card">
+          <div class="photo"><img src="images/menu-datsumo.jpg" alt="脱毛の機器がある施術スペース" width="800" height="600" loading="lazy"></div>
+          <div class="card-body">
             <h3>脱毛・フェイシャル</h3>
             <p>ムダ毛のお手入れと、お顔のケア。よもぎ蒸しと組み合わせてのご利用もおすすめです。</p>
+            <div class="price"><span class="ask">料金はお問い合わせください</span></div>
           </div>
-        </li>
-        <li class="menu-item">
-          <div class="ph" aria-hidden="true">
-            <svg viewBox="0 0 120 80" width="110" height="74"><g fill="none" stroke="#d9c69a" stroke-width="1.6" stroke-linecap="round"><path d="M20 62c10-4 24-6 34-2 4 2 6 6 6 10"/><path d="M20 62c-2-14 2-26 10-34 4-4 9-2 9 3l1 16"/><path d="M100 62c-10-4-24-6-34-2-4 2-6 6-6 10"/><path d="M100 62c2-14-2-26-10-34-4-4-9-2-9 3l-1 16"/><path d="M60 30c-8-6-8-16 0-22 8 6 8 16 0 22z"/></g></svg>
-          </div>
-          <div>
-            <h3>ボディケア</h3>
-            <p class="sub-items"><span>バストアップ</span><span>ヘッドマッサージ</span><span>マッサージ</span><span>タクティールケア</span></p>
+        </article>
+        <article class="card">
+          <div class="photo"><img src="images/menu-body.jpg" alt="施術用のベッド" width="800" height="600" loading="lazy"></div>
+          <div class="card-body">
+            <h3>そのほかのケア</h3>
+            <ul class="sub-items"><li>バストアップ</li><li>タクティールケア</li></ul>
             <p>タクティールケアは、スウェーデン発祥の、手のひらでやさしく包み込むように触れるケアです。</p>
+            <div class="price"><span class="ask">料金はお問い合わせください</span></div>
           </div>
-        </li>
-      </ul>
-      <!-- 料金が決まったら、各メニューの説明の下に金額を入れる -->
-      <p class="price-note muted">料金は、お電話または Instagram の DM でお問い合わせください。組み合わせのご相談も承ります。</p>
+        </article>
+      </div>
+
+      <!-- ボディケア（いただいたメニュー表より。効果をうたう言葉は言い換え） -->
+      <div class="body-menu">
+        <h3><svg class="heart"><use href="#h"/></svg>ボディケア</h3>
+        <p class="lead">温活・ボディケア・リラクゼーション。お時間にあわせてお選びください。</p>
+        <div class="cols">
+          <table class="tbl course">
+            <tr><th>15分</th><td>首・肩・腰・背中など、気になるところを集中して。スキマ時間に。</td><td class="yen">2,200円</td></tr>
+            <tr><th>30分</th><td>上半身または下半身を、しっかりとケア。</td><td class="yen">3,300円</td></tr>
+            <tr><th>60分</th><td>全身をバランスよく。はじめての方にもおすすめです。</td><td class="yen">6,600円</td></tr>
+            <tr><th>90分</th><td>首・肩・背中・脚まで、ゆったりと。</td><td class="yen">9,900円</td></tr>
+            <tr><th>120分</th><td>全身に加えて、気になるところを時間をかけて丁寧に。</td><td class="yen">13,200円</td></tr>
+          </table>
+          <div class="opt">
+            <h4>オプション</h4>
+            <table class="tbl">
+              <tr><th>ヘッドマッサージ（10分）</th><td class="yen">1,100円</td></tr>
+              <tr><th>耳まわりのケア（10分）</th><td class="yen">1,100円</td></tr>
+              <tr><th>デコルテケア（15分）</th><td class="yen">1,650円</td></tr>
+              <tr><th>オイルマッサージ<br><small style="font-family:var(--gothic);color:var(--stone)">各コースに追加</small></th><td class="yen">＋3,000円</td></tr>
+            </table>
+            <p class="extra">オイルマッサージをご利用の方は、シャワーを無料でお使いいただけます。</p>
+          </div>
+        </div>
+      </div>
+      <p class="price-note muted center">メニューの組み合わせや、どれを選べばいいか迷うときも、お気軽にご相談ください。</p>
     </div>
   </section>
 
   <!-- ご予約 -->
   <section id="reserve" class="sec reserve dark">
     <div class="wrap">
-      <div class="sec-head"><h2>ご予約・ご相談</h2><i>reservation</i></div>
-      <p class="muted">ご予約は、お電話または Instagram の DM で承ります。<br>メニュー選びや体調のことも、お気軽にご相談ください。</p>
+      <div class="sec-head center"><i><svg class="heart"><use href="#h"/></svg>reservation</i><h2>ご予約・ご相談</h2></div>
+      <p class="muted center" style="margin-bottom:40px">完全予約制です。当日のご予約も、空きがあれば承ります。</p>
       <div class="ways">
         <div class="way">
-          <h3>お電話</h3>
-          <a class="tel" href="tel:08074744035">080-7474-4035</a>
-          <small>施術中はお電話に出られないことがあります。<br>折り返しご連絡いたします。</small>
+          <h3>ネット予約</h3>
+          <p>空いている日時を見て、<br>24時間いつでもご予約いただけます。</p>
+          <!-- RESERVA の予約ページURLに差し替える -->
+          <a class="btn btn-pink soon" href="#reserve" aria-disabled="true">ネットで予約する</a>
+          <span class="soon-tag" style="color:#cdd0c6">（ただいま準備中です）</span>
         </div>
         <div class="way">
-          <h3>Instagram の DM</h3>
-          <a class="btn-gold" href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener">DMで予約・相談する</a>
-          <small>最新の空き状況やお知らせも、Instagram でご案内しています。</small>
+          <h3>LINE</h3>
+          <p>友だち追加して、<br>メッセージでご予約・ご相談ください。</p>
+          <!-- LINE公式アカウントの友だち追加URLに差し替える -->
+          <a class="btn btn-line soon" href="#reserve" aria-disabled="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>友だち追加</a>
+          <span class="soon-tag" style="color:#cdd0c6">（ただいま準備中です）</span>
         </div>
+        <div class="way">
+          <h3>お電話</h3>
+          <p>施術中はお電話に出られないことがあります。<br>折り返しご連絡いたします。</p>
+          <a class="tel" href="tel:08074744035">080-7474-4035</a>
+        </div>
+      </div>
+      <div class="rules">
+        <h4>キャンセルについて</h4>
+        <ul>
+          <li>前日のキャンセル：料金の半額</li>
+          <li>当日のキャンセル：料金の全額</li>
+        </ul>
+        <p style="margin:10px 0 0;font-size:.84rem;color:#cdd0c6">ご予約の変更・キャンセルは、お早めにご連絡ください。</p>
       </div>
     </div>
   </section>
@@ -313,17 +431,17 @@ p{margin:0 0 1.2em}
   <section id="access" class="sec access">
     <div class="wrap">
       <div>
-        <div class="sec-head"><h2>店舗情報</h2><i>access</i></div>
+        <div class="sec-head"><i><svg class="heart"><use href="#h"/></svg>access</i><h2>店舗情報</h2></div>
         <dl class="info">
           <div><dt>店名</dt><dd>よもぎ蒸し/脱毛サロン colore（コロレ）</dd></div>
-          <!-- 郵便番号（747-0816 か 747-0011 か）と部屋番号を載せるかは、オーナーさんに確認 -->
-          <div><dt>住所</dt><dd>〒747-0816<br>山口県防府市岸津2丁目3-10<br>ハイム桜の園203号室</dd></div>
+          <div><dt>住所</dt><dd>〒747-0011<br>山口県防府市岸津2丁目3-10<br>ハイム桜の園203号室</dd></div>
           <div><dt>アクセス</dt><dd>岸津バス停から徒歩8分</dd></div>
-          <div><dt>営業時間</dt><dd>お問い合わせください</dd></div>
-          <div><dt>定休日</dt><dd>お問い合わせください</dd></div>
-          <div><dt>駐車場</dt><dd>お問い合わせください</dd></div>
+          <div><dt>営業時間</dt><dd>10:00〜18:00<br><small>時間についてはご相談ください</small></dd></div>
+          <div><dt>定休日</dt><dd>不定休</dd></div>
+          <!-- 「15」の意味（台数か番号か）を確認してから書き足す -->
+          <div><dt>駐車場</dt><dd>あり</dd></div>
+          <div><dt>ご予約</dt><dd>完全予約制（当日のご予約も可）</dd></div>
           <div><dt>電話</dt><dd><a href="tel:08074744035">080-7474-4035</a></dd></div>
-          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener">@yomogimushi.colore</a></dd></div>
         </dl>
       </div>
       <div class="map">
@@ -332,23 +450,20 @@ p{margin:0 0 1.2em}
     </div>
   </section>
 
-  <!-- お問い合わせ -->
-  <section id="contact" class="sec contact">
+  <!-- LINE・SNS -->
+  <section id="contact" class="sec sns center">
     <div class="wrap">
-      <div class="sec-head"><h2>お問い合わせ</h2><i>contact</i></div>
-      <p class="muted" style="margin-bottom:44px">メニューのこと、体調のことなど、お気軽にご相談ください。</p>
-      <!-- Formspree：action の YOUR_FORM_ID を差し替えると、オーナーさんにメールが届く -->
-      <form class="form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <p class="demo-msg" hidden>見本のページなので、送信はされません。公開時には、このフォームからオーナーへメールが届くようになります。</p>
-        <label for="name">お名前<span class="req">必須</span></label>
-        <input id="name" name="name" type="text" autocomplete="name" required>
-        <label for="email">メールアドレス<span class="req">必須</span></label>
-        <input id="email" name="email" type="email" autocomplete="email" required>
-        <label for="message">ご相談内容<span class="req">必須</span></label>
-        <textarea id="message" name="message" rows="6" placeholder="ご希望のメニューや日時、気になることなど" required></textarea>
-        <input type="hidden" name="_subject" value="【colore】HPからのお問い合わせ">
-        <button type="submit">送信する</button>
-      </form>
+      <div class="sec-head"><i><svg class="heart"><use href="#h"/></svg>follow us</i><h2>LINE・SNS</h2></div>
+      <p class="muted sns-lead">お問い合わせは、LINEがいちばん便利です。<br>お休みの日やお知らせ、サロンの様子もSNSで発信しています。</p>
+      <div class="sns-list">
+        <!-- 友だち追加URLに差し替える -->
+        <a class="soon" href="#contact" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#06c755"/><path fill="#fff" d="M12 5.2c-4.1 0-7.4 2.7-7.4 6 0 2.9 2.6 5.4 6.2 5.9.2.1.6.2.7.4.1.2 0 .5 0 .7l-.1.7c0 .2-.2.8.7.4.9-.4 4.4-2.6 6-4.4 1.1-1.2 1.6-2.4 1.6-3.8 0-3.3-3.3-6-7.4-6z"/></svg>LINE<span class="soon-tag">準備中</span></a>
+        <a href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f9a13a"/><stop offset=".5" stop-color="#e1306c"/><stop offset="1" stop-color="#833ab4"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#ig)"/><rect x="5.5" y="5.5" width="13" height="13" rx="4" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3.1" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="16.1" cy="7.9" r=".9" fill="#fff"/></svg>Instagram</a>
+        <!-- ThreadsのURLに差し替える -->
+        <a class="soon" href="#contact" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#111"/><text x="12" y="16.6" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#fff">@</text></svg>Threads<span class="soon-tag">準備中</span></a>
+        <!-- XのURLに差し替える -->
+        <a class="soon" href="#contact" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#111"/><path fill="#fff" d="M6.5 6h3.3l2.6 3.6L15.4 6h1.6l-3.9 4.5L17.6 18h-3.3l-2.8-3.9L8.1 18H6.5l4.3-4.9z"/></svg>X<span class="soon-tag">準備中</span></a>
+      </div>
     </div>
   </section>
 </main>
@@ -356,27 +471,26 @@ p{margin:0 0 1.2em}
 <footer class="foot dark">
   <div class="wrap">
     <div>
-      <a href="#top" class="word"><b>colóre</b></a>
-      <p class="muted" style="margin:14px 0 0;font-size:.82rem">山口県防府市岸津2丁目3-10<br>TEL <a href="tel:08074744035">080-7474-4035</a></p>
+      <a href="#top" class="brand"><img src="images/logo-pink.png" alt="colore" width="64" height="64" loading="lazy"><span>よもぎ蒸し・脱毛サロン</span></a>
+      <address>〒747-0011 山口県防府市岸津2丁目3-10 ハイム桜の園203号室<br>TEL <a href="tel:08074744035">080-7474-4035</a>　／　10:00〜18:00（不定休）</address>
     </div>
     <nav aria-label="フッター">
-      <a href="#about">よもぎ蒸しとは</a><a href="#menu">メニュー</a><a href="#reserve">ご予約</a><a href="#access">店舗情報</a><a href="#contact">お問い合わせ</a>
+      <a href="#greeting">ごあいさつ</a><a href="#about">よもぎ蒸しとは</a><a href="#menu">メニュー・料金</a><a href="#reserve">ご予約</a><a href="#access">店舗情報</a><a href="#contact">LINE・SNS</a>
       <a href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener">Instagram</a>
     </nav>
   </div>
-  <p class="copy">© colóre</p>
+  <p class="copy">© colore</p>
 </footer>
 
 <nav class="spbar" aria-label="ご予約">
   <a href="tel:08074744035">電話する</a>
-  <a href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener">DMで予約</a>
+  <a class="l" href="#reserve">LINEで相談</a>
+  <a class="r" href="#reserve">ネット予約</a>
 </nav>
 
 <script>
-  var form=document.querySelector('.form');
-  if(form && form.action.indexOf('YOUR_FORM_ID')!==-1){
-    form.addEventListener('submit',function(e){e.preventDefault();var m=form.querySelector('.demo-msg');m.hidden=false;m.scrollIntoView({block:'center'});});
-  }
+  // 準備中のボタンは押しても移動しない（URLが決まったら class="soon" を外す）
+  document.querySelectorAll('a.soon').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();});});
 </script>
 </body>
 </html>
