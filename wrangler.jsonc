@@ -1,0 +1,9 @@
+// Cloudflare（クラウドフレア）でこのサイトを公開するための設定ファイル
+// サイトのファイル（index.html・images など）をそのまま置くだけの設定
+{
+  "name": "colore-website",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./"
+  }
+}
