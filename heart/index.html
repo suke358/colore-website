@@ -261,18 +261,8 @@ p{margin:0 0 1.2em}
 .cert p{margin:0;line-height:1.8}
 .cert small{display:block;font-size:.78rem;opacity:.75}
 @media (max-width:520px){.cert{grid-template-columns:96px 1fr;gap:12px;padding:12px}.cert img{width:96px}}
-/* 見比べ用：トップの♡がトクンと光る（2026/10/8）。動きはこの1つだけ。動きを減らす設定の人には出さない */
-.hglow,.hfloat{position:absolute;left:0;top:0;pointer-events:none;z-index:1;opacity:0}
-.hglow{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,150,180,.6) 0%,rgba(255,120,160,.28) 38%,rgba(255,120,160,0) 70%);mix-blend-mode:screen}
-.hfloat{width:16px;height:16px;fill:#f48fae}
-@media (prefers-reduced-motion:no-preference){
-  .hglow{-webkit-animation:hbeat 8s ease-out 1s infinite;animation:hbeat 8s ease-out 1s infinite}
-  .hfloat{-webkit-animation:hrise 8s ease-out 1.5s infinite;animation:hrise 8s ease-out 1.5s infinite}
-}
-@-webkit-keyframes hbeat{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(.6)}6%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1)}12%{opacity:.35;-webkit-transform:translate(-50%,-50%) scale(.85)}18%{opacity:.95;-webkit-transform:translate(-50%,-50%) scale(1.08)}34%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(1.25)}100%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(1.25)}}
-@keyframes hbeat{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}6%{opacity:1;transform:translate(-50%,-50%) scale(1)}12%{opacity:.35;transform:translate(-50%,-50%) scale(.85)}18%{opacity:.95;transform:translate(-50%,-50%) scale(1.08)}34%{opacity:0;transform:translate(-50%,-50%) scale(1.25)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.25)}}
-@-webkit-keyframes hrise{0%{opacity:0;-webkit-transform:translate(-50%,-50%) translateY(0) scale(.6)}8%{opacity:.9}30%{opacity:0;-webkit-transform:translate(-50%,-50%) translateY(-46px) scale(1)}100%{opacity:0;-webkit-transform:translate(-50%,-50%) translateY(-46px) scale(1)}}
-@keyframes hrise{0%{opacity:0;transform:translate(-50%,-50%) translateY(0) scale(.6)}8%{opacity:.9}30%{opacity:0;transform:translate(-50%,-50%) translateY(-46px) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) translateY(-46px) scale(1)}}
+/* 見比べ用：♡の流れ（2026/10/8）。下の線を光が走る → 下の♡がトクン → 小さな♡が上の♡へ飛ぶ → 上の♡がトクン。動きを減らす設定の人には出さない */
+.hfx{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:1;mix-blend-mode:screen;overflow:visible}
 .mikaku{position:fixed;left:12px;bottom:12px;z-index:300;background:rgba(25,25,25,.85);color:#fff;font:500 12px/1.4 sans-serif;padding:.6em 1.1em;border-radius:999px;text-decoration:none}
 @media (max-width:860px){.mikaku{bottom:70px}}
 </style>
@@ -303,7 +293,17 @@ p{margin:0 0 1.2em}
       <figure class="poster">
         <!-- オーナーさんからもらった画像（文字は消して、下の文字をページの文字として重ねている） -->
         <img src="../images/hero-top.jpg" alt="金色の「colore」のロゴと、ろうそく・花・タオルが置かれた、落ち着いた雰囲気のイメージ" width="1024" height="1536">
-        <span class="hglow" aria-hidden="true"></span><svg class="hfloat" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C1 8.7 2.8 5 6.4 5c2.2 0 3.6 1.3 4.6 2.8C12 6.3 13.4 5 15.6 5 19.2 5 21 8.7 19.6 11.8 17.5 16.4 12 21 12 21z"/></svg>
+        <svg class="hfx" viewBox="0 0 1024 1536" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+          <defs>
+            <radialGradient id="hg"><stop offset="0" stop-color="#ffb3c9" stop-opacity=".95"/><stop offset=".4" stop-color="#ff8fb0" stop-opacity=".45"/><stop offset="1" stop-color="#ff8fb0" stop-opacity="0"/></radialGradient>
+            <filter id="hb" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+          </defs>
+          <path id="hline" d="M385,595 C460,575 540,580 600,595 S730,612 775,590 S820,565 832,560" fill="none" stroke="#ffe1ea" stroke-width="5" stroke-linecap="round" filter="url(#hb)" opacity="0"/>
+          <circle id="hdot" r="7" fill="#fff0f5" filter="url(#hb)" opacity="0"/>
+          <circle id="hglow2" cx="838" cy="543" r="46" fill="url(#hg)" opacity="0"/>
+          <path id="hmini" d="M0,7 C-6,3 -9,-1 -7,-5 C-5,-9 -1,-8 0,-4 C1,-8 5,-9 7,-5 C9,-1 6,3 0,7Z" fill="#f7a1bb" opacity="0"/>
+          <circle id="hglow1" cx="548" cy="347" r="82" fill="url(#hg)" opacity="0"/>
+        </svg>
         <div class="poster-text">
           <h1>心と<wbr>体が<wbr>ほっと<wbr>ゆるむ、<br>あたたかな<wbr>時間</h1>
           <p class="catch">あなたらしい<wbr>色が<wbr>輝く、<br>あたたかな<wbr>毎日へ。</p>
@@ -526,21 +526,52 @@ p{margin:0 0 1.2em}
   document.querySelectorAll('a.soon').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();});});
 </script>
 <script>
-// ♡の位置に光を合わせる（画像の中の♡：横 549・縦 348 ／ 画像 1024×1536）
+// ♡の流れ（JavaScript で動かす。古いスマホでも動くように requestAnimationFrame だけを使う）
 (function(){
-  var f = document.querySelector('.poster'), img = f && f.querySelector('img'), g = document.querySelector('.hglow'), h = document.querySelector('.hfloat');
-  if (!f || !img || !g) return;
-  function place(){
-    var W = f.clientWidth, H = f.clientHeight, s, ox = 0, oy = 0;
-    if (window.getComputedStyle(img).position === 'static') { s = img.clientWidth / 1024; oy = img.offsetTop; }
-    else { s = Math.max(W / 1024, H / 1536); ox = (W - 1024 * s) / 2; }
-    var x = ox + 549 * s, y = oy + 348 * s, d = Math.round(150 * s);
-    g.style.left = x + 'px'; g.style.top = y + 'px'; g.style.width = d + 'px'; g.style.height = d + 'px';
-    h.style.left = x + 'px'; h.style.top = (y - 40 * s) + 'px'; h.style.width = Math.round(22 * s) + 'px'; h.style.height = Math.round(22 * s) + 'px';
+  var f = document.querySelector('.poster'), img = f && f.querySelector('img'), svg = document.querySelector('.hfx');
+  if (!f || !img || !svg) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { svg.style.display = 'none'; return; }
+  var line = document.getElementById('hline'), dot = document.getElementById('hdot'), g1 = document.getElementById('hglow1'), g2 = document.getElementById('hglow2'), mini = document.getElementById('hmini');
+  var L = line.getTotalLength(), CYCLE = 9000, t0 = null;
+  line.setAttribute('stroke-dasharray', '70 ' + (L + 140));
+  // 画像と同じ場所・大きさに重ねる（スマホは画像の高さ、パソコンは枠いっぱい）
+  function place(){ svg.style.top = img.offsetTop + 'px'; svg.style.left = img.offsetLeft + 'px'; svg.style.width = img.offsetWidth + 'px'; svg.style.height = img.offsetHeight + 'px'; }
+  function ease(x){ return x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; }
+  function seg(t, a, b){ return t <= a ? 0 : t >= b ? 1 : (t - a) / (b - a); }
+  function beat(p){ // トクン、トクン
+    if (p <= 0 || p >= 1) return [0, 1];
+    var o = p < .2 ? p / .2 : p < .35 ? 1 - (p - .2) / .15 * .6 : p < .5 ? .4 + (p - .35) / .15 * .6 : 1 - (p - .5) / .5;
+    var s = .8 + .3 * Math.sin(Math.min(1, p / .5) * Math.PI);
+    return [o, s];
   }
-  place(); window.addEventListener('load', place); window.addEventListener('resize', place);
+  function scaleAt(el, cx, cy, s){ el.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') scale(' + s + ') translate(' + (-cx) + ' ' + (-cy) + ')'); }
+  function frame(now){
+    if (t0 === null) t0 = now;
+    var t = (now - t0) % CYCLE;
+    // 1. 線を光が走る（0〜1.2秒）
+    var a = seg(t, 0, 1200), e = ease(a), on = a > 0 && a < 1;
+    line.setAttribute('stroke-dashoffset', String(70 - e * (L + 70)));
+    line.setAttribute('opacity', on ? String(Math.min(1, Math.min(a, 1 - a) * 6)) : '0');
+    var p = line.getPointAtLength(e * L); dot.setAttribute('cx', p.x); dot.setAttribute('cy', p.y);
+    dot.setAttribute('opacity', on ? String(Math.min(1, Math.min(a, 1 - a) * 6)) : '0');
+    // 2. 下の♡がトクン（1.1〜2.1秒）
+    var b = beat(seg(t, 1100, 2100)); g2.setAttribute('opacity', b[0]); scaleAt(g2, 838, 543, b[1]);
+    // 3. 小さな♡が上の♡へ飛ぶ（1.5〜2.9秒）
+    var c = seg(t, 1500, 2900);
+    if (c > 0 && c < 1) {
+      var k = ease(c), x = (1 - k) * (1 - k) * 838 + 2 * (1 - k) * k * 720 + k * k * 552, y = (1 - k) * (1 - k) * 528 + 2 * (1 - k) * k * 300 + k * k * 352;
+      mini.setAttribute('opacity', String(Math.min(1, Math.min(c, 1 - c) * 5)));
+      mini.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale(' + (1.6 + Math.sin(c * Math.PI) * .8) + ') rotate(' + (-12 + c * 20) + ')');
+    } else mini.setAttribute('opacity', '0');
+    // 4. 上の♡がトクン（2.7〜3.9秒）
+    var d = beat(seg(t, 2700, 3900)); g1.setAttribute('opacity', d[0]); scaleAt(g1, 548, 347, d[1]);
+    requestAnimationFrame(frame);
+  }
+  place(); window.addEventListener('resize', place);
+  window.addEventListener('load', function(){ place(); });
+  setTimeout(function(){ place(); requestAnimationFrame(frame); }, 800);
 })();
 </script>
-<a class="mikaku" href="../index.html">見比べ用：♡がトクンと光る案｜今のページへ</a>
+<a class="mikaku" href="../index.html">見比べ用：♡の流れ（線→下の♡→上の♡）｜今のページへ</a>
 </body>
 </html>
