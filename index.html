@@ -254,6 +254,13 @@ p{margin:0 0 1.2em}
   .spbar a.r{background:var(--pink)}
   body{padding-bottom:58px}
 }
+/* 研修の修了証（2026/10/8。しほさんも載せるか迷っていた → 一旦載せて確認してもらう） */
+.cert{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;margin-top:26px;padding:16px;border:1px solid var(--line, #e6dccf);border-radius:14px;background:rgba(255,255,255,.6)}
+.cert img{width:150px;height:auto;border-radius:6px;box-shadow:0 6px 16px rgba(58,51,48,.12)}
+.cert b{display:block;font-size:.8rem;letter-spacing:.2em;color:var(--pink-deep,#c06c84);margin-bottom:4px}
+.cert p{margin:0;line-height:1.8}
+.cert small{display:block;font-size:.78rem;opacity:.75}
+@media (max-width:520px){.cert{grid-template-columns:96px 1fr;gap:12px;padding:12px}.cert img{width:96px}}
 </style>
 </head>
 <body>
@@ -312,6 +319,10 @@ p{margin:0 0 1.2em}
         <h3>癒しの<wbr>時間で、<br>気持ちも<wbr>身体も<wbr>前向きに。</h3>
         <p class="muted">coloreに<wbr>お越しいただき、<wbr>ありがとうございます。<br>ひとりひとりに<wbr>個性が<wbr>あるように、<wbr>心地よいと<wbr>感じる<wbr>ケアも<wbr>人それぞれです。<wbr>看護師としての<wbr>経験も<wbr>大切に<wbr>しながら、<wbr>お一人<wbr>おひとりの<wbr>体調や<wbr>お悩みに<wbr>寄り添います。</p>
         <p class="muted">忙しい<wbr>毎日の<wbr>なかでも、<wbr>自分らしく、<wbr>色あざやかに。<br>「綺麗で<wbr>いたい」という<wbr>気持ちを<wbr>応援しながら、<wbr>ほっと<wbr>癒される<wbr>時間を<wbr>お届けします。<wbr>どうぞお気軽に<wbr>お越しください。</p>
+        <div class="cert">
+          <a href="images/cert-20261008.jpg" target="_blank" rel="noopener"><img src="images/cert-20261008.jpg" alt="研修の修了証" width="1000" height="750" loading="lazy"></a>
+          <div><b>研修の修了</b><p>Victoria Instruction Course 修了<small>GLOBAL SCIENCE CO., LTD.／2026年3月</small></p></div>
+        </div>
       </div>
     </div>
   </section>
