@@ -579,6 +579,30 @@ p{margin:0 0 1.2em}
   setTimeout(go, 800); window.addEventListener('pageshow', function(){ place(); setTimeout(go, 300); });
 })();
 </script>
+<script>
+// 調べる用（URL の最後に ?check を付けたときだけ出る。iPhone で動かない原因を見るため。あとで消す）
+(function(){
+  if (location.search.indexOf('check') < 0) return;
+  var box = document.createElement('div');
+  box.style.cssText = 'position:fixed;left:8px;right:8px;top:8px;z-index:9999;background:#fff;color:#000;font:12px/1.5 sans-serif;padding:8px 10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.4);white-space:pre-wrap';
+  document.body.appendChild(box);
+  var n = 0, errs = [];
+  window.addEventListener('error', function(e){ errs.push(e.message); });
+  (function count(){ n++; requestAnimationFrame(count); })();
+  setInterval(function(){
+    var svg = document.querySelector('.hfx'), img = document.querySelector('.poster img'), g1 = document.getElementById('hglow1'), dot = document.getElementById('hdot');
+    var rm = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : '不明';
+    box.textContent = '動きを減らす設定：' + (rm === true ? 'オン（だから止まる）' : rm === false ? 'オフ' : rm) +
+      '\n画面の更新回数：' + n +
+      '\n♡の重ね絵：' + (svg ? (svg.style.display === 'none' ? '隠れている' : Math.round(svg.getBoundingClientRect().width) + '×' + Math.round(svg.getBoundingClientRect().height)) : 'なし') +
+      '\n画像：' + (img ? img.offsetWidth + '×' + img.offsetHeight : 'なし') +
+      '\n光の点：' + (dot ? (dot.getAttribute('cx') || '-') + ',' + (dot.getAttribute('cy') || '-') + '／濃さ ' + dot.getAttribute('opacity') : 'なし') +
+      '\n上の♡の光：' + (g1 ? g1.getAttribute('opacity') : 'なし') +
+      '\nエラー：' + (errs.length ? errs.join(' / ') : 'なし') +
+      '\n' + navigator.userAgent.replace(/^Mozilla\/5.0 /, '').slice(0, 90);
+  }, 300);
+})();
+</script>
 <a class="mikaku" href="../index.html">見比べ用：♡の流れ（線→下の♡→上の♡）｜今のページへ</a>
 </body>
 </html>
