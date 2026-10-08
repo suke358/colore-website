@@ -262,7 +262,8 @@ p{margin:0 0 1.2em}
 .cert small{display:block;font-size:.78rem;opacity:.75}
 @media (max-width:520px){.cert{grid-template-columns:96px 1fr;gap:12px;padding:12px}.cert img{width:96px}}
 /* 見比べ用：♡の流れ（2026/10/8）。下の線を光が走る → 下の♡がトクン → 小さな♡が上の♡へ飛ぶ → 上の♡がトクン。動きを減らす設定の人には出さない */
-.hfx{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:1;mix-blend-mode:screen;overflow:visible}
+.hfx{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
+/* iPhone の Safari で止まらないように：mix-blend-mode と SVG の filter（ぼかし）は使わない（2026/10/8） */
 .mikaku{position:fixed;left:12px;bottom:12px;z-index:300;background:rgba(25,25,25,.85);color:#fff;font:500 12px/1.4 sans-serif;padding:.6em 1.1em;border-radius:999px;text-decoration:none}
 @media (max-width:860px){.mikaku{bottom:70px}}
 </style>
@@ -296,10 +297,11 @@ p{margin:0 0 1.2em}
         <svg class="hfx" viewBox="0 0 1024 1536" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
           <defs>
             <radialGradient id="hg"><stop offset="0" stop-color="#ffb3c9" stop-opacity=".95"/><stop offset=".4" stop-color="#ff8fb0" stop-opacity=".45"/><stop offset="1" stop-color="#ff8fb0" stop-opacity="0"/></radialGradient>
-            <filter id="hb" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+            <radialGradient id="hd"><stop offset="0" stop-color="#ffffff" stop-opacity="1"/><stop offset=".35" stop-color="#ffd6e3" stop-opacity=".8"/><stop offset="1" stop-color="#ff9fbf" stop-opacity="0"/></radialGradient>
           </defs>
-          <path id="hline" d="M385,595 C460,575 540,580 600,595 S730,612 775,590 S820,565 832,560" fill="none" stroke="#ffe1ea" stroke-width="5" stroke-linecap="round" filter="url(#hb)" opacity="0"/>
-          <circle id="hdot" r="7" fill="#fff0f5" filter="url(#hb)" opacity="0"/>
+          <path id="hline" d="M385,595 C460,575 540,580 600,595 S730,612 775,590 S820,565 832,560" fill="none" stroke="#ffd0de" stroke-opacity=".55" stroke-width="9" stroke-linecap="round" opacity="0"/>
+          <path id="hline2" d="M385,595 C460,575 540,580 600,595 S730,612 775,590 S820,565 832,560" fill="none" stroke="#fff4f8" stroke-width="3" stroke-linecap="round" opacity="0"/>
+          <circle id="hdot" r="16" fill="url(#hd)" opacity="0"/>
           <circle id="hglow2" cx="838" cy="541" r="70" fill="url(#hg)" opacity="0"/>
           <path id="hheart2" d="M838,560 C826,552 816,543 818,532 C820,523 832,522 838,531 C844,522 856,523 858,532 C860,543 850,552 838,560Z" fill="rgba(255,150,185,.35)" stroke="#ffb6cc" stroke-width="3" stroke-linejoin="round" opacity="0"/>
           <path id="hmini" d="M0,7 C-6,3 -9,-1 -7,-5 C-5,-9 -1,-8 0,-4 C1,-8 5,-9 7,-5 C9,-1 6,3 0,7Z" fill="#f7a1bb" opacity="0"/>
@@ -532,9 +534,9 @@ p{margin:0 0 1.2em}
   var f = document.querySelector('.poster'), img = f && f.querySelector('img'), svg = document.querySelector('.hfx');
   if (!f || !img || !svg) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { svg.style.display = 'none'; return; }
-  var line = document.getElementById('hline'), dot = document.getElementById('hdot'), g1 = document.getElementById('hglow1'), g2 = document.getElementById('hglow2'), mini = document.getElementById('hmini'), h2 = document.getElementById('hheart2');
+  var line = document.getElementById('hline'), line2 = document.getElementById('hline2'), dot = document.getElementById('hdot'), g1 = document.getElementById('hglow1'), g2 = document.getElementById('hglow2'), mini = document.getElementById('hmini'), h2 = document.getElementById('hheart2');
   var L = line.getTotalLength(), CYCLE = 9000, t0 = null;
-  line.setAttribute('stroke-dasharray', '70 ' + (L + 140));
+  line.setAttribute('stroke-dasharray', '70 ' + (L + 140)); line2.setAttribute('stroke-dasharray', '50 ' + (L + 140));
   // 画像と同じ場所・大きさに重ねる（スマホは画像の高さ、パソコンは枠いっぱい）
   function place(){ svg.style.top = img.offsetTop + 'px'; svg.style.left = img.offsetLeft + 'px'; svg.style.width = img.offsetWidth + 'px'; svg.style.height = img.offsetHeight + 'px'; }
   function ease(x){ return x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; }
@@ -553,6 +555,7 @@ p{margin:0 0 1.2em}
     var a = seg(t, 0, 1200), e = ease(a), on = a > 0 && a < 1;
     line.setAttribute('stroke-dashoffset', String(70 - e * (L + 70)));
     line.setAttribute('opacity', on ? String(Math.min(1, Math.min(a, 1 - a) * 6)) : '0');
+    line2.setAttribute('stroke-dashoffset', String(50 - e * (L + 50))); line2.setAttribute('opacity', line.getAttribute('opacity'));
     var p = line.getPointAtLength(e * L); dot.setAttribute('cx', p.x); dot.setAttribute('cy', p.y);
     dot.setAttribute('opacity', on ? String(Math.min(1, Math.min(a, 1 - a) * 6)) : '0');
     // 2. 下の♡がトクン（1.1〜2.1秒）
@@ -571,7 +574,9 @@ p{margin:0 0 1.2em}
   }
   place(); window.addEventListener('resize', place);
   window.addEventListener('load', function(){ place(); });
-  setTimeout(function(){ place(); requestAnimationFrame(frame); }, 800);
+  var started = false;
+  function go(){ if (started) return; started = true; place(); requestAnimationFrame(frame); }
+  setTimeout(go, 800); window.addEventListener('pageshow', function(){ place(); setTimeout(go, 300); });
 })();
 </script>
 <a class="mikaku" href="../index.html">見比べ用：♡の流れ（線→下の♡→上の♡）｜今のページへ</a>
