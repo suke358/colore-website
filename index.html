@@ -313,8 +313,8 @@ p{margin:0 0 1.2em}
 @media (max-width:640px){
   .menu-tabs{margin:-12px -4px 28px}
   .menu-tabs a{font-size:.8rem;padding:.45em .95em}
-  .card{display:grid;grid-template-columns:118px 1fr;-webkit-box-orient:horizontal}
-  .card .photo{aspect-ratio:auto;height:100%;min-height:150px}
+  /* 写真は上に横長で（10/8：横に並べると写真が小さく、何の写真か分かりにくかったため） */
+  .card .photo{aspect-ratio:auto;height:200px}
   .card .photo img{height:100%;object-fit:cover}
   .card-body{padding:16px 16px 18px}
   .card h3{font-size:1.08rem;margin-bottom:4px}
@@ -323,13 +323,11 @@ p{margin:0 0 1.2em}
   .card .price{padding-top:10px}
   .card .price b{font-size:1.2rem}
   .card .price .ask{font-size:.82rem}
-  .card .ask-line{margin-top:10px;font-size:.78rem;letter-spacing:0;padding:.5em .6em;white-space:nowrap}
+  .card .ask-line{margin-top:12px;font-size:.84rem;padding:.6em .8em}
   .menu-cards{gap:16px}
   .body-menu{margin-top:44px;padding:32px 18px}
   .tbl.course td:not(.yen){font-size:.84rem}
 }
-/* 幅のせまいスマホ（360未満）は、カードを縦に戻す */
-@media (max-width:359px){.card{display:flex}.card .photo{height:auto;min-height:0}.card .photo img{height:auto}.card .ask-line{white-space:normal}}
 </style>
 </head>
 <body>
