@@ -268,6 +268,27 @@ p{margin:0 0 1.2em}
 .hfx .glow{border-radius:50%;background:radial-gradient(circle,rgba(255,190,210,.95) 0%,rgba(255,143,176,.5) 35%,rgba(255,143,176,0) 70%)}
 .hfx .dot{border-radius:50%;background:radial-gradient(circle,#fff 0%,rgba(255,225,235,.9) 30%,rgba(255,170,200,0) 70%)}
 .hfx .mini svg,.hfx .h2 svg{display:block;width:100%;height:100%}
+/* ---------- 使い勝手の直し（2026/10/8）：目次・メニューごとの相談・道順・上へ戻る ---------- */
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;padding:0;list-style:none}
+.toc a{display:inline-block;text-decoration:none;font-size:.82rem;letter-spacing:.1em;color:#efeadf;border:1px solid rgba(226,207,159,.5);border-radius:999px;padding:.45em 1.1em}
+.toc a:hover{border-color:var(--pink);color:var(--pink)}
+.menubtn{display:none}
+@media (max-width:860px){
+  .menubtn{display:inline-flex;align-items:center;gap:6px;margin-left:10px;background:rgba(20,16,17,.55);color:#efeadf;border:1px solid rgba(226,207,159,.5);border-radius:999px;padding:.45em .95em;font:inherit;font-size:.8rem;letter-spacing:.1em;cursor:pointer}
+  .menubtn i{display:block;width:14px;height:10px;border-top:1.5px solid currentColor;border-bottom:1.5px solid currentColor;position:relative}
+  .menubtn i::after{content:"";position:absolute;left:0;right:0;top:3.5px;border-top:1.5px solid currentColor}
+  .head.open .nav{display:flex;position:absolute;top:76px;right:12px;flex-direction:column;align-items:stretch;gap:0;background:#1c1718;border:1px solid rgba(226,207,159,.35);border-radius:14px;padding:6px;min-width:200px;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .head.open .nav a,.head.open .nav a:not(.rsv){display:block;padding:.85em 1em;border-radius:10px;font-size:.92rem}
+  .head.open .nav .rsv{margin-top:4px;text-align:center}
+}
+.ask-line{display:inline-flex;align-items:center;justify-content:center;gap:.5em;margin-top:14px;text-decoration:none;font-size:.85rem;letter-spacing:.08em;color:#06a447;border:1.5px solid #06c755;border-radius:999px;padding:.6em 1em}
+.ask-line:hover{background:#06c755;color:#fff}
+.ask-line svg{width:1.1em;height:1.1em}
+.route{display:flex;align-items:center;justify-content:center;gap:.5em;margin-top:18px;text-decoration:none;background:var(--forest);color:#fbf7ef;border-radius:999px;padding:.95em 1.4em;letter-spacing:.12em;font-size:.92rem}
+.route svg{width:1.1em;height:1.1em;fill:var(--pink)}
+.totop{position:fixed;right:14px;bottom:18px;z-index:40;width:44px;height:44px;border-radius:50%;background:rgba(36,52,43,.9);color:#fbf7ef;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem;opacity:0;visibility:hidden;-webkit-transition:opacity .3s;transition:opacity .3s;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.totop.show{opacity:1;visibility:visible}
+@media (max-width:860px){.totop{bottom:76px;right:12px}}
 </style>
 </head>
 <body>
@@ -279,13 +300,14 @@ p{margin:0 0 1.2em}
 <header class="head">
   <div class="wrap">
     <a href="#top" class="brand" aria-label="colore トップへ"><img src="images/logo-pink.png" alt="colore" width="46" height="46"><span>よもぎ蒸し・脱毛サロン</span></a>
-    <nav class="nav" aria-label="ページ内">
+    <nav class="nav" id="gnav" aria-label="ページ内">
       <a href="#greeting">ごあいさつ</a>
       <a href="#about">よもぎ蒸しとは</a>
       <a href="#menu">メニュー・料金</a>
       <a href="#access">店舗情報</a>
       <a href="#reserve" class="rsv">ご予約</a>
     </nav>
+    <button type="button" class="menubtn" aria-expanded="false" aria-controls="gnav"><i aria-hidden="true"></i>メニュー</button>
   </div>
 </header>
 
@@ -318,6 +340,12 @@ p{margin:0 0 1.2em}
           <!-- LINE公式アカウントの友だち追加URL（2026/10/8 しほさんから） -->
           <a class="btn btn-line" href="https://lin.ee/nDeKjiW" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>LINEで<wbr>相談する</a>
         </div>
+        <ul class="toc" aria-label="このページの案内">
+          <li><a href="#menu">メニュー・料金</a></li>
+          <li><a href="#reserve">ご予約</a></li>
+          <li><a href="#access">アクセス</a></li>
+          <li><a href="#greeting">ごあいさつ</a></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -376,6 +404,7 @@ p{margin:0 0 1.2em}
             <p>よもぎなどの<wbr>薬草を<wbr>煮出した<wbr>蒸気を、<wbr>専用の<wbr>座椅子に<wbr>座って<wbr>マントの<wbr>中で<wbr>じっくり浴びる<wbr>温活メニューです。</p>
             <!-- 時間・内容はオーナーさんに確認中 -->
             <div class="price"><small>1回</small><b>5,500円</b></div>
+            <a class="ask-line" href="https://lin.ee/nDeKjiW" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>このメニューを<wbr>LINEで相談</a>
           </div>
         </article>
         <article class="card">
@@ -384,6 +413,7 @@ p{margin:0 0 1.2em}
             <h3>脱毛・フェイシャル</h3>
             <p>ムダ毛の<wbr>お手入れと、<wbr>お顔の<wbr>ケア。<wbr>よもぎ蒸しと<wbr>組み合わせての<wbr>ご利用も<wbr>おすすめです。</p>
             <div class="price"><span class="ask">料金は<wbr>お問い合わせください</span></div>
+            <a class="ask-line" href="https://lin.ee/nDeKjiW" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>このメニューを<wbr>LINEで相談</a>
           </div>
         </article>
         <article class="card">
@@ -393,6 +423,7 @@ p{margin:0 0 1.2em}
             <ul class="sub-items"><li>バストアップ</li><li>タクティールケア</li></ul>
             <p>タクティールケアは、<wbr>スウェーデン発祥の、<wbr>手の<wbr>ひらで<wbr>やさしく<wbr>包み込むように<wbr>触れる<wbr>ケアです。</p>
             <div class="price"><span class="ask">料金は<wbr>お問い合わせください</span></div>
+            <a class="ask-line" href="https://lin.ee/nDeKjiW" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>このメニューを<wbr>LINEで相談</a>
           </div>
         </article>
       </div>
@@ -477,6 +508,7 @@ p{margin:0 0 1.2em}
           <div><dt>お支払い</dt><dd>現金</dd></div>
           <div><dt>電話</dt><dd><a href="tel:08074744035">080-7474-4035</a></dd></div>
         </dl>
+        <a class="route" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%B1%B1%E5%8F%A3%E7%9C%8C%E9%98%B2%E5%BA%9C%E5%B8%82%E5%B2%B8%E6%B4%A52%E4%B8%81%E7%9B%AE3-10" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Googleマップで<wbr>道順を見る</a>
       </div>
       <div class="map">
         <iframe src="https://maps.google.com/maps?q=%E5%B1%B1%E5%8F%A3%E7%9C%8C%E9%98%B2%E5%BA%9C%E5%B8%82%E5%B2%B8%E6%B4%A52%E4%B8%81%E7%9B%AE3-10&z=16&output=embed" title="coloreの地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -578,6 +610,25 @@ p{margin:0 0 1.2em}
   window.addEventListener('resize', place); window.addEventListener('load', place);
   window.addEventListener('pageshow', function(){ place(); });
   if (img.complete) setTimeout(go, 800); else { img.addEventListener('load', function(){ setTimeout(go, 600); }); setTimeout(go, 2500); }
+})();
+</script>
+<a class="totop" href="#top" aria-label="ページの上へ">↑</a>
+<script>
+// スマホのメニュー（開く・閉じる）と、上へ戻るボタン（2026/10/8）
+(function(){
+  var head = document.querySelector('.head'), btn = document.querySelector('.menubtn'), nav = document.getElementById('gnav');
+  if (head && btn && nav) {
+    function set(open){ head.className = open ? 'head open' : 'head'; btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+    btn.addEventListener('click', function(e){ e.stopPropagation(); set(head.className.indexOf('open') < 0); });
+    nav.addEventListener('click', function(e){ if (e.target.tagName === 'A') set(false); });
+    document.addEventListener('click', function(e){ if (head.className.indexOf('open') >= 0 && !nav.contains(e.target)) set(false); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') set(false); });
+  }
+  var up = document.querySelector('.totop');
+  if (up) {
+    function onScroll(){ var y = window.pageYOffset || document.documentElement.scrollTop; up.className = y > 900 ? 'totop show' : 'totop'; }
+    window.addEventListener('scroll', onScroll); onScroll();
+  }
 })();
 </script>
 </body>
