@@ -313,9 +313,9 @@ p{margin:0 0 1.2em}
 @media (max-width:640px){
   .menu-tabs{margin:-12px -4px 28px}
   .menu-tabs a{font-size:.8rem;padding:.45em .95em}
-  /* 写真は上に横長で（10/8：横に並べると写真が小さく、何の写真か分かりにくかったため） */
-  .card .photo{aspect-ratio:auto;height:200px}
-  .card .photo img{height:100%;object-fit:cover}
+  /* 写真は上に、切らずにそのままの形で（10/8：横に並べる・低く切ると何の写真か分からなかったため） */
+  .card .photo{aspect-ratio:auto;height:auto}
+  .card .photo img{height:auto}
   .card-body{padding:16px 16px 18px}
   .card h3{font-size:1.08rem;margin-bottom:4px}
   .card p{font-size:.84rem;line-height:1.75;margin-bottom:10px}
@@ -443,7 +443,7 @@ p{margin:0 0 1.2em}
       </nav>
       <div class="menu-cards">
         <article class="card" id="m-yomogi">
-          <div class="photo"><img src="images/menu-yomogi.jpg" alt="よもぎ蒸しの座椅子" width="800" height="600" loading="lazy"></div>
+          <div class="photo"><img src="images/menu-yomogi-sq.jpg" alt="よもぎ蒸しの座椅子と壺" width="800" height="800" loading="lazy" style="object-position:50% 15%"></div>
           <div class="card-body">
             <h3>よもぎ蒸し</h3>
             <p>よもぎなどの<wbr>薬草を<wbr>煮出した<wbr>蒸気を、<wbr>専用の<wbr>座椅子に<wbr>座って<wbr>マントの<wbr>中で<wbr>じっくり浴びる<wbr>温活メニューです。</p>
