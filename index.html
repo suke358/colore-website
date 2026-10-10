@@ -12,11 +12,21 @@
 <meta property="og:site_name" content="よもぎ蒸し/脱毛サロン colore（コロレ）">
 <meta property="og:title" content="よもぎ蒸し/脱毛サロン colore（コロレ）｜山口県防府市">
 <meta property="og:description" content="防府市岸津のプライベートサロン。看護師のオーナーが、よもぎ蒸し・脱毛・フェイシャル・ボディケアをご提供しています。">
-<meta property="og:url" content="https://suke358.github.io/colore-website/">
+<!-- LINE のカードの番号 ?v=12（og:url・canonical・下の JS の3か所でそろえる。check_site が見る）。カードの画像を変えたら、画像の名前を変えて番号を次にする（LINE はページの URL ごとにカードを覚えるため。?v=11 までは使用済み） -->
+<meta property="og:url" content="https://suke358.github.io/colore-website/?v=12">
+<link rel="canonical" href="https://suke358.github.io/colore-website/?v=12">
 <meta property="og:image" content="https://suke358.github.io/colore-website/images/og-20261007.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<script>
+// 開いたときアドレスバーに ?v=12 を足す（LINE に転送したとき新しいカードが出るように。再読みこみなし。ほかの ? や # は残す。v があれば何もしない）
+(function(){ try {
+  var q = location.search || '';
+  if (/[?&]v=/.test(q)) return;
+  history.replaceState(history.state, '', location.pathname + (q ? q + '&' : '?') + 'v=12' + (location.hash || ''));
+} catch (e) {} })();
+</script>
 <link rel="icon" href="images/logo.png">
 <link rel="apple-touch-icon" href="images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
