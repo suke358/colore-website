@@ -336,6 +336,8 @@ p{margin:0 0 1.2em}
 .body-ask .ask-line{margin-top:0;font-size:.92rem;padding:.75em 1.4em;min-height:44px}
 @media (max-width:640px){.body-ask{margin-top:22px}.body-ask .ask-line{width:100%;font-size:.88rem}}
 /* ボディケア「選んで相談」（C案。2026/10/10。表の行そのものを選ぶ。JS が .body-menu に pickable を付け、箱を display:block にする。動きは付けない） */
+/* 「＋3,000円」の＋は小さく（金額の列からはみ出さず、ほかの行と右端がそろうように。2026/10/10） */
+.tbl td.yen .plus{font-size:.72em;vertical-align:.1em;margin-right:.05em}
 .pick-hint{display:none;font-size:.82rem;color:var(--pink-deep);letter-spacing:.08em;margin:-12px 0 14px;line-height:1.8}
 .pick-hint small{font-size:.76rem;color:var(--stone);margin-left:.4em}
 .pickable .pick-hint{display:block}
@@ -383,7 +385,7 @@ p{margin:0 0 1.2em}
   .pickable .sel,.pickable .opt .tbl .sel{width:30px;padding-left:0;padding-right:0}
   .pickable .tbl.course tr{grid-template-columns:30px 1fr auto}
   .pickable .tbl.course td.sel{width:30px}
-  .pickable .opt .tbl td.yen{width:4.6em;padding-left:6px;padding-right:0}
+  .pickable .opt .tbl td.yen{width:5.4em;padding-left:6px;padding-right:0}
   .pickable .opt .tbl th{font-size:.9rem;letter-spacing:.02em;padding-left:2px}
   .pick-act .ask-line{min-width:0;font-size:.88rem;padding:.75em .6em}
   .pick-act .ask-line .nw{white-space:normal}
@@ -553,7 +555,7 @@ p{margin:0 0 1.2em}
               <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="ヘッドマッサージ" data-price="1100" data-min="10" aria-label="ヘッドマッサージ（10分）1,100円"><span class="mark"></span></label></td><th>ヘッド<wbr>マッサージ<wbr><span class="nw">（10分）</span></th><td class="yen">1,100円</td></tr>
               <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="耳まわりのケア" data-price="1100" data-min="10" aria-label="耳まわりのケア（10分）1,100円"><span class="mark"></span></label></td><th>耳まわりの<wbr>ケア<wbr><span class="nw">（10分）</span></th><td class="yen">1,100円</td></tr>
               <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="デコルテケア" data-price="1650" data-min="15" aria-label="デコルテケア（15分）1,650円"><span class="mark"></span></label></td><th>デコルテケア<wbr><span class="nw">（15分）</span></th><td class="yen">1,650円</td></tr>
-              <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="オイルマッサージ" data-price="3000" data-min="0" aria-label="オイルマッサージ ＋3,000円（各コースに追加）"><span class="mark"></span></label></td><th>オイル<wbr>マッサージ<br><small style="font-family:var(--gothic);color:var(--stone)">各コースに<wbr>追加</small></th><td class="yen">＋3,000円</td></tr>
+              <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="オイルマッサージ" data-price="3000" data-min="0" aria-label="オイルマッサージ ＋3,000円（各コースに追加）"><span class="mark"></span></label></td><th>オイル<wbr>マッサージ<br><small style="font-family:var(--gothic);color:var(--stone)">各コースに<wbr>追加</small></th><td class="yen"><span class="plus">＋</span>3,000円</td></tr>
             </table>
             <p class="extra">オイルマッサージを<wbr>ご利用の<wbr>方は、<wbr>シャワーを<wbr>無料で<wbr>お使いいただけます。</p>
           </div>
