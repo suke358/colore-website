@@ -335,20 +335,25 @@ p{margin:0 0 1.2em}
 .body-ask{margin:28px 0 0;text-align:center}
 .body-ask .ask-line{margin-top:0;font-size:.92rem;padding:.75em 1.4em;min-height:44px}
 @media (max-width:640px){.body-ask{margin-top:22px}.body-ask .ask-line{width:100%;font-size:.88rem}}
-/* ボディケア「選んで相談」（C案。2026/10/10。JS が display:block にする。動きは付けない） */
-.pick{display:none;margin:32px 0 0;padding:24px 22px;background:var(--cream);border-radius:14px}
-.pick h4{font-family:var(--mincho);font-weight:500;letter-spacing:.14em;font-size:1.05rem;margin:0 0 4px}
-.pick-lead{font-size:.86rem;color:var(--stone);margin:0 0 6px;line-height:1.8}
-.pick-ttl{display:block;font-size:.78rem;letter-spacing:.16em;color:var(--pink-deep);margin:14px 0 6px}
-.pk{position:relative;display:inline-block;margin:0 8px 8px 0;cursor:pointer;vertical-align:top}
-.pk input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;margin:0}
-.pk span{display:-webkit-inline-flex;display:inline-flex;-webkit-align-items:center;align-items:center;min-height:44px;padding:.3em 1em;background:#fff;border:1.5px solid var(--line-light);border-radius:999px;font-size:.9rem;letter-spacing:.04em;color:var(--ink);line-height:1.4}
-.pk span b{font-family:var(--mincho);font-weight:500;color:var(--forest);margin-left:.6em;white-space:nowrap}
-.pk span small{font-size:.72rem;color:var(--stone);margin-left:.45em;white-space:nowrap}
-.pk input:checked+span{background:var(--forest);border-color:var(--forest);color:#fbf7ef}
-.pk input:checked+span b,.pk input:checked+span small{color:var(--gold-soft)}
-.pk input:focus-visible+span{outline:2px solid var(--pink);outline-offset:3px}
-.pick-total{margin-top:18px;padding-top:14px;border-top:1px solid var(--line-light);display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-align-items:baseline;align-items:baseline}
+/* ボディケア「選んで相談」（C案。2026/10/10。表の行そのものを選ぶ。JS が .body-menu に pickable を付け、箱を display:block にする。動きは付けない） */
+.pick-hint{display:none;font-size:.82rem;color:var(--pink-deep);letter-spacing:.08em;margin:-12px 0 14px;line-height:1.8}
+.pick-hint small{font-size:.76rem;color:var(--stone);margin-left:.4em}
+.pickable .pick-hint{display:block}
+.sel{display:none}
+.pickable .sel{display:table-cell;width:34px;padding-right:0;vertical-align:top}
+.pickable .tbl tr{cursor:pointer}
+.pickable .tbl tr:hover{background:rgba(36,52,43,.04)}
+.mk{display:block;position:relative;width:24px;height:24px;margin-top:.3em;cursor:pointer}
+.mk input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;margin:0}
+.mark{display:block;width:24px;height:24px;border:2px solid #b9ad9c;border-radius:50%;background:#fff;text-align:center;line-height:20px;font-family:var(--gothic);font-size:15px;font-weight:700;color:transparent}
+.mark::after{content:"\2713"}
+.mk.box .mark{border-radius:6px}
+.mk input:checked+.mark{background:var(--forest);border-color:var(--forest);color:var(--gold-soft)}
+.mk input:focus-visible+.mark{outline:2px solid var(--pink);outline-offset:3px}
+.pickable .tbl tr.on,.pickable .tbl.course tr.first.on{background:rgba(36,52,43,.08)}
+.pickable .tbl tr.on th{color:var(--forest)}
+.pick{display:none;margin:32px 0 0;padding:20px 22px 22px;background:var(--cream);border-radius:14px}
+.pick-total{display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-align-items:baseline;align-items:baseline}
 .pick-total>div{margin-right:28px}
 .pick-total span{font-size:.86rem;letter-spacing:.1em;margin-right:.6em}
 .pick-total small{font-size:.75rem;color:var(--stone)}
@@ -361,11 +366,27 @@ p{margin:0 0 1.2em}
 .pick-reset{margin:6px;font:inherit;font-size:.86rem;background:none;border:1px solid var(--line-light);border-radius:999px;padding:.6em 1.2em;color:var(--stone);cursor:pointer;min-height:44px}
 .pick-reset:hover{border-color:var(--pink);color:var(--pink-deep)}
 @media (max-width:640px){
-  .pick{padding:18px 14px;margin-top:22px}
-  /* スマホでは札を横いっぱいの1行に（名前は左・金額は右。名前が途中で折れないように） */
-  .pk{display:block;margin:0 0 8px}
-  .pk span{width:100%;-webkit-flex-wrap:wrap;flex-wrap:wrap;white-space:nowrap;font-size:.9rem;padding:.4em 1em}
-  .pk span b{margin-left:auto;padding-left:.8em}
+  .pick{padding:16px 14px 18px;margin-top:22px}
+  .pick-hint{margin:-8px 0 10px}
+  /* スマホのコースの表は grid なので、印の欄を左の列に（上の .tbl.course tr の並べ方に合わせる） */
+  .pickable .tbl.course tr{grid-template-columns:34px 1fr auto;padding-left:0}
+  .pickable .tbl.course td.sel{grid-column:1;grid-row:1/3;margin:0;width:34px}
+  .pickable .tbl.course th{grid-column:2}
+  .pickable .tbl.course td.yen{grid-column:3}
+  .pickable .tbl.course td:not(.yen):not(.sel){grid-column:2/-1}
+  /* 印の欄の分だけ狭くなるので、金額の列は中身の幅だけに、「60分」と「はじめての方に」の札は折れてよい（320 で箱からはみ出さないように） */
+  .pickable .tbl.course td.yen{width:auto;padding-left:8px}
+  .pickable .tbl.course th{white-space:normal}
+  .pickable .opt .tbl .sel{width:34px}
+  /* 印の欄が増えた分、オプションの名前の列が狭くなるので、金額の列は中身の幅だけに（名前が言葉の途中で折れないように） */
+  .pickable .tbl{table-layout:fixed}
+  .pickable .sel,.pickable .opt .tbl .sel{width:30px;padding-left:0;padding-right:0}
+  .pickable .tbl.course tr{grid-template-columns:30px 1fr auto}
+  .pickable .tbl.course td.sel{width:30px}
+  .pickable .opt .tbl td.yen{width:4.6em;padding-left:6px;padding-right:0}
+  .pickable .opt .tbl th{font-size:.9rem;letter-spacing:.02em;padding-left:2px}
+  .pick-act .ask-line{min-width:0;font-size:.88rem;padding:.75em .6em}
+  .pick-act .ask-line .nw{white-space:normal}
   .pick-total>div{margin-right:18px}.pick-total output{font-size:1.4rem}.pick-act .ask-line{-webkit-flex:1 1 100%;flex:1 1 100%}
 }
 </style>
@@ -517,45 +538,30 @@ p{margin:0 0 1.2em}
       <div class="body-menu" id="m-body">
         <h3><svg class="heart"><use href="#h"/></svg>ボディケア</h3>
         <p class="lead">温活・ボディケア・リラクゼーション。<wbr>お時間に<wbr>あわせてお選びください。</p>
+        <p class="pick-hint" id="pick-hint">行を<wbr>押して<wbr>選べます<small>（コースは<wbr>1つ、<wbr>オプションは<wbr>いくつでも）</small></p>
         <div class="cols">
           <table class="tbl course">
-            <tr><th>15分</th><td>首・肩・腰・背中など、<wbr>気に<wbr>なる<wbr>ところを<wbr>集中して。<wbr>スキマ時間に。</td><td class="yen">2,200円</td></tr>
-            <tr><th>30分</th><td>上半身または<wbr>下半身を、<wbr>しっかりと<wbr>ケア。</td><td class="yen">3,300円</td></tr>
-            <tr class="first"><th>60分<span class="tag">はじめての方に</span></th><td>全身を<wbr>バランスよく。<wbr>はじめての<wbr>方にも<wbr>おすすめです。</td><td class="yen">6,600円</td></tr>
-            <tr><th>90分</th><td>首・肩・背中・脚まで、<wbr>ゆったりと。</td><td class="yen">9,900円</td></tr>
-            <tr><th>120分</th><td>全身に<wbr>加えて、<wbr>気に<wbr>なる<wbr>ところを<wbr>時間を<wbr>かけて<wbr>丁寧に。</td><td class="yen">13,200円</td></tr>
+            <tr><td class="sel"><label class="mk"><input type="radio" name="bc-course" value="15分" data-price="2200" data-min="15" aria-label="15分 2,200円"><span class="mark"></span></label></td><th>15分</th><td>首・肩・腰・背中など、<wbr>気に<wbr>なる<wbr>ところを<wbr>集中して。<wbr>スキマ時間に。</td><td class="yen">2,200円</td></tr>
+            <tr><td class="sel"><label class="mk"><input type="radio" name="bc-course" value="30分" data-price="3300" data-min="30" aria-label="30分 3,300円"><span class="mark"></span></label></td><th>30分</th><td>上半身または<wbr>下半身を、<wbr>しっかりと<wbr>ケア。</td><td class="yen">3,300円</td></tr>
+            <tr class="first"><td class="sel"><label class="mk"><input type="radio" name="bc-course" value="60分" data-price="6600" data-min="60" aria-label="60分 6,600円（はじめての方に）"><span class="mark"></span></label></td><th>60分<span class="tag">はじめての方に</span></th><td>全身を<wbr>バランスよく。<wbr>はじめての<wbr>方にも<wbr>おすすめです。</td><td class="yen">6,600円</td></tr>
+            <tr><td class="sel"><label class="mk"><input type="radio" name="bc-course" value="90分" data-price="9900" data-min="90" aria-label="90分 9,900円"><span class="mark"></span></label></td><th>90分</th><td>首・肩・背中・脚まで、<wbr>ゆったりと。</td><td class="yen">9,900円</td></tr>
+            <tr><td class="sel"><label class="mk"><input type="radio" name="bc-course" value="120分" data-price="13200" data-min="120" aria-label="120分 13,200円"><span class="mark"></span></label></td><th>120分</th><td>全身に<wbr>加えて、<wbr>気に<wbr>なる<wbr>ところを<wbr>時間を<wbr>かけて<wbr>丁寧に。</td><td class="yen">13,200円</td></tr>
           </table>
           <div class="opt">
             <h4>オプション</h4>
             <table class="tbl">
-              <tr><th>ヘッドマッサージ<wbr>（10分）</th><td class="yen">1,100円</td></tr>
-              <tr><th>耳まわりの<wbr>ケア（10分）</th><td class="yen">1,100円</td></tr>
-              <tr><th>デコルテケア（15分）</th><td class="yen">1,650円</td></tr>
-              <tr><th>オイルマッサージ<br><small style="font-family:var(--gothic);color:var(--stone)">各コースに<wbr>追加</small></th><td class="yen">＋3,000円</td></tr>
+              <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="ヘッドマッサージ" data-price="1100" data-min="10" aria-label="ヘッドマッサージ（10分）1,100円"><span class="mark"></span></label></td><th>ヘッド<wbr>マッサージ<wbr><span class="nw">（10分）</span></th><td class="yen">1,100円</td></tr>
+              <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="耳まわりのケア" data-price="1100" data-min="10" aria-label="耳まわりのケア（10分）1,100円"><span class="mark"></span></label></td><th>耳まわりの<wbr>ケア<wbr><span class="nw">（10分）</span></th><td class="yen">1,100円</td></tr>
+              <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="デコルテケア" data-price="1650" data-min="15" aria-label="デコルテケア（15分）1,650円"><span class="mark"></span></label></td><th>デコルテケア<wbr><span class="nw">（15分）</span></th><td class="yen">1,650円</td></tr>
+              <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="オイルマッサージ" data-price="3000" data-min="0" aria-label="オイルマッサージ ＋3,000円（各コースに追加）"><span class="mark"></span></label></td><th>オイル<wbr>マッサージ<br><small style="font-family:var(--gothic);color:var(--stone)">各コースに<wbr>追加</small></th><td class="yen">＋3,000円</td></tr>
             </table>
             <p class="extra">オイルマッサージを<wbr>ご利用の<wbr>方は、<wbr>シャワーを<wbr>無料で<wbr>お使いいただけます。</p>
           </div>
         </div>
-        <!-- ボディケアの相談の入口・C案（2026/10/10）：コースとオプションを選ぶと合計の目安が出て、その内容を下書きにして LINE が開く。
-             金額は上の表の数字を足すだけ（組み合わせの決まりは作らない）。JavaScript がないときは、この箱は出ず、下の A案のボタンだけが出る -->
+        <!-- ボディケアの相談の入口・C案（2026/10/10。同日に作り直し：上の表の行そのものを選ぶ形に）：
+             表の各行の印（コースは○で1つ、オプションは□でいくつでも）を押すと、合計の目安と時間の目安がここに出て、その内容を下書きにして LINE が開く。
+             金額は表の数字を足すだけ（組み合わせの決まりは作らない）。JavaScript がないときは、印もこの箱も出ず、表と下の A案のボタンだけが出る -->
         <div class="pick" id="body-pick">
-          <h4>選んで<wbr>相談</h4>
-          <p class="pick-lead">コースを<wbr>1つ、<wbr>オプションは<wbr>いくつでも。<wbr>選ぶと<wbr>合計の<wbr>目安が<wbr>出ます。</p>
-          <div class="pick-grp" role="group" aria-label="コース">
-            <span class="pick-ttl">コース</span>
-            <label class="pk"><input type="radio" name="bc-course" value="15分" data-price="2200" data-min="15"><span>15分<b>2,200円</b></span></label>
-            <label class="pk"><input type="radio" name="bc-course" value="30分" data-price="3300" data-min="30"><span>30分<b>3,300円</b></span></label>
-            <label class="pk"><input type="radio" name="bc-course" value="60分" data-price="6600" data-min="60"><span>60分<b>6,600円</b></span></label>
-            <label class="pk"><input type="radio" name="bc-course" value="90分" data-price="9900" data-min="90"><span>90分<b>9,900円</b></span></label>
-            <label class="pk"><input type="radio" name="bc-course" value="120分" data-price="13200" data-min="120"><span>120分<b>13,200円</b></span></label>
-          </div>
-          <div class="pick-grp" role="group" aria-label="オプション">
-            <span class="pick-ttl">オプション</span>
-            <label class="pk"><input type="checkbox" name="bc-opt" value="ヘッドマッサージ" data-price="1100" data-min="10"><span>ヘッドマッサージ<small>10分</small><b>1,100円</b></span></label>
-            <label class="pk"><input type="checkbox" name="bc-opt" value="耳まわりのケア" data-price="1100" data-min="10"><span>耳まわりのケア<small>10分</small><b>1,100円</b></span></label>
-            <label class="pk"><input type="checkbox" name="bc-opt" value="デコルテケア" data-price="1650" data-min="15"><span>デコルテケア<small>15分</small><b>1,650円</b></span></label>
-            <label class="pk"><input type="checkbox" name="bc-opt" value="オイルマッサージ" data-price="3000" data-min="0"><span>オイルマッサージ<small>各コースに追加</small><b>＋3,000円</b></span></label>
-          </div>
           <div class="pick-total">
             <div><span>合計の<wbr>目安<small>（税込）</small></span><output id="bc-total" aria-live="polite">—</output></div>
             <div class="pick-time"><span>時間の<wbr>目安</span><output id="bc-time">—</output></div>
@@ -769,19 +775,25 @@ p{margin:0 0 1.2em}
 })();
 </script>
 <script>
-// ボディケア「選んで相談」（C案。2026/10/10）：選んだコース・オプションの金額を足して合計の目安と時間の目安を出し、
-// その内容を下書きにして LINE が開くようにする。何も選んでいないときは A案と同じ下書き（href は最初のまま）。
+// ボディケア「選んで相談」（C案。2026/10/10。同日に表の行そのものを選ぶ形に作り直し）：
+// 表の行の印（コースは○で1つ、オプションは□でいくつでも）を押すと、金額を足して合計の目安と時間の目安を出し、
+// その内容を下書きにして LINE が開くようにする。行のどこを押しても選べる。何も選んでいないときは A案と同じ下書き（href は最初のまま）。
 (function(){
-  var box = document.getElementById('body-pick'), fb = document.getElementById('body-ask');
+  var menu = document.getElementById('m-body'), box = document.getElementById('body-pick'), fb = document.getElementById('body-ask');
   var line = document.getElementById('bc-line'), total = document.getElementById('bc-total'), time = document.getElementById('bc-time'), reset = document.getElementById('bc-reset');
-  if (!box || !fb || !line || !total || !time || !reset) return;
-  box.style.display = 'block'; fb.style.display = 'none';
+  if (!menu || !box || !fb || !line || !total || !time || !reset) return;
+  var ins = menu.querySelectorAll('.sel input');
+  if (!ins.length) return;
+  menu.className += ' pickable'; box.style.display = 'block'; fb.style.display = 'none';
   var BASE = line.getAttribute('href'), OA = '@224ybmlu', HEAD = 'ホームページを見ました。ボディケアについて相談したいです。';
   function yen(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '円'; }
+  function rowOf(el){ while (el && el.tagName !== 'TR') el = el.parentNode; return el; }
   function upd(){
-    var ins = box.querySelectorAll('input'), sum = 0, min = 0, course = null, opts = [], any = false;
+    var sum = 0, min = 0, course = null, opts = [], any = false;
     for (var i = 0; i < ins.length; i++) {
-      var el = ins[i]; if (!el.checked) continue;
+      var el = ins[i], tr = rowOf(el);
+      if (tr) tr.className = (tr.className.replace(/\s*\bon\b/g, '') + (el.checked ? ' on' : '')).replace(/^\s+/, '');
+      if (!el.checked) continue;
       any = true;
       var p = parseInt(el.getAttribute('data-price'), 10) || 0, m = parseInt(el.getAttribute('data-min'), 10) || 0;
       sum += p; min += m;
@@ -794,8 +806,17 @@ p{margin:0 0 1.2em}
     var msg = HEAD + 'コース：' + (course || '未定') + '／オプション：' + (opts.length ? opts.join('、') : 'なし') + '／合計の目安：' + yen(sum);
     line.href = 'https://line.me/R/oaMessage/' + encodeURIComponent(OA) + '/?' + encodeURIComponent(msg);
   }
-  box.addEventListener('change', upd);
-  reset.addEventListener('click', function(){ var ins = box.querySelectorAll('input'); for (var i = 0; i < ins.length; i++) ins[i].checked = false; upd(); });
+  // 行のどこを押しても選べる（印そのものを押したときはブラウザに任せる。change で upd が動く）
+  for (var i = 0; i < ins.length; i++) (function(el){
+    var tr = rowOf(el); if (!tr) return;
+    tr.addEventListener('click', function(e){
+      var t = e.target; while (t && t !== tr) { if (t.className && String(t.className).indexOf('mk') >= 0) return; t = t.parentNode; }
+      if (el.type === 'radio') el.checked = true; else el.checked = !el.checked;
+      upd();
+    });
+  })(ins[i]);
+  menu.addEventListener('change', upd);
+  reset.addEventListener('click', function(){ for (var i = 0; i < ins.length; i++) ins[i].checked = false; upd(); });
   upd();
 })();
 </script>
