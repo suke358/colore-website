@@ -335,6 +335,39 @@ p{margin:0 0 1.2em}
 .body-ask{margin:28px 0 0;text-align:center}
 .body-ask .ask-line{margin-top:0;font-size:.92rem;padding:.75em 1.4em;min-height:44px}
 @media (max-width:640px){.body-ask{margin-top:22px}.body-ask .ask-line{width:100%;font-size:.88rem}}
+/* ボディケア「選んで相談」（C案。2026/10/10。JS が display:block にする。動きは付けない） */
+.pick{display:none;margin:32px 0 0;padding:24px 22px;background:var(--cream);border-radius:14px}
+.pick h4{font-family:var(--mincho);font-weight:500;letter-spacing:.14em;font-size:1.05rem;margin:0 0 4px}
+.pick-lead{font-size:.86rem;color:var(--stone);margin:0 0 6px;line-height:1.8}
+.pick-ttl{display:block;font-size:.78rem;letter-spacing:.16em;color:var(--pink-deep);margin:14px 0 6px}
+.pk{position:relative;display:inline-block;margin:0 8px 8px 0;cursor:pointer;vertical-align:top}
+.pk input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;margin:0}
+.pk span{display:-webkit-inline-flex;display:inline-flex;-webkit-align-items:center;align-items:center;min-height:44px;padding:.3em 1em;background:#fff;border:1.5px solid var(--line-light);border-radius:999px;font-size:.9rem;letter-spacing:.04em;color:var(--ink);line-height:1.4}
+.pk span b{font-family:var(--mincho);font-weight:500;color:var(--forest);margin-left:.6em;white-space:nowrap}
+.pk span small{font-size:.72rem;color:var(--stone);margin-left:.45em;white-space:nowrap}
+.pk input:checked+span{background:var(--forest);border-color:var(--forest);color:#fbf7ef}
+.pk input:checked+span b,.pk input:checked+span small{color:var(--gold-soft)}
+.pk input:focus-visible+span{outline:2px solid var(--pink);outline-offset:3px}
+.pick-total{margin-top:18px;padding-top:14px;border-top:1px solid var(--line-light);display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-align-items:baseline;align-items:baseline}
+.pick-total>div{margin-right:28px}
+.pick-total span{font-size:.86rem;letter-spacing:.1em;margin-right:.6em}
+.pick-total small{font-size:.75rem;color:var(--stone)}
+.pick-total output{font-family:var(--mincho);font-size:1.6rem;color:var(--forest)}
+.pick-time output{font-size:1.1rem}
+.pick-note{margin:12px 0 0;font-size:.84rem;color:var(--stone);line-height:1.8;background:var(--pink-pale);border-radius:10px;padding:10px 14px}
+.pick-act{display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-align-items:center;align-items:center;margin:14px -6px 0}
+.pick-act .ask-line{margin:6px;font-size:.92rem;padding:.75em 1.4em;min-height:44px;background:#06c755;color:#fff}
+.pick-act .ask-line:hover{background:#05b24c}
+.pick-reset{margin:6px;font:inherit;font-size:.86rem;background:none;border:1px solid var(--line-light);border-radius:999px;padding:.6em 1.2em;color:var(--stone);cursor:pointer;min-height:44px}
+.pick-reset:hover{border-color:var(--pink);color:var(--pink-deep)}
+@media (max-width:640px){
+  .pick{padding:18px 14px;margin-top:22px}
+  /* スマホでは札を横いっぱいの1行に（名前は左・金額は右。名前が途中で折れないように） */
+  .pk{display:block;margin:0 0 8px}
+  .pk span{width:100%;-webkit-flex-wrap:wrap;flex-wrap:wrap;white-space:nowrap;font-size:.9rem;padding:.4em 1em}
+  .pk span b{margin-left:auto;padding-left:.8em}
+  .pick-total>div{margin-right:18px}.pick-total output{font-size:1.4rem}.pick-act .ask-line{-webkit-flex:1 1 100%;flex:1 1 100%}
+}
 </style>
 </head>
 <body>
@@ -503,7 +536,37 @@ p{margin:0 0 1.2em}
             <p class="extra">オイルマッサージを<wbr>ご利用の<wbr>方は、<wbr>シャワーを<wbr>無料で<wbr>お使いいただけます。</p>
           </div>
         </div>
-        <!-- ボディケアの相談の入口（2026/10/10。下書き入りで LINE が開く。ほかのカードの ask-line と同じ作り） -->
+        <!-- ボディケアの相談の入口・C案（2026/10/10）：コースとオプションを選ぶと合計の目安が出て、その内容を下書きにして LINE が開く。
+             金額は上の表の数字を足すだけ（組み合わせの決まりは作らない）。JavaScript がないときは、この箱は出ず、下の A案のボタンだけが出る -->
+        <div class="pick" id="body-pick">
+          <h4>選んで<wbr>相談</h4>
+          <p class="pick-lead">コースを<wbr>1つ、<wbr>オプションは<wbr>いくつでも。<wbr>選ぶと<wbr>合計の<wbr>目安が<wbr>出ます。</p>
+          <div class="pick-grp" role="group" aria-label="コース">
+            <span class="pick-ttl">コース</span>
+            <label class="pk"><input type="radio" name="bc-course" value="15分" data-price="2200" data-min="15"><span>15分<b>2,200円</b></span></label>
+            <label class="pk"><input type="radio" name="bc-course" value="30分" data-price="3300" data-min="30"><span>30分<b>3,300円</b></span></label>
+            <label class="pk"><input type="radio" name="bc-course" value="60分" data-price="6600" data-min="60"><span>60分<b>6,600円</b></span></label>
+            <label class="pk"><input type="radio" name="bc-course" value="90分" data-price="9900" data-min="90"><span>90分<b>9,900円</b></span></label>
+            <label class="pk"><input type="radio" name="bc-course" value="120分" data-price="13200" data-min="120"><span>120分<b>13,200円</b></span></label>
+          </div>
+          <div class="pick-grp" role="group" aria-label="オプション">
+            <span class="pick-ttl">オプション</span>
+            <label class="pk"><input type="checkbox" name="bc-opt" value="ヘッドマッサージ" data-price="1100" data-min="10"><span>ヘッドマッサージ<small>10分</small><b>1,100円</b></span></label>
+            <label class="pk"><input type="checkbox" name="bc-opt" value="耳まわりのケア" data-price="1100" data-min="10"><span>耳まわりのケア<small>10分</small><b>1,100円</b></span></label>
+            <label class="pk"><input type="checkbox" name="bc-opt" value="デコルテケア" data-price="1650" data-min="15"><span>デコルテケア<small>15分</small><b>1,650円</b></span></label>
+            <label class="pk"><input type="checkbox" name="bc-opt" value="オイルマッサージ" data-price="3000" data-min="0"><span>オイルマッサージ<small>各コースに追加</small><b>＋3,000円</b></span></label>
+          </div>
+          <div class="pick-total">
+            <div><span>合計の<wbr>目安<small>（税込）</small></span><output id="bc-total" aria-live="polite">—</output></div>
+            <div class="pick-time"><span>時間の<wbr>目安</span><output id="bc-time">—</output></div>
+          </div>
+          <p class="pick-note">合計は<wbr>目安です。<wbr>組み合わせや<wbr>当日の<wbr>内容は、<wbr>LINE で<wbr>ご相談ください。</p>
+          <div class="pick-act">
+            <a class="ask-line pick-line" id="bc-line" href="https://line.me/R/oaMessage/%40224ybmlu/?%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E8%A6%8B%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%E3%83%9C%E3%83%87%E3%82%A3%E3%82%B1%E3%82%A2%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%9B%B8%E8%AB%87%E3%81%97%E3%81%9F%E3%81%84%E3%81%A7%E3%81%99%E3%80%82%0A%E3%82%B3%E3%83%BC%E3%82%B9%EF%BC%9A%E3%80%80%E3%80%80%E5%88%86%0A%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%EF%BC%9A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg><span class="nw">この内容で LINE で相談</span></a>
+            <button type="button" class="pick-reset" id="bc-reset">選び直す</button>
+          </div>
+        </div>
+        <!-- ボディケアの相談の入口・A案（2026/10/10。下書き入りで LINE が開く。ほかのカードの ask-line と同じ作り。JavaScript があるときは上の C案に置きかわる） -->
         <p class="body-ask" id="body-ask"><a class="ask-line" href="https://line.me/R/oaMessage/%40224ybmlu/?%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E8%A6%8B%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%E3%83%9C%E3%83%87%E3%82%A3%E3%82%B1%E3%82%A2%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%9B%B8%E8%AB%87%E3%81%97%E3%81%9F%E3%81%84%E3%81%A7%E3%81%99%E3%80%82%0A%E3%82%B3%E3%83%BC%E3%82%B9%EF%BC%9A%E3%80%80%E3%80%80%E5%88%86%0A%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%EF%BC%9A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg><span class="nw">ボディケアを LINE で相談</span></a></p>
       </div>
       <p class="price-note muted center">メニューの<wbr>組み合わせや、<wbr>どれを<wbr>選べばいいか<wbr>迷う<wbr>ときも、<wbr>お気軽に<wbr>ご相談ください。</p>
@@ -703,6 +766,37 @@ p{margin:0 0 1.2em}
     function onScroll(){ var y = window.pageYOffset || document.documentElement.scrollTop; up.className = y > 900 ? 'totop show' : 'totop'; }
     window.addEventListener('scroll', onScroll); onScroll();
   }
+})();
+</script>
+<script>
+// ボディケア「選んで相談」（C案。2026/10/10）：選んだコース・オプションの金額を足して合計の目安と時間の目安を出し、
+// その内容を下書きにして LINE が開くようにする。何も選んでいないときは A案と同じ下書き（href は最初のまま）。
+(function(){
+  var box = document.getElementById('body-pick'), fb = document.getElementById('body-ask');
+  var line = document.getElementById('bc-line'), total = document.getElementById('bc-total'), time = document.getElementById('bc-time'), reset = document.getElementById('bc-reset');
+  if (!box || !fb || !line || !total || !time || !reset) return;
+  box.style.display = 'block'; fb.style.display = 'none';
+  var BASE = line.getAttribute('href'), OA = '@224ybmlu', HEAD = 'ホームページを見ました。ボディケアについて相談したいです。';
+  function yen(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '円'; }
+  function upd(){
+    var ins = box.querySelectorAll('input'), sum = 0, min = 0, course = null, opts = [], any = false;
+    for (var i = 0; i < ins.length; i++) {
+      var el = ins[i]; if (!el.checked) continue;
+      any = true;
+      var p = parseInt(el.getAttribute('data-price'), 10) || 0, m = parseInt(el.getAttribute('data-min'), 10) || 0;
+      sum += p; min += m;
+      var name = el.value + '（' + yen(p) + '）';
+      if (el.type === 'radio') course = name; else opts.push(name);
+    }
+    if (!any) { total.textContent = '—'; time.textContent = '—'; line.href = BASE; return; }
+    total.textContent = yen(sum);
+    time.textContent = min ? '約' + min + '分' : '—';
+    var msg = HEAD + 'コース：' + (course || '未定') + '／オプション：' + (opts.length ? opts.join('、') : 'なし') + '／合計の目安：' + yen(sum);
+    line.href = 'https://line.me/R/oaMessage/' + encodeURIComponent(OA) + '/?' + encodeURIComponent(msg);
+  }
+  box.addEventListener('change', upd);
+  reset.addEventListener('click', function(){ var ins = box.querySelectorAll('input'); for (var i = 0; i < ins.length; i++) ins[i].checked = false; upd(); });
+  upd();
 })();
 </script>
 </body>
