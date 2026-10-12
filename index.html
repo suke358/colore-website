@@ -205,6 +205,7 @@ p{margin:0 0 1.2em}
 .opt h4{font-family:var(--mincho);font-weight:500;letter-spacing:.14em;margin:0 0 8px;font-size:1.05rem}
 .opt .tbl th{width:auto;white-space:normal}
 .extra{margin-top:20px;background:var(--cream);border-radius:12px;padding:16px 20px;font-size:.88rem;color:var(--stone);line-height:1.9}
+.tactile .name{display:block;font-family:var(--mincho);font-weight:600;font-size:1.08rem;letter-spacing:.1em;color:var(--forest);margin:0 0 6px}.tactile p{margin:0;font-size:inherit;line-height:inherit;color:inherit}
 @media (max-width:860px){.cols{grid-template-columns:1fr;gap:36px}.tbl th{width:5.5em}}
 @media (max-width:640px){.tbl.course tr{display:grid;grid-template-columns:1fr auto;border-bottom:1px solid var(--line-light);padding:12px 0}.tbl.course th,.tbl.course td{border:none;padding:0;width:auto}.tbl.course td.yen{grid-column:2;grid-row:1}.tbl.course td:not(.yen){grid-column:1/-1;margin-top:4px}}
 .price-note{margin-top:28px;font-size:.88rem}
@@ -565,7 +566,11 @@ p{margin:0 0 1.2em}
           </div>
         </div>
         <!-- タクティールケア（2026/10/12 「そのほかのケア」からボディケアへ） -->
-        <p class="extra tactile">タクティールケア（スウェーデン発祥の、<wbr>手の<wbr>ひらで<wbr>やさしく<wbr>包み込むように<wbr>触れる<wbr>ケア）も、<wbr>ボディケアとして<wbr>ご案内しています。<wbr>料金は<wbr>お問い合わせください。</p>
+        <div class="extra tactile">
+          <b class="name">タクティールケア</b>
+          <p>スウェーデン生まれの、<wbr>手のひらで<wbr>やさしく包みこむように<wbr>触れるケアです。</p>
+          <p>ボディケアのひとつとして<wbr>ご案内しています。<wbr>料金は<wbr>お問い合わせください。</p>
+        </div>
         <!-- ボディケアの相談の入口・C案（2026/10/10。同日に作り直し：上の表の行そのものを選ぶ形に）：
              表の各行の印（コースは○で1つ、オプションは□でいくつでも）を押すと、合計の目安と時間の目安がここに出て、その内容を下書きにして LINE が開く。
              金額は表の数字を足すだけ（組み合わせの決まりは作らない）。JavaScript がないときは、印もこの箱も出ず、表と下の A案のボタンだけが出る -->
