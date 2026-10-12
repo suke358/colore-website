@@ -286,6 +286,7 @@ p{margin:0 0 1.2em}
 .toc a{display:inline-block;text-decoration:none;font-size:.82rem;letter-spacing:.1em;color:#efeadf;border:1px solid rgba(226,207,159,.5);border-radius:999px;padding:.45em 1.1em}
 .toc a:hover{border-color:var(--pink);color:var(--pink)}
 .menubtn{display:none}
+.nav .rsv,.menubtn{white-space:nowrap;flex-shrink:0}
 @media (max-width:860px){
   .menubtn{display:inline-flex;align-items:center;gap:6px;margin-left:10px;background:rgba(20,16,17,.55);color:#efeadf;border:1px solid rgba(226,207,159,.5);border-radius:999px;padding:.45em .95em;font:inherit;font-size:.8rem;letter-spacing:.1em;cursor:pointer}
   .menubtn i{display:block;width:14px;height:10px;border-top:1.5px solid currentColor;border-bottom:1.5px solid currentColor;position:relative}
@@ -401,6 +402,8 @@ p{margin:0 0 1.2em}
   .pick-act .ask-line .nw{white-space:normal}
   .pick-total>div{margin-right:18px}.pick-total output{font-size:1.4rem}.pick-act .ask-line{-webkit-flex:1 1 100%;flex:1 1 100%}
 }
+/* 10/12 ヘッダーの折り返し（スマホ） */
+@media (max-width:480px){.head .wrap{gap:8px}.brand{gap:8px;min-width:0}.brand img{width:40px;height:40px}.brand span{font-size:.68rem;letter-spacing:.06em;line-height:1.5}.nav .rsv{padding:.5em 1em;font-size:.8rem}.menubtn{margin-left:4px;padding:.45em .75em;letter-spacing:.04em}}
 </style>
 </head>
 <body>
@@ -411,7 +414,7 @@ p{margin:0 0 1.2em}
 
 <header class="head">
   <div class="wrap">
-    <a href="#top" class="brand" aria-label="colore トップへ"><img src="images/logo-pink.png" alt="colore" width="46" height="46"><span>よもぎ蒸し・脱毛サロン</span></a>
+    <a href="#top" class="brand" aria-label="colore トップへ"><img src="images/logo-pink.png" alt="colore" width="46" height="46"><span>よもぎ蒸し・<wbr>脱毛サロン</span></a>
     <nav class="nav" id="gnav" aria-label="ページ内">
       <a href="#greeting">ごあいさつ</a>
       <a href="#about">よもぎ蒸しとは</a>
@@ -516,7 +519,7 @@ p{margin:0 0 1.2em}
       </nav>
       <div class="menu-cards">
         <article class="card" id="m-yomogi">
-          <div class="photo"><img src="images/menu-yomogi-sq.jpg" alt="よもぎ蒸しの座椅子と壺" width="800" height="800" loading="lazy" style="object-position:50% 15%"></div>
+          <div class="photo"><img src="images/menu-yomogi-20261012.jpg" alt="よもぎ蒸しのマントと座椅子・壺（イメージ）" width="1200" height="800" loading="lazy"></div>
           <div class="card-body">
             <h3>よもぎ蒸し</h3>
             <p>よもぎなどの<wbr>薬草を<wbr>煮出した<wbr>蒸気を、<wbr>専用の<wbr>座椅子に<wbr>座って<wbr>マントの<wbr>中で<wbr>じっくり浴びる<wbr>温活メニューです。</p>
