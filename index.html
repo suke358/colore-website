@@ -229,6 +229,8 @@ p{margin:0 0 1.2em}
 .dm-t tr.dm-sub th{font-family:var(--gothic);font-size:.76rem;color:var(--stone);letter-spacing:.08em;padding:16px 2px 2px;border-bottom:0}
 .dm-note{font-size:.76rem;color:var(--stone);line-height:1.7;margin:10px 0 0}
 .dm-unit{font-family:var(--gothic);font-size:.68rem;color:var(--stone);letter-spacing:0;margin-left:.3em;font-weight:400}
+.dm-lead{font-size:.86rem;color:var(--stone);line-height:1.8;margin:0 0 10px}
+.dm-lead b{font-weight:600;color:var(--pink-deep)}  /* ボディケアの表の札と同じ色 */
 /* たたむ（details）。最初は閉じる。印は ▸／▾ の文字だけ。動きなし */
 .dm-d summary{cursor:pointer;list-style:none;font-size:.92rem;letter-spacing:.06em;color:var(--forest);background:var(--cream);border:1px solid var(--line-light);border-radius:12px;padding:.8em 1em;min-height:44px;box-sizing:border-box}
 .dm-d summary::-webkit-details-marker{display:none}
@@ -581,13 +583,15 @@ p{margin:0 0 1.2em}
             <p>ムダ毛の<wbr>お手入れ、<wbr>お顔の<wbr>ケア、<wbr>バストアップ。<wbr>よもぎ蒸しと<wbr>組み合わせての<wbr>ご利用も<wbr>おすすめです。</p>
             <!-- 脱毛の料金表（2026/10/12 しほさんから）。details でたたむ（最初は閉じる）。女性／男性の切りかえは下の JS。JS がないときは開けば両方が縦に並ぶ。スマホも4列のまま（縦に長くしない） -->
             <div class="dm" id="datsumo-price">
+              <!-- 閉じていても見える1行（2026/10/12 しほさんから） -->
+              <p class="dm-lead">はじめての<wbr>方は<b class="nw">初回20%OFF</b>／<wbr><b class="nw">回数券（5回・10回）</b>も<wbr>ご用意しています。<wbr>くわしくは<wbr>お気軽に<wbr>お問い合わせください。</p>
               <details class="dm-d">
               <summary>脱毛の料金表を見る（女性・男性）</summary>
               <div class="dm-sw" role="group" aria-label="料金表の切りかえ"><button type="button" class="dm-btn" data-dm="f" aria-pressed="true">女性</button><button type="button" class="dm-btn" data-dm="m" aria-pressed="false">男性</button></div>
               <div class="dm-tbl" id="dm-f">
               <h4>女性の脱毛</h4>
             <table class="tbl dm-t">
-              <thead><tr><th scope="col">部位<span class="dm-unit">（円・税込）</span></th><th scope="col" class="yen">1回</th><th scope="col" class="yen">5回</th><th scope="col" class="yen">10回</th></tr></thead>
+              <thead><tr><th scope="col">部位<span class="dm-unit">（円・税込）</span></th><th scope="col" class="yen">1回</th><th scope="col" class="yen">5回券</th><th scope="col" class="yen">10回券</th></tr></thead>
               <tbody>
               <tr><th scope="row">Sパーツ<small>ワキ・<wbr>手指・<wbr>足指・<wbr>口周りなど</small></th><td class="yen" data-l="1回">3,000</td><td class="yen" data-l="5回">13,500</td><td class="yen" data-l="10回">25,000</td></tr>
               <tr><th scope="row">Mパーツ<small>ひじ下・<wbr>ひざ下・<wbr>うなじなど</small></th><td class="yen" data-l="1回">6,000</td><td class="yen" data-l="5回">27,000</td><td class="yen" data-l="10回">50,000</td></tr>
@@ -602,7 +606,7 @@ p{margin:0 0 1.2em}
               <div class="dm-tbl" id="dm-m">
               <h4>男性の脱毛</h4>
             <table class="tbl dm-t">
-              <thead><tr><th scope="col">部位<span class="dm-unit">（円・税込）</span></th><th scope="col" class="yen">1回</th><th scope="col" class="yen">5回</th><th scope="col" class="yen">10回</th></tr></thead>
+              <thead><tr><th scope="col">部位<span class="dm-unit">（円・税込）</span></th><th scope="col" class="yen">1回</th><th scope="col" class="yen">5回券</th><th scope="col" class="yen">10回券</th></tr></thead>
               <tbody>
               <tr><th scope="row">Sパーツ<small>ワキ・<wbr>手指・<wbr>足指・<wbr>口周りなど</small></th><td class="yen" data-l="1回">3,000</td><td class="yen" data-l="5回">13,500</td><td class="yen" data-l="10回">25,000</td></tr>
               <tr><th scope="row">Mパーツ<small>ひじ下・<wbr>ひじ上・<wbr>ひざ下・<wbr>うなじなど</small></th><td class="yen" data-l="1回">6,000</td><td class="yen" data-l="5回">27,000</td><td class="yen" data-l="10回">50,000</td></tr>
