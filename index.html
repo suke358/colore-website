@@ -363,6 +363,9 @@ p{margin:0 0 1.2em}
 .faq .q{background:var(--pink);color:#fff}
 .faq .a{background:var(--pink-pale);color:var(--pink-deep)}
 /* ---------- メニュー・料金の見やすさ（2026/10/8。前の版は v2/） ---------- */
+/* メニューの見出しの下の1行（2026/10/12 しほさんから。動きは付けない） */
+.menu-lead{text-align:center;font-size:.92rem;color:var(--stone);line-height:1.8;margin:-28px auto 28px;max-width:640px}
+.menu-lead b{font-weight:600;color:var(--pink-deep)}  /* ボディケアの表の札と同じ色 */
 .menu-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:-8px auto 36px;max-width:640px}
 .menu-tabs a{text-decoration:none;font-size:.86rem;letter-spacing:.08em;color:var(--forest);background:#fff;border:1px solid var(--line-light);border-radius:999px;padding:.5em 1.2em;box-shadow:0 2px 8px rgba(58,51,48,.05)}
 .menu-tabs a:hover{border-color:var(--pink);color:var(--pink-deep)}
@@ -561,6 +564,8 @@ p{margin:0 0 1.2em}
   <section id="menu" class="sec menu">
     <div class="wrap">
       <div class="sec-head center"><i><svg class="heart"><use href="#h"/></svg>menu</i><h2>メニュー・料金</h2></div>
+      <!-- 見出しの下の1行（2026/10/12 しほさんから） -->
+      <p class="menu-lead"><b class="nw">はじめてご来店の方は20%OFF</b>。<wbr>くわしくは<wbr>お気軽に<wbr>お問い合わせください。</p>
       <nav class="menu-tabs" aria-label="メニューの種類">
         <a href="#m-yomogi">よもぎ蒸し</a><a href="#m-datsumo">脱毛・<wbr>フェイシャル・<wbr>バストアップ</a><a href="#m-body">ボディケア</a>
       </nav>
@@ -584,7 +589,7 @@ p{margin:0 0 1.2em}
             <!-- 脱毛の料金表（2026/10/12 しほさんから）。details でたたむ（最初は閉じる）。女性／男性の切りかえは下の JS。JS がないときは開けば両方が縦に並ぶ。スマホも4列のまま（縦に長くしない） -->
             <div class="dm" id="datsumo-price">
               <!-- 閉じていても見える1行（2026/10/12 しほさんから） -->
-              <p class="dm-lead">はじめての<wbr>方は<b class="nw">初回20%OFF</b>／<wbr><b class="nw">回数券（5回・10回）</b>も<wbr>ご用意しています。<wbr>くわしくは<wbr>お気軽に<wbr>お問い合わせください。</p>
+              <p class="dm-lead"><b class="nw">回数券（5回・10回）</b>も<wbr>ご用意しています。</p>
               <details class="dm-d">
               <summary>脱毛の料金表を見る（女性・男性）</summary>
               <div class="dm-sw" role="group" aria-label="料金表の切りかえ"><button type="button" class="dm-btn" data-dm="f" aria-pressed="true">女性</button><button type="button" class="dm-btn" data-dm="m" aria-pressed="false">男性</button></div>
