@@ -179,7 +179,7 @@ p{margin:0 0 1.2em}
 @media (max-width:860px){.about .wrap{grid-template-columns:1fr;gap:40px}.about-lead{font-size:1.12rem;padding-left:20px}.gallery{grid-template-columns:1fr;margin-top:44px}}
 
 /* ---------- メニュー・料金 ---------- */
-.menu-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.menu-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:860px;margin-left:auto;margin-right:auto;margin-inline:auto}
 .card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 10px 30px rgba(58,51,48,.07);display:flex;flex-direction:column}
 .card .photo{border-radius:0;aspect-ratio:4/3}
 .card-body{padding:26px 26px 30px;display:flex;flex-direction:column;flex:1}
@@ -215,7 +215,7 @@ p{margin:0 0 1.2em}
 .way{background:var(--forest-2);border:1px solid var(--line-dark);border-radius:var(--r);padding:34px 22px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .way h3{font-size:1rem;letter-spacing:.2em;color:var(--gold-soft);margin-bottom:6px}
 .way p{font-size:.85rem;color:#cdd0c6;line-height:1.8;margin-bottom:18px}
-.way .btn{width:100%;margin-top:auto}
+.way .btn{width:100%;margin-top:auto}.way .soon-text{margin:auto 0 0;font-size:.95rem;letter-spacing:.2em;color:#cdd0c6}
 .tel{font-family:var(--latin);font-size:1.9rem;letter-spacing:.06em;text-decoration:none;color:#fbf7ef;line-height:1.3;margin-top:auto}
 .rules{margin:40px auto 0;max-width:680px;border:1px solid var(--line-dark);border-radius:var(--r);padding:26px 30px;font-size:.9rem}
 .rules h4{font-family:var(--mincho);font-weight:500;color:var(--gold-soft);letter-spacing:.16em;margin:0 0 10px;font-size:1rem}
@@ -319,7 +319,7 @@ p{margin:0 0 1.2em}
 .menu-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:-8px auto 36px;max-width:640px}
 .menu-tabs a{text-decoration:none;font-size:.86rem;letter-spacing:.08em;color:var(--forest);background:#fff;border:1px solid var(--line-light);border-radius:999px;padding:.5em 1.2em;box-shadow:0 2px 8px rgba(58,51,48,.05)}
 .menu-tabs a:hover{border-color:var(--pink);color:var(--pink-deep)}
-#m-yomogi,#m-datsumo,#m-other,#m-body{scroll-margin-top:16px}
+#m-yomogi,#m-datsumo,#m-body{scroll-margin-top:16px}
 .tbl.course th{font-size:1.08rem}
 .tbl.course td.yen{font-size:1.25rem}
 .tbl.course .tag{display:inline-block;margin-left:.6em;font-family:var(--gothic);font-size:.68rem;letter-spacing:.06em;background:var(--pink-pale);color:var(--pink-deep);border-radius:999px;padding:.1em .7em;vertical-align:.15em;white-space:nowrap}
@@ -515,7 +515,7 @@ p{margin:0 0 1.2em}
     <div class="wrap">
       <div class="sec-head center"><i><svg class="heart"><use href="#h"/></svg>menu</i><h2>メニュー・料金</h2></div>
       <nav class="menu-tabs" aria-label="メニューの種類">
-        <a href="#m-yomogi">よもぎ蒸し</a><a href="#m-datsumo">脱毛・<wbr>フェイシャル</a><a href="#m-body">ボディケア</a><a href="#m-other">そのほか</a>
+        <a href="#m-yomogi">よもぎ蒸し</a><a href="#m-datsumo">脱毛・<wbr>フェイシャル・<wbr>バストアップ</a><a href="#m-body">ボディケア</a>
       </nav>
       <div class="menu-cards">
         <article class="card" id="m-yomogi">
@@ -531,20 +531,11 @@ p{margin:0 0 1.2em}
         <article class="card" id="m-datsumo">
           <div class="photo"><img src="images/menu-datsumo.jpg" alt="脱毛の機器がある施術スペース" width="800" height="600" loading="lazy"></div>
           <div class="card-body">
-            <h3>脱毛・フェイシャル</h3>
-            <p>ムダ毛の<wbr>お手入れと、<wbr>お顔の<wbr>ケア。<wbr>よもぎ蒸しと<wbr>組み合わせての<wbr>ご利用も<wbr>おすすめです。</p>
+            <h3>脱毛・<wbr>フェイシャル・<wbr>バストアップ</h3>
+            <ul class="sub-items"><li>脱毛</li><li>フェイシャル</li><li>バストアップ</li></ul>
+            <p>ムダ毛の<wbr>お手入れ、<wbr>お顔の<wbr>ケア、<wbr>バストアップ。<wbr>よもぎ蒸しと<wbr>組み合わせての<wbr>ご利用も<wbr>おすすめです。</p>
             <div class="price"><span class="ask">料金は<wbr>お問い合わせください</span></div>
             <a class="ask-line" href="https://line.me/R/oaMessage/%40224ybmlu/?%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E8%A6%8B%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%E8%84%B1%E6%AF%9B%E3%83%BB%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B7%E3%83%A3%E3%83%AB%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%9B%B8%E8%AB%87%E3%81%97%E3%81%9F%E3%81%84%E3%81%A7%E3%81%99%E3%80%82" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg><span class="nw">このメニューをLINEで相談</span></a>
-          </div>
-        </article>
-        <article class="card" id="m-other">
-          <div class="photo"><img src="images/menu-body.jpg" alt="施術用のベッド" width="800" height="600" loading="lazy"></div>
-          <div class="card-body">
-            <h3>その<wbr>ほかの<wbr>ケア</h3>
-            <ul class="sub-items"><li>バストアップ</li><li>タクティールケア</li></ul>
-            <p>タクティールケアは、<wbr>スウェーデン発祥の、<wbr>手の<wbr>ひらで<wbr>やさしく<wbr>包み込むように<wbr>触れる<wbr>ケアです。</p>
-            <div class="price"><span class="ask">料金は<wbr>お問い合わせください</span></div>
-            <a class="ask-line" href="https://line.me/R/oaMessage/%40224ybmlu/?%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E8%A6%8B%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%E3%83%90%E3%82%B9%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E3%83%BB%E3%82%BF%E3%82%AF%E3%83%86%E3%82%A3%E3%83%BC%E3%83%AB%E3%82%B1%E3%82%A2%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%9B%B8%E8%AB%87%E3%81%97%E3%81%9F%E3%81%84%E3%81%A7%E3%81%99%E3%80%82" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg><span class="nw">このメニューをLINEで相談</span></a>
           </div>
         </article>
       </div>
@@ -573,6 +564,8 @@ p{margin:0 0 1.2em}
             <p class="extra">オイルマッサージを<wbr>ご利用の<wbr>方は、<wbr>シャワーを<wbr>無料で<wbr>お使いいただけます。</p>
           </div>
         </div>
+        <!-- タクティールケア（2026/10/12 「そのほかのケア」からボディケアへ） -->
+        <p class="extra tactile">タクティールケア（スウェーデン発祥の、<wbr>手の<wbr>ひらで<wbr>やさしく<wbr>包み込むように<wbr>触れる<wbr>ケア）も、<wbr>ボディケアとして<wbr>ご案内しています。<wbr>料金は<wbr>お問い合わせください。</p>
         <!-- ボディケアの相談の入口・C案（2026/10/10。同日に作り直し：上の表の行そのものを選ぶ形に）：
              表の各行の印（コースは○で1つ、オプションは□でいくつでも）を押すと、合計の目安と時間の目安がここに出て、その内容を下書きにして LINE が開く。
              金額は表の数字を足すだけ（組み合わせの決まりは作らない）。JavaScript がないときは、印もこの箱も出ず、表と下の A案のボタンだけが出る -->
@@ -613,10 +606,8 @@ p{margin:0 0 1.2em}
         </div>
         <div class="way">
           <h3>ネット予約</h3>
-          <p>空いている<wbr>日時を<wbr>見て、<br>24時間いつでも<wbr>ご予約いただけます。</p>
-          <!-- RESERVA の予約ページURLに差し替える -->
-          <a class="btn btn-pink soon" href="#reserve" aria-disabled="true">ネットで<wbr>予約する</a>
-          <span class="soon-tag" style="color:#cdd0c6">（ただいま準備中です）</span>
+          <!-- RESERVA を始めるまでは「準備中」とだけ出す（ボタン・リンクは出さない。2026/10/12 決定）。始めたら、ここに予約ページへの btn btn-pink を置く -->
+          <p class="soon-text">準備中</p>
         </div>
       </div>
       <div class="rules">
