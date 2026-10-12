@@ -228,21 +228,30 @@ p{margin:0 0 1.2em}
 .dm-t td.yen{font-size:.95rem;width:auto;padding:10px 2px 10px 6px}
 .dm-t tr.dm-sub th{font-family:var(--gothic);font-size:.76rem;color:var(--stone);letter-spacing:.08em;padding:16px 2px 2px;border-bottom:0}
 .dm-note{font-size:.76rem;color:var(--stone);line-height:1.7;margin:10px 0 0}
+.dm-unit{font-family:var(--gothic);font-size:.68rem;color:var(--stone);letter-spacing:0;margin-left:.3em;font-weight:400}
+/* たたむ（details）。最初は閉じる。印は ▸／▾ の文字だけ。動きなし */
+.dm-d summary{cursor:pointer;list-style:none;font-size:.92rem;letter-spacing:.06em;color:var(--forest);background:var(--cream);border:1px solid var(--line-light);border-radius:12px;padding:.8em 1em;min-height:44px;box-sizing:border-box}
+.dm-d summary::-webkit-details-marker{display:none}
+.dm-d summary::before{content:"▸";display:inline-block;width:1.2em;color:var(--pink-deep)}
+.dm-d[open] summary::before{content:"▾"}
+.dm-d[open] summary{margin-bottom:12px}
 .dm-face{border-top:1px dashed var(--line-light);margin-top:14px;padding-top:12px;font-family:var(--mincho);display:flex;display:-webkit-flex;flex-wrap:wrap;-webkit-flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px}
 .dm-face b{font-weight:500;letter-spacing:.12em;color:var(--forest)}
 .dm-face .y{font-size:1.25rem;color:var(--forest);letter-spacing:.04em}
 .dm-face small{font-family:var(--gothic);font-size:.76rem;color:var(--stone);width:100%}
 .card .dm-note{margin-bottom:0}
+.card .price small{white-space:nowrap;flex-shrink:0;-webkit-flex-shrink:0}  /* 「バストアップ」が言葉の途中で折れないように（幅 320） */
 @media (max-width:640px){
-  /* スマホは1行＝部位の名前、その下に 1回・5回・10回 を3つ並べる（表の見出し行は出さず、金額の上に小さく回数） */
-  .dm-t thead{display:none}
-  .dm-t tbody tr{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line-light);padding:10px 0}
-  .dm-t tbody th{grid-column:1/-1;border:0;padding:0 0 4px}
-  .dm-t td.yen{border:0;padding:0 2px;text-align:left;font-size:.92rem}
-  .dm-t td.yen::before{content:attr(data-l);display:block;font-family:var(--gothic);font-size:.68rem;color:var(--stone);letter-spacing:.04em}
-  .dm-t tr.dm-sub{border-bottom:0;padding:12px 0 0}
-  .dm-t tr.dm-sub th{padding:0 0 2px}
+  /* スマホも 部位｜1回｜5回｜10回 の4列のまま（縦に長くしない）。字と余白を小さくして幅 320 でもはみ出さないように */
+  .dm-t thead th{font-size:.64rem;padding:0 1px 5px;letter-spacing:0}
+  .dm-t tbody th{font-size:.84rem;letter-spacing:0;padding:8px 1px;line-height:1.4}
+  .dm-t tbody th small{font-size:.62rem;line-height:1.4}
+  .dm-t td.yen{font-size:.84rem;padding:8px 0 8px 4px;letter-spacing:0}
+  .dm-t tr.dm-sub th{padding:12px 1px 2px}
+  .dm-unit{display:block;margin-left:0}
   .dm-btn{font-size:.86rem;padding:.4em 1.2em}
+  .dm-d summary{font-size:.88rem}
+}
 }
 
 /* ---------- ご予約 ---------- */
@@ -570,43 +579,46 @@ p{margin:0 0 1.2em}
             <h3>脱毛・<wbr>フェイシャル・<wbr>バストアップ</h3>
             <ul class="sub-items"><li>脱毛</li><li>フェイシャル</li><li>バストアップ</li></ul>
             <p>ムダ毛の<wbr>お手入れ、<wbr>お顔の<wbr>ケア、<wbr>バストアップ。<wbr>よもぎ蒸しと<wbr>組み合わせての<wbr>ご利用も<wbr>おすすめです。</p>
-            <!-- 脱毛の料金表（2026/10/12 しほさんから）。女性／男性の切りかえは下の JS。JS がないときは両方が縦に並ぶ -->
+            <!-- 脱毛の料金表（2026/10/12 しほさんから）。details でたたむ（最初は閉じる）。女性／男性の切りかえは下の JS。JS がないときは開けば両方が縦に並ぶ。スマホも4列のまま（縦に長くしない） -->
             <div class="dm" id="datsumo-price">
+              <details class="dm-d">
+              <summary>脱毛の料金表を見る（女性・男性）</summary>
               <div class="dm-sw" role="group" aria-label="料金表の切りかえ"><button type="button" class="dm-btn" data-dm="f" aria-pressed="true">女性</button><button type="button" class="dm-btn" data-dm="m" aria-pressed="false">男性</button></div>
               <div class="dm-tbl" id="dm-f">
               <h4>女性の脱毛</h4>
             <table class="tbl dm-t">
-              <thead><tr><th scope="col">部位</th><th scope="col" class="yen">1回</th><th scope="col" class="yen">5回</th><th scope="col" class="yen">10回</th></tr></thead>
+              <thead><tr><th scope="col">部位<span class="dm-unit">（円・税込）</span></th><th scope="col" class="yen">1回</th><th scope="col" class="yen">5回</th><th scope="col" class="yen">10回</th></tr></thead>
               <tbody>
-              <tr><th scope="row">Sパーツ<small>ワキ・<wbr>手指・<wbr>足指・<wbr>口周りなど</small></th><td class="yen" data-l="1回">3,000円</td><td class="yen" data-l="5回">13,500円</td><td class="yen" data-l="10回">25,000円</td></tr>
-              <tr><th scope="row">Mパーツ<small>ひじ下・<wbr>ひざ下・<wbr>うなじなど</small></th><td class="yen" data-l="1回">6,000円</td><td class="yen" data-l="5回">27,000円</td><td class="yen" data-l="10回">50,000円</td></tr>
-              <tr><th scope="row">Lパーツ<small>背中・<wbr>太もも・<wbr>お腹など</small></th><td class="yen" data-l="1回">9,000円</td><td class="yen" data-l="5回">40,000円</td><td class="yen" data-l="10回">75,000円</td></tr>
-              <tr><th scope="row">顔脱毛</th><td class="yen" data-l="1回">8,000円</td><td class="yen" data-l="5回">35,000円</td><td class="yen" data-l="10回">65,000円</td></tr>
-              <tr><th scope="row">VIO脱毛</th><td class="yen" data-l="1回">10,000円</td><td class="yen" data-l="5回">45,000円</td><td class="yen" data-l="10回">85,000円</td></tr>
-              <tr><th scope="row">全身脱毛<small>顔・<wbr>VIOなし</small></th><td class="yen" data-l="1回">18,000円</td><td class="yen" data-l="5回">80,000円</td><td class="yen" data-l="10回">150,000円</td></tr>
-              <tr><th scope="row">全身脱毛<small>顔・<wbr>VIO込み</small></th><td class="yen" data-l="1回">25,000円</td><td class="yen" data-l="5回">110,000円</td><td class="yen" data-l="10回">200,000円</td></tr>
+              <tr><th scope="row">Sパーツ<small>ワキ・<wbr>手指・<wbr>足指・<wbr>口周りなど</small></th><td class="yen" data-l="1回">3,000</td><td class="yen" data-l="5回">13,500</td><td class="yen" data-l="10回">25,000</td></tr>
+              <tr><th scope="row">Mパーツ<small>ひじ下・<wbr>ひざ下・<wbr>うなじなど</small></th><td class="yen" data-l="1回">6,000</td><td class="yen" data-l="5回">27,000</td><td class="yen" data-l="10回">50,000</td></tr>
+              <tr><th scope="row">Lパーツ<small>背中・<wbr>太もも・<wbr>お腹など</small></th><td class="yen" data-l="1回">9,000</td><td class="yen" data-l="5回">40,000</td><td class="yen" data-l="10回">75,000</td></tr>
+              <tr><th scope="row">顔脱毛</th><td class="yen" data-l="1回">8,000</td><td class="yen" data-l="5回">35,000</td><td class="yen" data-l="10回">65,000</td></tr>
+              <tr><th scope="row">VIO脱毛</th><td class="yen" data-l="1回">10,000</td><td class="yen" data-l="5回">45,000</td><td class="yen" data-l="10回">85,000</td></tr>
+              <tr><th scope="row">全身脱毛<small>顔・<wbr>VIOなし</small></th><td class="yen" data-l="1回">18,000</td><td class="yen" data-l="5回">80,000</td><td class="yen" data-l="10回">150,000</td></tr>
+              <tr><th scope="row">全身脱毛<small>顔・<wbr>VIO込み</small></th><td class="yen" data-l="1回">25,000</td><td class="yen" data-l="5回">110,000</td><td class="yen" data-l="10回">200,000</td></tr>
               </tbody>
             </table>
               </div>
               <div class="dm-tbl" id="dm-m">
               <h4>男性の脱毛</h4>
             <table class="tbl dm-t">
-              <thead><tr><th scope="col">部位</th><th scope="col" class="yen">1回</th><th scope="col" class="yen">5回</th><th scope="col" class="yen">10回</th></tr></thead>
+              <thead><tr><th scope="col">部位<span class="dm-unit">（円・税込）</span></th><th scope="col" class="yen">1回</th><th scope="col" class="yen">5回</th><th scope="col" class="yen">10回</th></tr></thead>
               <tbody>
-              <tr><th scope="row">Sパーツ<small>ワキ・<wbr>手指・<wbr>足指・<wbr>口周りなど</small></th><td class="yen" data-l="1回">3,000円</td><td class="yen" data-l="5回">13,500円</td><td class="yen" data-l="10回">25,000円</td></tr>
-              <tr><th scope="row">Mパーツ<small>ひじ下・<wbr>ひじ上・<wbr>ひざ下・<wbr>うなじなど</small></th><td class="yen" data-l="1回">6,000円</td><td class="yen" data-l="5回">27,000円</td><td class="yen" data-l="10回">50,000円</td></tr>
-              <tr><th scope="row">Lパーツ<small>胸・<wbr>お腹・<wbr>背中・<wbr>太もも・<wbr>お尻など</small></th><td class="yen" data-l="1回">9,000円</td><td class="yen" data-l="5回">40,000円</td><td class="yen" data-l="10回">75,000円</td></tr>
-              <tr><th scope="row">ヒゲ脱毛<small>鼻下・<wbr>あご・<wbr>あご下・<wbr>ほほ・<wbr>もみあげ</small></th><td class="yen" data-l="1回">8,000円</td><td class="yen" data-l="5回">35,000円</td><td class="yen" data-l="10回">65,000円</td></tr>
-              <tr><th scope="row">VIO脱毛<small>Vライン・<wbr>Iライン・<wbr>Oライン</small></th><td class="yen" data-l="1回">15,000円</td><td class="yen" data-l="5回">60,000円</td><td class="yen" data-l="10回">110,000円</td></tr>
-              <tr><th scope="row">全身脱毛<small>顔・<wbr>VIOなし</small></th><td class="yen" data-l="1回">20,000円</td><td class="yen" data-l="5回">90,000円</td><td class="yen" data-l="10回">160,000円</td></tr>
-              <tr><th scope="row">全身脱毛<small>顔・<wbr>VIO込み</small></th><td class="yen" data-l="1回">30,000円</td><td class="yen" data-l="5回">130,000円</td><td class="yen" data-l="10回">240,000円</td></tr>
+              <tr><th scope="row">Sパーツ<small>ワキ・<wbr>手指・<wbr>足指・<wbr>口周りなど</small></th><td class="yen" data-l="1回">3,000</td><td class="yen" data-l="5回">13,500</td><td class="yen" data-l="10回">25,000</td></tr>
+              <tr><th scope="row">Mパーツ<small>ひじ下・<wbr>ひじ上・<wbr>ひざ下・<wbr>うなじなど</small></th><td class="yen" data-l="1回">6,000</td><td class="yen" data-l="5回">27,000</td><td class="yen" data-l="10回">50,000</td></tr>
+              <tr><th scope="row">Lパーツ<small>胸・<wbr>お腹・<wbr>背中・<wbr>太もも・<wbr>お尻など</small></th><td class="yen" data-l="1回">9,000</td><td class="yen" data-l="5回">40,000</td><td class="yen" data-l="10回">75,000</td></tr>
+              <tr><th scope="row">ヒゲ脱毛<small>鼻下・<wbr>あご・<wbr>あご下・<wbr>ほほ・<wbr>もみあげ</small></th><td class="yen" data-l="1回">8,000</td><td class="yen" data-l="5回">35,000</td><td class="yen" data-l="10回">65,000</td></tr>
+              <tr><th scope="row">VIO脱毛<small>Vライン・<wbr>Iライン・<wbr>Oライン</small></th><td class="yen" data-l="1回">15,000</td><td class="yen" data-l="5回">60,000</td><td class="yen" data-l="10回">110,000</td></tr>
+              <tr><th scope="row">全身脱毛<small>顔・<wbr>VIOなし</small></th><td class="yen" data-l="1回">20,000</td><td class="yen" data-l="5回">90,000</td><td class="yen" data-l="10回">160,000</td></tr>
+              <tr><th scope="row">全身脱毛<small>顔・<wbr>VIO込み</small></th><td class="yen" data-l="1回">30,000</td><td class="yen" data-l="5回">130,000</td><td class="yen" data-l="10回">240,000</td></tr>
               <tr class="dm-sub"><th colspan="4">セットメニュー</th></tr>
-              <tr><th scope="row">上半身セット<small>胸・<wbr>お腹・<wbr>ワキ・<wbr>ひじ上・<wbr>ひじ下</small></th><td class="yen" data-l="1回">18,000円</td><td class="yen" data-l="5回">80,000円</td><td class="yen" data-l="10回">140,000円</td></tr>
-              <tr><th scope="row">下半身セット<small>お尻・<wbr>Vライン・<wbr>ひざ上・<wbr>ひざ下</small></th><td class="yen" data-l="1回">18,000円</td><td class="yen" data-l="5回">80,000円</td><td class="yen" data-l="10回">140,000円</td></tr>
+              <tr><th scope="row">上半身セット<small>胸・<wbr>お腹・<wbr>ワキ・<wbr>ひじ上・<wbr>ひじ下</small></th><td class="yen" data-l="1回">18,000</td><td class="yen" data-l="5回">80,000</td><td class="yen" data-l="10回">140,000</td></tr>
+              <tr><th scope="row">下半身セット<small>お尻・<wbr>Vライン・<wbr>ひざ上・<wbr>ひざ下</small></th><td class="yen" data-l="1回">18,000</td><td class="yen" data-l="5回">80,000</td><td class="yen" data-l="10回">140,000</td></tr>
               </tbody>
             </table>
               </div>
               <p class="dm-note">※表示価格は<wbr>すべて<wbr>税込です。<wbr>ご不明な点は<wbr>お気軽に<wbr>お問い合わせください。</p>
+              </details>
               <div class="dm-face"><b>フェイシャル</b><span class="y">5,500円</span><small>時間は<wbr>お問い合わせください</small></div>
             </div>
             <div class="price"><small>バストアップ</small><span class="ask">料金は<wbr>お問い合わせください</span></div>
