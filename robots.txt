@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://colore-yomogi.com/sitemap.xml

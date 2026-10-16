@@ -1,10 +1,16 @@
 // Cloudflare（クラウドフレア）でこのサイトを公開するための設定ファイル
-// サイトのファイル（index.html・images など）をそのまま置くだけの設定
+// サイトのファイル（index.html・images など）をそのまま置く設定 ＋ 名刺の QR の転送（worker.js）
 {
   "name": "colore-website",
   "compatibility_date": "2026-10-01",
+  // 転送のコード（仮の住所 colore-website.…workers.dev で来た人だけを colore-yomogi.com へ 301）。2026/10/16
+  "main": "worker.js",
   "assets": {
-    "directory": "./"
+    "directory": "./",
+    // worker.js からサイトのファイルを返すときの名前（env.ASSETS）
+    "binding": "ASSETS",
+    // どのページも先に worker.js を通す（通さないと、index.html があるページでは転送が動かない）
+    "run_worker_first": true
   },
   // ブランチごとの確認用ページ（プレビュー）を作るための設定。本番には関係しない（2026/10/10）
   "previews": {}
