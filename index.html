@@ -356,7 +356,9 @@ p{margin:0 0 1.2em}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";position:absolute;right:20px;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);color:var(--pink-deep);font-size:1.3rem;font-family:var(--gothic)}
 .faq details[open] summary::after{content:"−"}
-.faq p{margin:0;padding:0 20px 20px 20px;display:flex;gap:14px;color:var(--stone);font-size:.94rem;line-height:1.9}
+/* 答えの p は flex にしない（flex だと中の <span class="nw"> が別の列になって縦に崩れた。2026/10/21）。A の丸は左に置き、文は1つのまとまりで折り返す */
+.faq p{margin:0;padding:0 20px 20px 64px;position:relative;color:var(--stone);font-size:.94rem;line-height:1.9}
+.faq p .a{position:absolute;left:20px;top:0}
 .faq .q,.faq .a{flex:none;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-family:var(--latin);font-style:italic;font-size:1rem}
 .faq .q{background:var(--pink);color:#fff}
 .faq .a{background:var(--pink-pale);color:var(--pink-deep)}
