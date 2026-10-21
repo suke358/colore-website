@@ -147,6 +147,7 @@ p{margin:0 0 1.2em}
 .sec-head{margin-bottom:52px}
 .sec-head i{display:flex;align-items:center;gap:.5em;font-family:var(--latin);font-style:italic;font-size:1.1rem;color:var(--pink-deep);letter-spacing:.08em;margin-bottom:4px}
 .dark .sec-head i{color:var(--pink)}
+.sec-head i .amp{font-style:normal;font-weight:inherit}  /* Q&A の & だけ斜めにしない（斜めだと化けて見える。2026/10/21） */
 .sec-head h2{font-size:clamp(1.5rem,2.8vw,2rem);letter-spacing:.14em}
 .center{text-align:center}
 .center .sec-head i,.sec-head.center i{justify-content:center}
@@ -767,7 +768,7 @@ p{margin:0 0 1.2em}
   <!-- よくある質問（2026/10/8。分かっている情報だけで作った。増えたら足す） -->
   <section id="faq" class="sec faq">
     <div class="wrap">
-      <div class="sec-head center"><i><svg class="heart"><use href="#h"/></svg>q &amp; a</i><h2>よくある<wbr>ご質問</h2></div>
+      <div class="sec-head center"><i><svg class="heart"><use href="#h"/></svg><span>Q<b class="amp">&amp;</b>A</span><svg class="heart"><use href="#h"/></svg></i><h2>よくある<wbr>ご質問</h2></div>
       <div class="faq-list">
         <details><summary><span class="q">Q</span>男性も<wbr>利用できますか？</summary><p><span class="a">A</span>はい、男性の方も<wbr>ご利用いただけます。</p></details>
         <details><summary><span class="q">Q</span>駐車場は<wbr>ありますか？</summary><p><span class="a">A</span>あります（15番）。<wbr>お車でお越しの<wbr>際はご利用ください。</p></details>
