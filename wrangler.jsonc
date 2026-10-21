@@ -10,7 +10,9 @@
     // worker.js からサイトのファイルを返すときの名前（env.ASSETS）
     "binding": "ASSETS",
     // どのページも先に worker.js を通す（通さないと、index.html があるページでは転送が動かない）
-    "run_worker_first": true
+    "run_worker_first": true,
+    // 無い住所のときは 404.html を「404」の印のまま返す（2026/10/21 決定事項 08）
+    "not_found_handling": "404-page"
   },
   // ブランチごとの確認用ページ（プレビュー）を作るための設定。本番には関係しない（2026/10/10）
   "previews": {}
