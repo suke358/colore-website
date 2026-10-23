@@ -97,7 +97,7 @@ p{margin:0 0 1.2em}
 .head .wrap{display:flex;justify-content:space-between;align-items:center;height:84px;color:#efeadf}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand img{width:46px;height:46px;border-radius:10px}
-.brand span{font-size:.78rem;letter-spacing:.2em;color:var(--gold-soft)}
+.brand span{font-size:.78rem;letter-spacing:.2em;color:var(--gold-soft);white-space:nowrap}
 .nav{display:flex;gap:26px;align-items:center;font-size:.86rem}
 .nav a{text-decoration:none;opacity:.88}
 .nav a:hover{opacity:1;color:var(--pink)}
@@ -456,7 +456,7 @@ p{margin:0 0 1.2em}
   .pick-total>div{margin-right:18px}.pick-total output{font-size:1.4rem}.pick-act .ask-line{-webkit-flex:1 1 100%;flex:1 1 100%}
 }
 /* 10/12 ヘッダーの折り返し（スマホ） */
-@media (max-width:480px){.head .wrap{gap:8px}.brand{gap:8px;min-width:0}.brand img{width:40px;height:40px}.brand span{font-size:.6rem;letter-spacing:.06em;line-height:1.5;word-break:keep-all}.nav .rsv{padding:.5em 1em;font-size:.8rem}.menubtn{margin-left:4px;padding:.45em .75em;letter-spacing:.04em}}
+@media (max-width:480px){.head .wrap{gap:8px}.brand{gap:8px;min-width:0}.brand img{width:40px;height:40px}.brand span{font-size:.58rem;letter-spacing:.06em;line-height:1.5}.nav .rsv{padding:.5em 1em;font-size:.8rem}.menubtn{margin-left:4px;padding:.45em .75em;letter-spacing:.04em}}
 </style>
 </head>
 <body>
@@ -483,7 +483,7 @@ p{margin:0 0 1.2em}
 
 <header class="head">
   <div class="wrap">
-    <a href="#top" class="brand" aria-label="colore トップへ"><img src="images/logo-pink.png" alt="colore" width="46" height="46"><span>防府市 <wbr>よもぎ蒸し・<wbr>脱毛サロン</span></a>
+    <a href="#top" class="brand" aria-label="colore トップへ"><img src="images/logo-pink.png" alt="colore" width="46" height="46"><span>防府市<br>よもぎ蒸し・脱毛サロン</span></a>
     <nav class="nav" id="gnav" aria-label="ページ内">
       <a href="#greeting">ごあいさつ</a>
       <a href="#about">よもぎ蒸しとは</a>
