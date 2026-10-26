@@ -1032,7 +1032,7 @@ button.yc-cd{cursor:pointer}
     for(var k in HOURS){if(HOURS.hasOwnProperty(k)){var a=k.split('-'),mi=monthIdx(+a[0],+a[1]-1);if(mi>MAXM)MAXM=mi;}}
     st.month=new Date(+ta[0],+ta[1]-1,1);
     if(d.taxNote){$('ycTaxText').textContent=d.taxNote;$('ycTax').hidden=false;}
-    $('ycOther').textContent='※空きは、選んだメニューの目安です。'+(d.otherMenusNote||'');
+    $('ycOther').innerHTML='<span class="yc-ln"><span class="yc-ck">※空きは目安です。</span></span>'+(d.otherMenusNote?'<span class="yc-ln"><span class="yc-ck">※'+esc(d.otherMenusNote).split('、').join('、</span><span class="yc-ck">')+'</span></span>':'');
     $('ycFb').hidden=true;$('ycHint').textContent='① 上のメニューを、1つ押してください';$('ycHint').hidden=false;
     drawMenus();
   }
