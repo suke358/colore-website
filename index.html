@@ -280,8 +280,8 @@ p{margin:0 0 1.2em}
 .yc-menus button small{display:block;font-size:.78rem;color:#b9bdb2;line-height:1.5;margin-top:1px}
 .yc-menus button .yc-pick{margin-left:10px;border:1.5px solid var(--pink);color:var(--pink);border-radius:20px;padding:5px 14px;font-size:.84rem;font-weight:700;line-height:1.3;white-space:nowrap;-webkit-box-flex:0;-webkit-flex:none;flex:none}
 .yc-menus button:active{background:rgba(254,151,178,.22)}
-.yc-menus button.on{background:rgba(254,151,178,.18);border-color:var(--pink);color:#fff}.yc-menus button.on small{color:var(--gold-soft)}.yc-menus button.on .yc-pick{background:var(--pink);color:#3a2830}
-.yc-menus button.sub{min-height:58px;margin:0 0 10px 18px;width:calc(100% - 18px);background:rgba(0,0,0,.18);border-style:dashed}.yc-menus button.sub.on{background:rgba(254,151,178,.18);border-style:solid}.yc-menus button.sub .yc-mn{font-family:var(--gothic);font-size:1rem;letter-spacing:.04em}
+.yc-menus button.yc-on{background:rgba(254,151,178,.18);border-color:var(--pink);color:#fff}.yc-menus button.yc-on small{color:var(--gold-soft)}.yc-menus button.yc-on .yc-pick{background:var(--pink);color:#3a2830}
+.yc-menus button.yc-sub{min-height:58px;margin:0 0 10px 18px;width:calc(100% - 18px);background:rgba(0,0,0,.18);border-style:dashed}.yc-menus button.yc-sub.yc-on{background:rgba(254,151,178,.18);border-style:solid}.yc-menus button.yc-sub .yc-mn{font-family:var(--gothic);font-size:1rem;letter-spacing:.04em}
 .yc-note{font-size:.78rem;color:#b9bdb2;margin:10px 0 0}
 .yc-plink{color:var(--gold-soft);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 .yc-mnote{background:rgba(254,151,178,.14);border:1px solid var(--pink);border-radius:10px;padding:9px 12px;color:#fbf7ef;font-size:.84rem;line-height:1.7;margin:8px 0 18px;text-align:left}
@@ -295,11 +295,11 @@ p{margin:0 0 1.2em}
 .yc-cd{min-height:60px;border-radius:9px;border:1px solid transparent;padding:5px 0 0;display:block;font:inherit;line-height:1.5;background:none;color:var(--ink);width:100%}
 .yc-cd i{display:block;font-style:normal;font-size:.75rem;line-height:15px}.yc-cd u{display:block;text-decoration:none;font-size:1.06rem;font-weight:700;line-height:24px}
 button.yc-cd{cursor:pointer}
-.yc-cd.ok{background:#e8f3ea;border-color:#b7d6bd;color:#2b6a3b}
-.yc-cd.ng{background:#ececec;color:#8a8a8a}
-.yc-cd.off{color:#b9b2aa}.yc-cd.off u{font-size:.75rem;font-weight:400}
-.yc-cd.pad{visibility:hidden}
-.yc-cd.sel{outline:3px solid var(--pink-deep);outline-offset:-1px}
+.yc-cd.yc-ok{background:#e8f3ea;border-color:#b7d6bd;color:#2b6a3b}
+.yc-cd.yc-ng{background:#ececec;color:#8a8a8a}
+.yc-cd.yc-off{color:#b9b2aa}.yc-cd.yc-off u{font-size:.75rem;font-weight:400}
+.yc-cd.yc-pad{visibility:hidden}
+.yc-cd.yc-sel{outline:3px solid var(--pink-deep);outline-offset:-1px}
 .yc-leg{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:center;-webkit-justify-content:center;justify-content:center;font-size:.78rem;color:#cdd0c6;margin-top:12px}.yc-leg span{margin:3px 9px}.yc-leg b{color:#fbf7ef;margin-right:4px}
 .yc-panel{background:var(--cream);color:var(--ink);border-radius:14px;padding:16px 14px;margin-top:14px;text-align:left}
 .yc-panel h4{margin:0 0 8px;font-size:.97rem;font-family:var(--gothic);font-weight:700;letter-spacing:.04em}
@@ -310,7 +310,7 @@ button.yc-cd{cursor:pointer}
 .yc-fld input{display:block;width:100%;margin-top:4px;padding:12px;border:1px solid #d9cdbd;border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:16px;-webkit-appearance:none;appearance:none}
 .yc-chk{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-align:start;-webkit-align-items:flex-start;align-items:flex-start;font-size:.84rem;margin:4px 0 12px;line-height:1.7}.yc-chk input{width:22px;height:22px;margin:1px 10px 0 0;-webkit-box-flex:0;-webkit-flex:none;flex:none}
 .yc-btn{display:block;width:100%;min-height:50px;border:0;border-radius:26px;background:var(--pink-deep);color:#fff;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;appearance:none}
-.yc-btn[disabled]{background:#cfc8bf;color:#fff;cursor:default}.yc-btn.line{background:#fff;color:var(--pink-deep);border:2px solid var(--pink-deep);margin-top:10px}
+.yc-btn[disabled]{background:#cfc8bf;color:#fff;cursor:default}.yc-btn.yc-line{background:#fff;color:var(--pink-deep);border:2px solid var(--pink-deep);margin-top:10px}
 .yc-done{background:#fdeef2;border:1px solid var(--pink);border-radius:12px;padding:12px;margin:8px 0;font-size:.88rem}
 .yc-fb{background:rgba(255,255,255,.08);border:1px dashed var(--line-dark);border-radius:10px;padding:12px;color:#fbf7ef;font-size:.88rem;margin:6px 4px 0}
 .yc-alt{margin-top:14px}.yc-alt a{color:#cdd0c6}
@@ -942,10 +942,10 @@ button.yc-cd{cursor:pointer}
     var h='';
     for(var i=0;i<MENUS.length;i++){var m=MENUS[i],on=(st.top===m);
       var pk=m.group?(on?'選択中 ▴':'長さを選ぶ ▾'):(on?'選択中':'選ぶ');
-      h+='<button type="button" data-i="'+i+'"'+(on?' class="on" aria-pressed="true"':' aria-pressed="false"')+'><span class="yc-tx"><span class="yc-mn">'+esc(m.n)+'</span><small>'+(m.note||m.min+'分')+esc(priceText(m.price))+'</small></span><span class="yc-pick">'+pk+'</span></button>';
+      h+='<button type="button" data-i="'+i+'"'+(on?' class="yc-on" aria-pressed="true"':' aria-pressed="false"')+'><span class="yc-tx"><span class="yc-mn">'+esc(m.n)+'</span><small>'+(m.note||m.min+'分')+esc(priceText(m.price))+'</small></span><span class="yc-pick">'+pk+'</span></button>';
       if(on&&m.group){
         for(var k=0;k<m.group.length;k++){var g=m.group[k],so=st.menu&&st.menu.n===g.n;
-          h+='<button type="button" class="sub'+(so?' on':'')+'" data-j="'+k+'" aria-pressed="'+(so?'true':'false')+'"><span class="yc-tx"><span class="yc-mn">'+g.min+'分</span><small>'+esc(g.price)+'</small></span><span class="yc-pick">'+(so?'選択中':'選ぶ')+'</span></button>';}
+          h+='<button type="button" class="yc-sub'+(so?' yc-on':'')+'" data-j="'+k+'" aria-pressed="'+(so?'true':'false')+'"><span class="yc-tx"><span class="yc-mn">'+g.min+'分</span><small>'+esc(g.price)+'</small></span><span class="yc-pick">'+(so?'選択中':'選ぶ')+'</span></button>';}
       }
     }
     $('ycMenus').innerHTML=h;
@@ -957,15 +957,15 @@ button.yc-cd{cursor:pointer}
     $('ycPrev').disabled=(monthIdx(y,mo)<=MINM);$('ycNext').disabled=(monthIdx(y,mo)>=MAXM);
     var first=new Date(y,mo,1).getDay(),days=new Date(y,mo+1,0).getDate(),h='',w='日月火水木金土';
     for(var i=0;i<7;i++)h+='<div class="yc-cw">'+w.charAt(i)+'</div>';
-    for(var p=0;p<first;p++)h+='<div class="yc-cd pad"></div>';
+    for(var p=0;p<first;p++)h+='<div class="yc-cd yc-pad"></div>';
     for(var d=1;d<=days;d++){
       var k=key(y,mo,d);
-      if(k<TODAY){h+='<div class="yc-cd off"><i>'+d+'</i><u>–</u></div>';continue;}
-      if(!HOURS[k]){h+='<div class="yc-cd off" aria-label="'+(mo+1)+'月'+d+'日 お休み"><i>'+d+'</i><u>休</u></div>';continue;}
+      if(k<TODAY){h+='<div class="yc-cd yc-off"><i>'+d+'</i><u>–</u></div>';continue;}
+      if(!HOURS[k]){h+='<div class="yc-cd yc-off" aria-label="'+(mo+1)+'月'+d+'日 お休み"><i>'+d+'</i><u>休</u></div>';continue;}
       var n=starts(k,st.menu).length;
-      var sel=(st.date===k)?' sel':'';
-      if(n>0)h+='<button type="button" class="yc-cd ok'+sel+'" data-d="'+k+'" aria-label="'+(mo+1)+'月'+d+'日 空きあり"><i>'+d+'</i><u>○</u></button>';
-      else h+='<div class="yc-cd ng" aria-label="'+(mo+1)+'月'+d+'日 空きなし"><i>'+d+'</i><u>×</u></div>';
+      var sel=(st.date===k)?' yc-sel':'';
+      if(n>0)h+='<button type="button" class="yc-cd yc-ok'+sel+'" data-d="'+k+'" aria-label="'+(mo+1)+'月'+d+'日 空きあり"><i>'+d+'</i><u>○</u></button>';
+      else h+='<div class="yc-cd yc-ng" aria-label="'+(mo+1)+'月'+d+'日 空きなし"><i>'+d+'</i><u>×</u></div>';
     }
     $('ycG').innerHTML=h;
   }
@@ -989,7 +989,7 @@ button.yc-cd{cursor:pointer}
   }
   function showDone(){
     $('ycD').innerHTML='<h4>試作：実際には入りません</h4><div class="yc-done">'+jp(st.date)+' '+hm(st.time)+'〜<br>'+esc(st.menu.n)+'<br>ご来店から約'+slotOf(st.menu)+'分です（カウンセリング・お片づけを含む）</div>'+
-     '<p class="yc-note" style="color:#75695f">この画面は確認用で、何も保存・送信していません。ご予約は <a href="https://yoyaku-colore.liftoff-358.workers.dev/">予約ページ</a>・LINE・お電話からお願いします。</p><button type="button" class="yc-btn line" id="ycAgain">もう一度ためす</button>';
+     '<p class="yc-note" style="color:#75695f">この画面は確認用で、何も保存・送信していません。ご予約は <a href="https://yoyaku-colore.liftoff-358.workers.dev/">予約ページ</a>・LINE・お電話からお願いします。</p><button type="button" class="yc-btn yc-line" id="ycAgain">もう一度ためす</button>';
     $('ycD').hidden=false;see($('ycD'));
   }
   root.addEventListener('click',function(e){
