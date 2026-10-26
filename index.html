@@ -1048,7 +1048,7 @@ button.yc-cd{cursor:pointer}
     var slot=+j.slot||slotOf(st.menu);
     $('ycD').innerHTML='<h4>ご予約を受け付けました</h4><div class="yc-done">'+jp(st.date)+' '+hm(st.time)+'〜<br>'+esc(st.menu.n)+'<br><span class="yc-ck">ご来店から約'+slot+'分</span><span class="yc-ck">（カウンセリング・お片づけ含め）</span></div>'+
      '<p class="yc-note" style="color:#75695f"><span class="yc-ck">確認メールをお送りしました。</span><span class="yc-ck">届かないときは、</span><span class="yc-ck">迷惑メールフォルダをご確認のうえ、</span><span class="yc-ck">LINE かお電話でご連絡ください。</span></p><button type="button" class="yc-btn yc-line" id="ycAgain">別の予約をする</button>';
-    $('ycF').hidden=true;$('ycD').hidden=false;see($('ycD'));
+    hideBelow(1);$('ycD').hidden=false;see($('ycD'));   // 時間と入力の枠は閉じ、完了の画面だけに
   }
   root.addEventListener('click',function(e){
     var t=e.target,i=0;
