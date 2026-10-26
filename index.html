@@ -268,6 +268,58 @@ p{margin:0 0 1.2em}
 .rules h4{font-family:var(--mincho);font-weight:500;color:var(--gold-soft);letter-spacing:.16em;margin:0 0 10px;font-size:1rem}
 .rules ul{margin:0;padding-left:1.2em;color:#e3e0d6;line-height:2}
 @media (max-width:860px){.ways{grid-template-columns:1fr}.rules{padding:22px 20px}}
+/* ネット予約のカレンダー（HP の中で空きを見て、日時を選ぶ。2026/10/26。データは予約カレンダー yoyaku-colore の /api/days。予約の確定はまだつながない） */
+.yc{max-width:680px;margin:0 auto;line-height:1.8;letter-spacing:.02em;word-break:normal;overflow-wrap:break-word}   /* JS で作る文には <wbr> を入れられないので、この中だけふつうの折り返し */
+.yc-box{background:var(--forest-2);border:1px solid var(--line-dark);border-radius:var(--r);padding:28px 10px 22px;text-align:center;color:#e3e0d6}
+.yc-h{font-family:var(--gothic);font-size:1rem;letter-spacing:.2em;color:var(--gold-soft);margin:0 0 6px;font-weight:500}
+.yc-lead{font-size:.85rem;margin:0 6px 18px;color:#cdd0c6}
+.yc-menus{display:block;margin:0 4px 6px;text-align:left}
+.yc-menus button{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-box-align:center;-webkit-align-items:center;align-items:center;width:100%;min-height:70px;margin:0 0 10px;padding:10px 14px 10px 16px;border:1.5px solid rgba(226,207,159,.5);background:rgba(255,255,255,.08);color:#e3e0d6;border-radius:16px;font:inherit;line-height:1.5;letter-spacing:.02em;text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none}
+.yc-menus button .tx{display:block;text-align:left;min-width:0}
+.yc-menus button .mn{display:block;font-family:var(--mincho);font-size:1.1rem;letter-spacing:.06em;line-height:1.5}
+.yc-menus button small{display:block;font-size:.78rem;color:#b9bdb2;line-height:1.5;margin-top:1px}
+.yc-menus button .pick{margin-left:10px;border:1.5px solid var(--pink);color:var(--pink);border-radius:20px;padding:5px 14px;font-size:.84rem;font-weight:700;line-height:1.3;white-space:nowrap;-webkit-box-flex:0;-webkit-flex:none;flex:none}
+.yc-menus button:active{background:rgba(254,151,178,.22)}
+.yc-menus button.on{background:rgba(254,151,178,.18);border-color:var(--pink);color:#fff}.yc-menus button.on small{color:var(--gold-soft)}.yc-menus button.on .pick{background:var(--pink);color:#3a2830}
+.yc-menus button.sub{min-height:58px;margin:0 0 10px 18px;width:calc(100% - 18px);background:rgba(0,0,0,.18);border-style:dashed}.yc-menus button.sub.on{background:rgba(254,151,178,.18);border-style:solid}.yc-menus button.sub .mn{font-family:var(--gothic);font-size:1rem;letter-spacing:.04em}
+.yc-note{font-size:.78rem;color:#b9bdb2;margin:10px 0 0}
+.yc-plink{color:var(--gold-soft);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.yc-mnote{background:rgba(254,151,178,.14);border:1px solid var(--pink);border-radius:10px;padding:9px 12px;color:#fbf7ef;font-size:.84rem;line-height:1.7;margin:8px 0 18px;text-align:left}
+.yc-hint{font-size:.88rem;color:var(--gold-soft);margin:0 0 14px;line-height:1.7}
+.yc-dur{margin:0 6px 14px;font-size:.84rem;line-height:1.7;color:#fbf7ef}
+.yc-cal{background:var(--cream);border-radius:14px;padding:12px 6px;color:var(--ink);text-align:center}
+.yc-ch{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-box-align:center;-webkit-align-items:center;align-items:center;margin-bottom:6px}.yc-ch b{font-size:1rem}
+.yc-nv{width:44px;height:44px;border:0;background:none;color:var(--pink-deep);font-size:24px;cursor:pointer;border-radius:10px;font-family:inherit}.yc-nv[disabled]{color:#b9b2aa;cursor:default}
+.yc-g{display:grid;grid-template-columns:repeat(7,1fr);grid-gap:8px 5px;gap:8px 5px}
+.yc-cw{font-size:.75rem;color:var(--stone);padding:2px 0}
+.yc-cd{min-height:60px;border-radius:9px;border:1px solid transparent;padding:5px 0 0;display:block;font:inherit;line-height:1.5;background:none;color:var(--ink);width:100%}
+.yc-cd i{display:block;font-style:normal;font-size:.75rem;line-height:15px}.yc-cd u{display:block;text-decoration:none;font-size:1.06rem;font-weight:700;line-height:24px}
+button.yc-cd{cursor:pointer}
+.yc-cd.ok{background:#e8f3ea;border-color:#b7d6bd;color:#2b6a3b}
+.yc-cd.ng{background:#ececec;color:#8a8a8a}
+.yc-cd.off{color:#b9b2aa}.yc-cd.off u{font-size:.75rem;font-weight:400}
+.yc-cd.pad{visibility:hidden}
+.yc-cd.sel{outline:3px solid var(--pink-deep);outline-offset:-1px}
+.yc-leg{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:center;-webkit-justify-content:center;justify-content:center;font-size:.78rem;color:#cdd0c6;margin-top:12px}.yc-leg span{margin:3px 9px}.yc-leg b{color:#fbf7ef;margin-right:4px}
+.yc-panel{background:var(--cream);color:var(--ink);border-radius:14px;padding:16px 14px;margin-top:14px;text-align:left}
+.yc-panel h4{margin:0 0 8px;font-size:.97rem;font-family:var(--gothic);font-weight:700;letter-spacing:.04em}
+.yc-tms{display:grid;grid-template-columns:repeat(3,1fr);grid-gap:8px;gap:8px}
+.yc-tm{min-height:48px;border:2px solid var(--pink-deep);background:#fff;color:var(--pink-deep);border-radius:10px;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;appearance:none}
+.yc-chip{display:inline-block;background:#e8f3ea;color:#2b6a3b;border-radius:14px;padding:2px 12px;font-size:.82rem;margin-bottom:8px}
+.yc-fld{display:block;font-size:.82rem;color:var(--stone);margin-bottom:10px}
+.yc-fld input{display:block;width:100%;margin-top:4px;padding:12px;border:1px solid #d9cdbd;border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:16px;-webkit-appearance:none;appearance:none}
+.yc-chk{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-align:start;-webkit-align-items:flex-start;align-items:flex-start;font-size:.84rem;margin:4px 0 12px;line-height:1.7}.yc-chk input{width:22px;height:22px;margin:1px 10px 0 0;-webkit-box-flex:0;-webkit-flex:none;flex:none}
+.yc-btn{display:block;width:100%;min-height:50px;border:0;border-radius:26px;background:var(--pink-deep);color:#fff;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;appearance:none}
+.yc-btn[disabled]{background:#cfc8bf;color:#fff;cursor:default}.yc-btn.line{background:#fff;color:var(--pink-deep);border:2px solid var(--pink-deep);margin-top:10px}
+.yc-done{background:#fdeef2;border:1px solid var(--pink);border-radius:12px;padding:12px;margin:8px 0;font-size:.88rem}
+.yc-fb{background:rgba(255,255,255,.08);border:1px dashed var(--line-dark);border-radius:10px;padding:12px;color:#fbf7ef;font-size:.88rem;margin:6px 4px 0}
+.yc-alt{margin-top:14px}.yc-alt a{color:#cdd0c6}
+.yc-menus button:focus-visible,.yc-cd:focus-visible,.yc-tm:focus-visible,.yc-btn:focus-visible,.yc-nv:focus-visible{outline:3px solid var(--gold-soft);outline-offset:2px}
+.yc [hidden]{display:none!important}
+.other-ways{text-align:center;color:#cdd0c6;letter-spacing:.12em;font-size:.9rem;margin:40px 0 14px}
+.ways.two{grid-template-columns:repeat(2,1fr);max-width:720px;margin-left:auto;margin-right:auto;margin-inline:auto}
+@media (max-width:860px){.ways.two{grid-template-columns:1fr}}
+.rules.after-cal{margin-top:28px}
 
 /* ---------- 店舗情報 ---------- */
 .access .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px}
@@ -710,8 +762,38 @@ p{margin:0 0 1.2em}
     <div class="wrap">
       <div class="sec-head center"><i><svg class="heart"><use href="#h"/></svg>reservation</i><h2>ご予約・ご相談</h2></div>
       <p class="muted center" style="margin-bottom:40px">完全予約制です。<wbr>当日の<wbr>ご予約も、<wbr>空きが<wbr>あれば<wbr>承ります。</p>
-      <div class="ways">
-        <!-- RESERVA ができるまでは LINE を先に（2026/10/8） -->
+      <!-- ネット予約のカレンダー（2026/10/26 確認用）。空きは予約カレンダー（yoyaku-colore）の /api/days から読む。「予約する」はまだ送らない（試作） -->
+      <div class="yc" id="yc">
+        <div class="yc-box">
+          <h3 class="yc-h">ネット予約</h3>
+          <p class="yc-lead">ご希望の<wbr>メニューを<wbr>押すと、<wbr>そのメニューの<wbr>空きが<wbr>出ます。</p>
+          <div class="yc-menus" id="ycMenus" role="group" aria-label="メニュー"></div>
+          <p class="yc-note" id="ycTax" hidden><span id="ycTaxText"></span>　<a class="yc-plink" href="#menu">料金表を見る</a></p>
+          <p class="yc-note yc-mnote" id="ycMnote" hidden></p>
+          <p class="yc-hint" id="ycHint" hidden></p>
+          <div id="ycCalbox" hidden>
+            <p class="yc-dur" id="ycDur"></p>
+            <div class="yc-cal"><div class="yc-ch"><button class="yc-nv" id="ycPrev" type="button" aria-label="前の月">‹</button><b id="ycMt"></b><button class="yc-nv" id="ycNext" type="button" aria-label="次の月">›</button></div><div class="yc-g" id="ycG"></div></div>
+            <div class="yc-leg"><span><b>○</b>空きあり<wbr>（押せます）</span><span><b>×</b>空きなし</span><span><b>休</b>お休み</span></div>
+            <p class="yc-note" id="ycOther"></p>
+          </div>
+          <div class="yc-panel" id="ycT" hidden></div>
+          <div class="yc-panel" id="ycF" hidden></div>
+          <div class="yc-panel" id="ycD" hidden></div>
+          <p class="yc-fb" id="ycFb">ただいま<wbr>空き状況を<wbr>読み込めません。<wbr>LINE・お電話か、<wbr>予約ページから<wbr>お願いします。</p>
+          <p class="yc-note yc-alt"><a href="https://yoyaku-colore.liftoff-358.workers.dev/">うまく<wbr>動かないときは、<wbr>予約ページで<wbr>開く</a></p>
+        </div>
+      </div>
+      <div class="rules after-cal">
+        <h4>キャンセルに<wbr>ついて</h4>
+        <ul>
+          <li>前日の<wbr>キャンセル：料金の<wbr><span class="nw">50%</span></li>
+          <li>当日の<wbr>キャンセル：料金の<wbr><span class="nw">100%</span></li>
+        </ul>
+        <p style="margin:10px 0 0;font-size:.84rem;color:#cdd0c6">ご予約の<wbr>変更・キャンセルは、<wbr>お早めに<wbr>ご連絡ください。</p>
+      </div>
+      <p class="other-ways">LINE・お電話でも<wbr>承ります</p>
+      <div class="ways two">
         <div class="way">
           <h3>LINE</h3>
           <p>友だち追加して、<br>メッセージで<wbr>ご予約・ご相談ください。</p>
@@ -722,23 +804,7 @@ p{margin:0 0 1.2em}
           <p>施術中は<wbr>お電話に<wbr>出られない<wbr>ことがあります。<br>折り返しご連絡いたします。</p>
           <a class="tel" href="tel:08074744035">080-7474-4035</a>
         </div>
-        <div class="way">
-          <h3>ネット予約</h3>
-          <!-- 2026/10/21：予約カレンダー（yoyaku-colore）へ。「準備中」はやめた -->
-          <p>空いている<wbr>時間を<wbr>選んで、<wbr>その場で<wbr>ご予約<wbr>いただけます。</p>
-          <!-- 確認用（2026/10/21）：行き先は workers.dev。本番に出すときは https://yoyaku.colore-yomogi.com/ に戻す -->
-          <a class="btn btn-pink" href="https://yoyaku-colore.liftoff-358.workers.dev/">ネットで<wbr>予約する</a>
-        </div>
       </div>
-      <div class="rules">
-        <h4>キャンセルに<wbr>ついて</h4>
-        <ul>
-          <li>前日の<wbr>キャンセル：料金の<wbr><span class="nw">50%</span></li>
-          <li>当日の<wbr>キャンセル：料金の<wbr><span class="nw">100%</span></li>
-        </ul>
-        <p style="margin:10px 0 0;font-size:.84rem;color:#cdd0c6">ご予約の<wbr>変更・キャンセルは、<wbr>お早めに<wbr>ご連絡ください。</p>
-      </div>
-    </div>
   </section>
 
   <!-- 店舗情報 -->
@@ -832,6 +898,146 @@ p{margin:0 0 1.2em}
     for(var i=0;i<btns.length;i++){btns[i].onclick=function(){show(this.getAttribute('data-dm'));};}
     show('f');
   })();
+</script>
+<script>
+// ネット予約のカレンダー（2026/10/26）。古いスマホ向けに var・function だけ。fetch がない・読めないときは「読み込めません」の文のまま（ページは崩さない）
+(function(){
+  var API='https://yoyaku-colore.liftoff-358.workers.dev/api/days';
+  var root=document.getElementById('yc'); if(!root||!window.fetch||!window.JSON)return;
+  function $(i){return document.getElementById(i);}
+  var MENUS=[],HOURS={},BUSY={},PRE=0,BUF=0,STEP=30,CUTOFF=120,TODAY='',NOWMIN=0,MINM=null,MAXM=null;
+  var st={top:null,menu:null,month:null,date:null,time:null};
+  function pad(n){return n<10?'0'+n:''+n;}
+  function key(y,m,d){return y+'-'+pad(m+1)+'-'+pad(d);}
+  function m2(t){var a=String(t).split(':');return (+a[0])*60+(+a[1]);}
+  function hm(x){return pad(Math.floor(x/60))+':'+pad(x%60);}
+  function slotOf(m){return +m.slot||(PRE+(+m.min)+BUF);}   // 予約ページ（yoyaku-colore）の slotOf と同じ
+  function starts(k,menu){   // 予約ページの starts() と同じ計算（営業時間・きざみ・当日の締切・埋まっている時間との重なり）
+    var h=HOURS[k];if(!h)return [];
+    var slot=slotOf(menu);
+    var s=m2(h.s),e=m2(h.e),out=[],bl=BUSY[k]||[];
+    for(var t=s;t+slot<=e;t+=STEP){
+      if(k==TODAY&&t<NOWMIN+CUTOFF)continue;
+      var end=t+slot,hit=false;
+      for(var j=0;j<bl.length;j++){if(t<m2(bl[j].e)&&end>m2(bl[j].s)){hit=true;break;}}
+      if(!hit)out.push(t);
+    }
+    return out;
+  }
+  function esc(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+  function priceText(p){return (p&&p!=='お問い合わせください')?'・'+p:'';}
+  function buildMenus(list){   // 「ボディケア 15分」「ボディケア 30分」… は 1 つにまとめて、押すと長さを選ぶ
+    var out=[],groups={};
+    for(var i=0;i<list.length;i++){var m=list[i],mm=/^(.+?)\s*(\d+)分$/.exec(m.name);
+      if(mm){var base=mm[1];if(!groups[base]){groups[base]={n:base,group:[],note:'',price:''};out.push(groups[base]);}
+        groups[base].group.push({n:m.name,min:+m.min,price:m.price||'',slot:m.slot||0});}
+      else out.push({n:m.name,min:+m.min,price:m.price||'',slot:m.slot||0});}
+    for(var k in groups){if(groups.hasOwnProperty(k)){var g=groups[k].group,lo=g[0].min,hi=g[0].min;
+      for(var j=0;j<g.length;j++){if(g[j].min<lo)lo=g[j].min;if(g[j].min>hi)hi=g[j].min;}
+      groups[k].note=lo+'〜'+hi+'分';groups[k].price=(g[0].price?g[0].price+'〜':'');}}
+    return out;
+  }
+  function setDur(){var m=st.menu;$('ycDur').textContent='施術 '+m.min+'分（カウンセリング・お片づけを含め、ご来店から約'+slotOf(m)+'分）';}
+  function drawMenus(){
+    var h='';
+    for(var i=0;i<MENUS.length;i++){var m=MENUS[i],on=(st.top===m);
+      var pk=m.group?(on?'選択中 ▴':'長さを選ぶ ▾'):(on?'選択中':'選ぶ');
+      h+='<button type="button" data-i="'+i+'"'+(on?' class="on" aria-pressed="true"':' aria-pressed="false"')+'><span class="tx"><span class="mn">'+esc(m.n)+'</span><small>'+(m.note||m.min+'分')+esc(priceText(m.price))+'</small></span><span class="pick">'+pk+'</span></button>';
+      if(on&&m.group){
+        for(var k=0;k<m.group.length;k++){var g=m.group[k],so=st.menu&&st.menu.n===g.n;
+          h+='<button type="button" class="sub'+(so?' on':'')+'" data-j="'+k+'" aria-pressed="'+(so?'true':'false')+'"><span class="tx"><span class="mn">'+g.min+'分</span><small>'+esc(g.price)+'</small></span><span class="pick">'+(so?'選択中':'選ぶ')+'</span></button>';}
+      }
+    }
+    $('ycMenus').innerHTML=h;
+  }
+  function monthIdx(y,m){return y*12+m;}
+  function drawCal(){
+    var y=st.month.getFullYear(),mo=st.month.getMonth();
+    $('ycMt').textContent=y+'年'+(mo+1)+'月';
+    $('ycPrev').disabled=(monthIdx(y,mo)<=MINM);$('ycNext').disabled=(monthIdx(y,mo)>=MAXM);
+    var first=new Date(y,mo,1).getDay(),days=new Date(y,mo+1,0).getDate(),h='',w='日月火水木金土';
+    for(var i=0;i<7;i++)h+='<div class="yc-cw">'+w.charAt(i)+'</div>';
+    for(var p=0;p<first;p++)h+='<div class="yc-cd pad"></div>';
+    for(var d=1;d<=days;d++){
+      var k=key(y,mo,d);
+      if(k<TODAY){h+='<div class="yc-cd off"><i>'+d+'</i><u>–</u></div>';continue;}
+      if(!HOURS[k]){h+='<div class="yc-cd off" aria-label="'+(mo+1)+'月'+d+'日 お休み"><i>'+d+'</i><u>休</u></div>';continue;}
+      var n=starts(k,st.menu).length;
+      var sel=(st.date===k)?' sel':'';
+      if(n>0)h+='<button type="button" class="yc-cd ok'+sel+'" data-d="'+k+'" aria-label="'+(mo+1)+'月'+d+'日 空きあり"><i>'+d+'</i><u>○</u></button>';
+      else h+='<div class="yc-cd ng" aria-label="'+(mo+1)+'月'+d+'日 空きなし"><i>'+d+'</i><u>×</u></div>';
+    }
+    $('ycG').innerHTML=h;
+  }
+  function hideBelow(from){var ids=['ycT','ycF','ycD'];for(var i=from;i<ids.length;i++)$(ids[i]).hidden=true;}
+  function jp(k){var a=k.split('-'),y=+a[0],m=+a[1]-1,d=+a[2];return m+1+'月'+d+'日（'+'日月火水木金土'.charAt(new Date(y,m,d).getDay())+'）';}
+  function see(el){try{el.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}}
+  function showTimes(){
+    var ts=starts(st.date,st.menu),h='<h4>'+jp(st.date)+'の開始時間</h4><div class="yc-tms">';
+    for(var i=0;i<ts.length;i++)h+='<button type="button" class="yc-tm" data-t="'+ts[i]+'">'+hm(ts[i])+'</button>';
+    h+='</div><p class="yc-note" style="color:#75695f">※カウンセリング・お片づけの時間を含めて、少し長めにお時間をいただきます。</p>';
+    $('ycT').innerHTML=h;$('ycT').hidden=false;hideBelow(1);see($('ycT'));
+  }
+  function showForm(){
+    $('ycF').innerHTML='<h4>お名前などを入力してください</h4><span class="yc-chip">'+jp(st.date)+' '+hm(st.time)+'〜 '+esc(st.menu.n)+'</span>'+
+     '<label class="yc-fld" for="ycNm">お名前（必須）<input id="ycNm" type="text" autocomplete="name" placeholder="例：山田 花子"></label>'+
+     '<label class="yc-fld" for="ycTl">電話番号（必須）<input id="ycTl" type="tel" autocomplete="tel" placeholder="例：090-0000-0000"></label>'+
+     '<label class="yc-fld" for="ycMl">メール（必須・確認メールのため）<input id="ycMl" type="email" autocomplete="email" placeholder="例：sample@example.com"></label>'+
+     '<label class="yc-chk" for="ycAg"><input id="ycAg" type="checkbox"><span>キャンセルの決まり（前日50%・当日100%）に同意します</span></label>'+
+     '<button type="button" class="yc-btn" id="ycGo" disabled>予約する（試作：実際には入りません）</button>';
+    $('ycF').hidden=false;hideBelow(2);see($('ycF'));
+  }
+  function showDone(){
+    $('ycD').innerHTML='<h4>試作：実際には入りません</h4><div class="yc-done">'+jp(st.date)+' '+hm(st.time)+'〜<br>'+esc(st.menu.n)+'<br>ご来店から約'+slotOf(st.menu)+'分です（カウンセリング・お片づけを含む）</div>'+
+     '<p class="yc-note" style="color:#75695f">この画面は確認用で、何も保存・送信していません。ご予約は <a href="https://yoyaku-colore.liftoff-358.workers.dev/">予約ページ</a>・LINE・お電話からお願いします。</p><button type="button" class="yc-btn line" id="ycAgain">もう一度ためす</button>';
+    $('ycD').hidden=false;see($('ycD'));
+  }
+  root.addEventListener('click',function(e){
+    var t=e.target,i=0;
+    while(t&&t!==root&&i<8){
+      if(t.getAttribute){
+        if(t.parentNode&&t.parentNode.id==='ycMenus'&&t.getAttribute('data-i')!==null){
+          st.top=MENUS[+t.getAttribute('data-i')];st.date=null;st.time=null;hideBelow(0);$('ycMnote').hidden=true;
+          if(st.top.group){st.menu=null;$('ycCalbox').hidden=true;$('ycHint').textContent='② '+st.top.n+'の長さを選んでください';drawMenus();return;}
+          st.menu=st.top;
+          $('ycMnote').textContent=(st.top.n==='脱毛')?'脱毛の料金は、部位によって変わります。上の「料金表を見る」からご覧ください。':'';$('ycMnote').hidden=!$('ycMnote').textContent;
+          $('ycHint').textContent='② 行きたい日を押してください（'+st.menu.n+'の空きです）';
+          $('ycCalbox').hidden=false;setDur();drawMenus();drawCal();return;}
+        if(t.parentNode&&t.parentNode.id==='ycMenus'&&t.getAttribute('data-j')!==null){
+          st.menu=st.top.group[+t.getAttribute('data-j')];st.date=null;st.time=null;hideBelow(0);
+          $('ycHint').textContent='③ 行きたい日を押してください（'+st.menu.n+'の空きです）';
+          $('ycCalbox').hidden=false;setDur();drawMenus();drawCal();return;}
+        if(t.getAttribute('data-d')!==null&&t.className.indexOf('yc-cd')>-1){
+          st.date=t.getAttribute('data-d');st.time=null;drawCal();showTimes();return;}
+        if(t.getAttribute('data-t')!==null){st.time=+t.getAttribute('data-t');showForm();return;}
+        if(t.id==='ycPrev'||t.id==='ycNext'){st.month=new Date(st.month.getFullYear(),st.month.getMonth()+(t.id==='ycPrev'?-1:1),1);drawCal();return;}
+        if(t.id==='ycGo'){showDone();return;}
+        if(t.id==='ycAgain'){st.top=null;st.menu=null;st.date=null;st.time=null;$('ycCalbox').hidden=true;$('ycHint').textContent='① 上のメニューを、1つ押してください';drawMenus();hideBelow(0);see(root);return;}
+      }
+      t=t.parentNode;i++;
+    }
+  });
+  root.addEventListener('change',function(e){if(e.target&&e.target.id==='ycAg'&&$('ycGo'))$('ycGo').disabled=!e.target.checked;});
+  function fail(){$('ycFb').hidden=false;$('ycHint').hidden=true;}
+  function start(d){
+    if(!d||!d.hours||!d.menus||d.open===false){fail();return;}
+    PRE=+d.preMin||0;BUF=+d.bufferMin||0;STEP=+d.stepMin||30;CUTOFF=(d.sameDayCutoffMin===undefined)?120:+d.sameDayCutoffMin;
+    TODAY=d.today;NOWMIN=m2(d.now||'00:00');
+    for(var i=0;i<d.hours.length;i++)HOURS[d.hours[i].date]=d.hours[i];
+    BUSY=d.busy||{};
+    MENUS=buildMenus(d.menus);
+    var ta=d.today.split('-');MINM=monthIdx(+ta[0],+ta[1]-1);MAXM=MINM;
+    for(var k in HOURS){if(HOURS.hasOwnProperty(k)){var a=k.split('-'),mi=monthIdx(+a[0],+a[1]-1);if(mi>MAXM)MAXM=mi;}}
+    st.month=new Date(+ta[0],+ta[1]-1,1);
+    if(d.taxNote){$('ycTaxText').textContent=d.taxNote;$('ycTax').hidden=false;}
+    $('ycOther').textContent='※空きは、選んだメニューの目安です。'+(d.otherMenusNote||'');
+    $('ycFb').hidden=true;$('ycHint').textContent='① 上のメニューを、1つ押してください';$('ycHint').hidden=false;
+    drawMenus();
+  }
+  try{
+    fetch(API,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();}).then(start)['catch'](fail);
+  }catch(e){fail();}
+})();
 </script>
 <script>
 // ♡の流れ（div を JavaScript で動かす。画像の座標＝横1024×縦1536 で計算して、画面の大きさに合わせる）
