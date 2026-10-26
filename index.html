@@ -286,6 +286,7 @@ p{margin:0 0 1.2em}
 .yc-plink{color:var(--gold-soft);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 .yc-mnote{background:rgba(254,151,178,.14);border:1px solid var(--pink);border-radius:10px;padding:9px 12px;color:#fbf7ef;font-size:.84rem;line-height:1.7;margin:8px 0 18px;text-align:left}
 .yc-hint{font-size:.88rem;color:var(--gold-soft);margin:0 0 14px;line-height:1.7}
+.yc-ln{display:block}
 .yc-ck{display:inline-block;white-space:nowrap}   /* 意味のまとまり。折り返すのはまとまりの間だけ */
 .yc-dur{margin:0 6px 14px;font-size:.84rem;line-height:1.7;color:#fbf7ef}
 .yc-cal{background:var(--cream);border-radius:14px;padding:12px 6px;color:var(--ink);text-align:center}
@@ -938,7 +939,7 @@ button.yc-cd{cursor:pointer}
       groups[k].note=lo+'〜'+hi+'分';groups[k].price=(g[0].price?g[0].price+'〜':'');}}
     return out;
   }
-  function setDur(){var m=st.menu;$('ycDur').innerHTML='<span class="yc-ck">施術 '+m.min+'分</span><span class="yc-ck">（カウンセリング・お片づけを含め</span><span class="yc-ck">約'+slotOf(m)+'分）</span>';}
+  function setDur(){var m=st.menu;$('ycDur').innerHTML='<span class="yc-ln">施術 '+m.min+'分</span><span class="yc-ln"><span class="yc-ck">（カウンセリング・お片づけ含め</span> <span class="yc-ck">約'+slotOf(m)+'分）</span></span>';}
   function drawMenus(){
     var h='';
     for(var i=0;i<MENUS.length;i++){var m=MENUS[i],on=(st.top===m);
