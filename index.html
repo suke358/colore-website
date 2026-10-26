@@ -941,7 +941,7 @@ button.yc-cd{cursor:pointer}
   function drawMenus(){
     var h='';
     for(var i=0;i<MENUS.length;i++){var m=MENUS[i],on=(st.top===m);
-      var pk=m.group?(on?'選択中 ▴':'長さを選ぶ ▾'):(on?'選択中':'選ぶ');
+      var pk=m.group?(on?'選択中 ▴':'時間を選ぶ ▾'):(on?'選択中':'選ぶ');
       h+='<button type="button" data-i="'+i+'"'+(on?' class="yc-on" aria-pressed="true"':' aria-pressed="false"')+'><span class="yc-tx"><span class="yc-mn">'+esc(m.n)+'</span><small>'+(m.note||m.min+'分')+esc(priceText(m.price))+'</small></span><span class="yc-pick">'+pk+'</span></button>';
       if(on&&m.group){
         for(var k=0;k<m.group.length;k++){var g=m.group[k],so=st.menu&&st.menu.n===g.n;
@@ -998,7 +998,7 @@ button.yc-cd{cursor:pointer}
       if(t.getAttribute){
         if(t.parentNode&&t.parentNode.id==='ycMenus'&&t.getAttribute('data-i')!==null){
           st.top=MENUS[+t.getAttribute('data-i')];st.date=null;st.time=null;hideBelow(0);$('ycMnote').hidden=true;
-          if(st.top.group){st.menu=null;$('ycCalbox').hidden=true;$('ycHint').textContent='② '+st.top.n+'の長さを選んでください';drawMenus();return;}
+          if(st.top.group){st.menu=null;$('ycCalbox').hidden=true;$('ycHint').textContent='② '+st.top.n+'の時間を選んでください';drawMenus();return;}
           st.menu=st.top;
           $('ycMnote').textContent=(st.top.n==='脱毛')?'脱毛の料金は、部位によって変わります。上の「料金表を見る」からご覧ください。':'';$('ycMnote').hidden=!$('ycMnote').textContent;
           $('ycHint').textContent='② 行きたい日を押してください（'+st.menu.n+'の空きです）';
