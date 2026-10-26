@@ -316,6 +316,8 @@ button.yc-cd{cursor:pointer}
 .yc-done{background:#fdeef2;border:1px solid var(--pink);border-radius:12px;padding:12px;margin:8px 0;font-size:.88rem}
 .yc-fb{background:rgba(255,255,255,.08);border:1px dashed var(--line-dark);border-radius:10px;padding:12px;color:#fbf7ef;font-size:.88rem;margin:6px 4px 0}
 .yc-alt{margin-top:14px}.yc-alt a{color:#cdd0c6}
+.yc-err{background:#fdeef2;border:1px solid var(--pink-deep);border-radius:10px;padding:9px 12px;color:#8a2a3f;font-size:.86rem;line-height:1.7;margin:0 0 12px}.yc-err a{color:#8a2a3f}
+.yc-prev{font-size:.78rem;color:#8a5a28;background:#fff6e5;border:1px dashed #d9a65a;border-radius:8px;padding:6px 10px;margin:0 0 10px;text-align:center}
 .yc-menus button:focus-visible,.yc-cd:focus-visible,.yc-tm:focus-visible,.yc-btn:focus-visible,.yc-nv:focus-visible{outline:3px solid var(--gold-soft);outline-offset:2px}
 .yc [hidden]{display:none!important}
 .other-ways{text-align:center;color:#cdd0c6;letter-spacing:.12em;font-size:.9rem;margin:40px 0 14px}
@@ -984,25 +986,69 @@ button.yc-cd{cursor:pointer}
   function hideBelow(from){var ids=['ycT','ycF','ycD'];for(var i=from;i<ids.length;i++)$(ids[i]).hidden=true;}
   function jp(k){var a=k.split('-'),y=+a[0],m=+a[1]-1,d=+a[2];return m+1+'月'+d+'日（'+'日月火水木金土'.charAt(new Date(y,m,d).getDay())+'）';}
   function see(el){try{el.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}}
-  function showTimes(){
-    var ts=starts(st.date,st.menu),h='<h4>'+jp(st.date)+'の開始時間</h4><div class="yc-tms">';
+  function showTimes(msg){
+    var ts=starts(st.date,st.menu),h=(msg?'<p class="yc-note yc-err" role="alert">'+esc(msg)+'</p>':'')+'<h4>'+jp(st.date)+'の開始時間</h4><div class="yc-tms">';
     for(var i=0;i<ts.length;i++)h+='<button type="button" class="yc-tm" data-t="'+ts[i]+'">'+hm(ts[i])+'</button>';
     h+='</div><p class="yc-note" style="color:#75695f">※カウンセリング・お片づけの時間を含めて、少し長めにお時間をいただきます。</p>';
     $('ycT').innerHTML=h;$('ycT').hidden=false;hideBelow(1);see($('ycT'));
   }
   function showForm(){
+    var pre=(location.hostname.indexOf('preview-')===0)?'<p class="yc-note yc-prev">確認用のページです。<span class="yc-ck">ここで予約すると、</span><span class="yc-ck">本物の予約が入ります。</span></p>':'';
     $('ycF').innerHTML='<h4>お名前などを入力してください</h4><span class="yc-chip">'+jp(st.date)+' '+hm(st.time)+'〜 '+esc(st.menu.n)+'</span>'+
      '<label class="yc-fld" for="ycNm">お名前（必須）<input id="ycNm" type="text" autocomplete="name" placeholder="例：山田 花子"></label>'+
      '<label class="yc-fld" for="ycTl">電話番号（必須）<input id="ycTl" type="tel" autocomplete="tel" placeholder="例：090-0000-0000"></label>'+
      '<label class="yc-fld" for="ycMl">メール（必須・確認メールのため）<input id="ycMl" type="email" autocomplete="email" placeholder="例：sample@example.com"></label>'+
      '<label class="yc-chk" for="ycAg"><input id="ycAg" type="checkbox"><span>キャンセルの決まり（前日50%・当日100%）に同意します</span></label>'+
-     '<button type="button" class="yc-btn" id="ycGo" disabled>予約する（試作：実際には入りません）</button>';
+     '<p class="yc-note yc-err" id="ycErr" role="alert" hidden></p>'+pre+
+     '<button type="button" class="yc-btn" id="ycGo" disabled>予約する</button>';
     $('ycF').hidden=false;hideBelow(2);see($('ycF'));
   }
-  function showDone(){
-    $('ycD').innerHTML='<h4>試作：実際には入りません</h4><div class="yc-done">'+jp(st.date)+' '+hm(st.time)+'〜<br>'+esc(st.menu.n)+'<br>ご来店から約'+slotOf(st.menu)+'分です（カウンセリング・お片づけを含む）</div>'+
-     '<p class="yc-note" style="color:#75695f">この画面は確認用で、何も保存・送信していません。ご予約は <a href="https://yoyaku-colore.liftoff-358.workers.dev/">予約ページ</a>・LINE・お電話からお願いします。</p><button type="button" class="yc-btn yc-line" id="ycAgain">もう一度ためす</button>';
-    $('ycD').hidden=false;see($('ycD'));
+  var BOOK='https://yoyaku-colore.liftoff-358.workers.dev/api/book';
+  var FAIL_MSG='ご予約を完了できませんでした。お手数ですが LINE かお電話でご連絡ください。';
+  var sending=false;
+  function showErr(msg){var e=$('ycErr');if(!e)return;e.innerHTML=msg;e.hidden=!msg;}
+  function btnBack(){var b=$('ycGo');if(!b)return;b.disabled=!($('ycAg')&&$('ycAg').checked);b.textContent='予約する';}
+  function trim(v){return String(v||'').replace(/^\s+|\s+$/g,'');}
+  // 「予約する」：予約システムの /api/book に送る。押したらボタンを「送信中…」にして二重送信を防ぐ。15 秒で時間切れ。名前・電話・メールはどこにも保存しない
+  function send(){
+    if(sending)return;
+    var nm=trim($('ycNm').value),tl=trim($('ycTl').value),ml=trim($('ycMl').value);
+    if(!nm||!tl||!ml){showErr('お名前・電話番号・メールを<wbr>入れてください。');return;}
+    sending=true;showErr('');
+    var b=$('ycGo');b.disabled=true;b.textContent='送信中…';
+    var done=false,ctl=window.AbortController?new AbortController():null;
+    var timer=setTimeout(function(){if(done)return;done=true;sending=false;if(ctl)ctl.abort();onFail();},15000);
+    var body=JSON.stringify({date:st.date,start:hm(st.time),menu:st.menu.n,name:nm,tel:tl,email:ml});
+    var opt={method:'POST',headers:{'content-type':'application/json'},body:body};
+    if(ctl)opt.signal=ctl.signal;
+    try{
+      fetch(BOOK,opt).then(function(r){return r.text().then(function(t){var j=null;try{j=JSON.parse(t);}catch(e){}return {status:r.status,j:j};});})
+      .then(function(x){if(done)return;done=true;clearTimeout(timer);sending=false;onReply(x);})
+      ['catch'](function(){if(done)return;done=true;clearTimeout(timer);sending=false;onFail();});
+    }catch(e){if(!done){done=true;clearTimeout(timer);sending=false;onFail();}}
+  }
+  function onFail(){showErr(FAIL_MSG+' <a href="https://yoyaku-colore.liftoff-358.workers.dev/">予約ページで開く</a>');btnBack();}
+  function onReply(x){
+    var j=x.j||{};
+    if(x.status===200&&j.ok){showDone(j);refresh(null);return;}
+    if(x.status===409){refresh(function(){hideBelow(1);showTimes('たった今ほかの方の予約が入りました。別の時間をお選びください。');});return;}
+    if(x.status===429||x.status===400){showErr(esc(j.error||'入力をご確認ください。'));btnBack();return;}
+    onFail();
+  }
+  // 空きを取り直す（予約のあと・409 のあと）。読めなければ今のまま
+  function refresh(cb){
+    try{
+      fetch(API,{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+        if(d&&d.hours){HOURS={};for(var i=0;i<d.hours.length;i++)HOURS[d.hours[i].date]=d.hours[i];BUSY=d.busy||{};TODAY=d.today||TODAY;NOWMIN=m2(d.now||'00:00');}
+        if(st.menu)drawCal();if(cb)cb();
+      })['catch'](function(){if(cb)cb();});
+    }catch(e){if(cb)cb();}
+  }
+  function showDone(j){
+    var slot=+j.slot||slotOf(st.menu);
+    $('ycD').innerHTML='<h4>ご予約を受け付けました</h4><div class="yc-done">'+jp(st.date)+' '+hm(st.time)+'〜<br>'+esc(st.menu.n)+'<br><span class="yc-ck">ご来店から約'+slot+'分</span><span class="yc-ck">（カウンセリング・お片づけ含め）</span></div>'+
+     '<p class="yc-note" style="color:#75695f"><span class="yc-ck">確認メールをお送りしました。</span><span class="yc-ck">届かないときは、</span><span class="yc-ck">迷惑メールフォルダをご確認のうえ、</span><span class="yc-ck">LINE かお電話でご連絡ください。</span></p><button type="button" class="yc-btn yc-line" id="ycAgain">別の予約をする</button>';
+    $('ycF').hidden=true;$('ycD').hidden=false;see($('ycD'));
   }
   root.addEventListener('click',function(e){
     var t=e.target,i=0;
@@ -1023,8 +1069,8 @@ button.yc-cd{cursor:pointer}
           st.date=t.getAttribute('data-d');st.time=null;drawCal();showTimes();return;}
         if(t.getAttribute('data-t')!==null){st.time=+t.getAttribute('data-t');showForm();return;}
         if(t.id==='ycPrev'||t.id==='ycNext'){st.month=new Date(st.month.getFullYear(),st.month.getMonth()+(t.id==='ycPrev'?-1:1),1);drawCal();return;}
-        if(t.id==='ycGo'){showDone();return;}
-        if(t.id==='ycAgain'){st.top=null;st.menu=null;st.date=null;st.time=null;$('ycCalbox').hidden=true;$('ycHint').textContent='① 上のメニューを、1つ押してください';drawMenus();hideBelow(0);see(root);return;}
+        if(t.id==='ycGo'){send();return;}
+        if(t.id==='ycAgain'){st.top=null;st.menu=null;st.date=null;st.time=null;$('ycCalbox').hidden=true;$('ycHint').textContent='① 上のメニューを、1つ押してください';drawMenus();hideBelow(0);$('ycD').hidden=true;see(root);return;}
       }
       t=t.parentNode;i++;
     }
