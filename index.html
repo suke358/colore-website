@@ -286,6 +286,7 @@ p{margin:0 0 1.2em}
 .yc-plink{color:var(--gold-soft);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 .yc-mnote{background:rgba(254,151,178,.14);border:1px solid var(--pink);border-radius:10px;padding:9px 12px;color:#fbf7ef;font-size:.84rem;line-height:1.7;margin:8px 0 18px;text-align:left}
 .yc-hint{font-size:.88rem;color:var(--gold-soft);margin:0 0 14px;line-height:1.7}
+.yc-ck{display:inline-block;white-space:nowrap}   /* 意味のまとまり。折り返すのはまとまりの間だけ */
 .yc-dur{margin:0 6px 14px;font-size:.84rem;line-height:1.7;color:#fbf7ef}
 .yc-cal{background:var(--cream);border-radius:14px;padding:12px 6px;color:var(--ink);text-align:center}
 .yc-ch{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-box-align:center;-webkit-align-items:center;align-items:center;margin-bottom:6px}.yc-ch b{font-size:1rem}
@@ -766,7 +767,7 @@ button.yc-cd{cursor:pointer}
       <div class="yc" id="yc">
         <div class="yc-box">
           <h3 class="yc-h">ネット予約</h3>
-          <p class="yc-lead">ご希望の<wbr>メニューを<wbr>押すと、<wbr>そのメニューの<wbr>空きが<wbr>出ます。</p>
+          <p class="yc-lead">① ご希望の<wbr>メニューを<wbr>押してください。</p>
           <div class="yc-menus" id="ycMenus" role="group" aria-label="メニュー"></div>
           <p class="yc-note" id="ycTax" hidden><span id="ycTaxText"></span>　<a class="yc-plink" href="#menu">料金表を見る</a></p>
           <p class="yc-note yc-mnote" id="ycMnote" hidden></p>
@@ -937,7 +938,7 @@ button.yc-cd{cursor:pointer}
       groups[k].note=lo+'〜'+hi+'分';groups[k].price=(g[0].price?g[0].price+'〜':'');}}
     return out;
   }
-  function setDur(){var m=st.menu;$('ycDur').textContent='施術 '+m.min+'分（カウンセリング・お片づけを含め、ご来店から約'+slotOf(m)+'分）';}
+  function setDur(){var m=st.menu;$('ycDur').innerHTML='<span class="yc-ck">施術 '+m.min+'分</span><span class="yc-ck">（カウンセリング・お片づけを含め</span><span class="yc-ck">約'+slotOf(m)+'分）</span>';}
   function drawMenus(){
     var h='';
     for(var i=0;i<MENUS.length;i++){var m=MENUS[i],on=(st.top===m);
@@ -1001,11 +1002,11 @@ button.yc-cd{cursor:pointer}
           if(st.top.group){st.menu=null;$('ycCalbox').hidden=true;$('ycHint').textContent='② '+st.top.n+'の時間を選んでください';drawMenus();return;}
           st.menu=st.top;
           $('ycMnote').textContent=(st.top.n==='脱毛')?'脱毛の料金は、部位によって変わります。上の「料金表を見る」からご覧ください。':'';$('ycMnote').hidden=!$('ycMnote').textContent;
-          $('ycHint').textContent='② 行きたい日を押してください（'+st.menu.n+'の空きです）';
+          $('ycHint').innerHTML='<span class="yc-ck">② 予約したい日を押してください</span><span class="yc-ck">（'+esc(st.menu.n)+'の空きです）</span>';
           $('ycCalbox').hidden=false;setDur();drawMenus();drawCal();return;}
         if(t.parentNode&&t.parentNode.id==='ycMenus'&&t.getAttribute('data-j')!==null){
           st.menu=st.top.group[+t.getAttribute('data-j')];st.date=null;st.time=null;hideBelow(0);
-          $('ycHint').textContent='③ 行きたい日を押してください（'+st.menu.n+'の空きです）';
+          $('ycHint').innerHTML='<span class="yc-ck">③ 予約したい日を押してください</span><span class="yc-ck">（'+esc(st.menu.n)+'の空きです）</span>';
           $('ycCalbox').hidden=false;setDur();drawMenus();drawCal();return;}
         if(t.getAttribute('data-d')!==null&&t.className.indexOf('yc-cd')>-1){
           st.date=t.getAttribute('data-d');st.time=null;drawCal();showTimes();return;}
