@@ -915,7 +915,7 @@ button.yc-cd{cursor:pointer}
 <script>
 // ネット予約のカレンダー（2026/10/26）。古いスマホ向けに var・function だけ。fetch がない・読めないときは「読み込めません」の文のまま（ページは崩さない）
 (function(){
-  var API='https://76397774-yoyaku-colore.liftoff-358.workers.dev/api/days';   // 2026/10/28：複数メニュー入りの確認用の版。本番に出すときは https://yoyaku-colore.liftoff-358.workers.dev に戻す
+  var API='https://yoyaku-colore.liftoff-358.workers.dev/api/days';   // 予約システム（本番。2026/10/28 から複数メニュー入り）
   var root=document.getElementById('yc'); if(!root||!window.fetch||!window.JSON)return;
   function $(i){return document.getElementById(i);}
   var MENUS=[],HOURS={},BUSY={},PRE=0,BUF=0,STEP=30,CUTOFF=120,TODAY='',NOWMIN=0,MINM=null,MAXM=null,MAXT=0;   // MAXT＝施術の合計の上限（分。/api/days の maxTotalMin。0 ＝ なし）
@@ -1023,7 +1023,7 @@ button.yc-cd{cursor:pointer}
      '<button type="button" class="yc-btn" id="ycGo" disabled>予約する</button>';
     $('ycF').hidden=false;hideBelow(2);see($('ycF'));
   }
-  var BOOK='https://76397774-yoyaku-colore.liftoff-358.workers.dev/api/book';   // 同上（確認用の版）
+  var BOOK='https://yoyaku-colore.liftoff-358.workers.dev/api/book';   // 同上（本番）
   var FAIL_MSG='ご予約を完了できませんでした。お手数ですが LINE かお電話でご連絡ください。';
   var sending=false;
   function showErr(msg){var e=$('ycErr');if(!e)return;e.innerHTML=msg;e.hidden=!msg;}
