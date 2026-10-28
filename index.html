@@ -284,6 +284,7 @@ p{margin:0 0 1.2em}
 .yc-menus button.yc-sub{min-height:58px;margin:0 0 10px 18px;width:calc(100% - 18px);background:rgba(0,0,0,.18);border-style:dashed}.yc-menus button.yc-sub.yc-on{background:rgba(254,151,178,.18);border-style:solid}.yc-menus button.yc-sub .yc-mn{font-family:var(--gothic);font-size:1rem;letter-spacing:.04em}
 .yc-note{font-size:.78rem;color:#b9bdb2;margin:10px 0 0}
 .yc-plink{color:var(--gold-soft);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.yc-multi{margin:-10px 6px 14px;color:var(--gold-soft)}
 .yc-mnote{background:rgba(254,151,178,.14);border:1px solid var(--pink);border-radius:10px;padding:9px 12px;color:#fbf7ef;font-size:.84rem;line-height:1.7;margin:8px 0 18px;text-align:left}
 .yc-hint{font-size:.88rem;color:var(--gold-soft);margin:0 0 14px;line-height:1.7}
 .yc-ln{display:block}
@@ -779,6 +780,7 @@ button.yc-cd{cursor:pointer}
         <div class="yc-box">
           <h3 class="yc-h">ネット予約</h3>
           <p class="yc-lead">① ご希望の<wbr>メニューを<wbr>押してください。</p>
+          <p class="yc-note yc-multi" id="ycMulti" hidden></p>
           <div class="yc-menus" id="ycMenus" role="group" aria-label="メニュー"></div>
           <p class="yc-note" id="ycTax" hidden><span id="ycTaxText"></span>　<a class="yc-plink" href="#menu">料金表を見る</a></p>
           <p class="yc-note yc-mnote" id="ycMnote" hidden></p>
@@ -913,19 +915,32 @@ button.yc-cd{cursor:pointer}
 <script>
 // ネット予約のカレンダー（2026/10/26）。古いスマホ向けに var・function だけ。fetch がない・読めないときは「読み込めません」の文のまま（ページは崩さない）
 (function(){
-  var API='https://yoyaku-colore.liftoff-358.workers.dev/api/days';
+  var API='https://76397774-yoyaku-colore.liftoff-358.workers.dev/api/days';   // 2026/10/28：複数メニュー入りの確認用の版。本番に出すときは https://yoyaku-colore.liftoff-358.workers.dev に戻す
   var root=document.getElementById('yc'); if(!root||!window.fetch||!window.JSON)return;
   function $(i){return document.getElementById(i);}
-  var MENUS=[],HOURS={},BUSY={},PRE=0,BUF=0,STEP=30,CUTOFF=120,TODAY='',NOWMIN=0,MINM=null,MAXM=null;
-  var st={top:null,menu:null,month:null,date:null,time:null};
+  var MENUS=[],HOURS={},BUSY={},PRE=0,BUF=0,STEP=30,CUTOFF=120,TODAY='',NOWMIN=0,MINM=null,MAXM=null,MAXT=0;   // MAXT＝施術の合計の上限（分。/api/days の maxTotalMin。0 ＝ なし）
+  var st={top:null,sel:[],month:null,date:null,time:null};   // sel＝選んだメニューの並び（複数可。2026/10/28）。top＝開いているグループ（ボディケアの長さの一覧）
   function pad(n){return n<10?'0'+n:''+n;}
   function key(y,m,d){return y+'-'+pad(m+1)+'-'+pad(d);}
   function m2(t){var a=String(t).split(':');return (+a[0])*60+(+a[1]);}
   function hm(x){return pad(Math.floor(x/60))+':'+pad(x%60);}
   function slotOf(m){return +m.slot||(PRE+(+m.min)+BUF);}   // 予約ページ（yoyaku-colore）の slotOf と同じ
-  function starts(k,menu){   // 予約ページの starts() と同じ計算（営業時間・きざみ・当日の締切・埋まっている時間との重なり）
+  /* 複数メニュー（2026/10/28。予約ページの lenOf・priceOf と同じ計算）：1 つなら slotOf、2 つ以上なら 前＋施術の合計＋extraMin（お化粧落としなど）＋後 */
+  function minOf(ms){var t=0;for(var i=0;i<ms.length;i++)t+=+ms[i].min;return t;}
+  function extraOf(ms){var t=0;for(var i=0;i<ms.length;i++)t+=+ms[i].extraMin||0;return t;}
+  function lenOf(ms){if(ms.length===1)return slotOf(ms[0]);return PRE+minOf(ms)+extraOf(ms)+BUF;}
+  function extraNotes(ms){var o=[];for(var i=0;i<ms.length;i++){var n=String(ms[i].extraNote||'');if(+ms[i].extraMin>0&&n&&o.indexOf(n)<0)o.push(n);}return o;}
+  function yen(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'円';}
+  function isYen(p){return /^([0-9,]+)\s*円(〜)?$/.test(String(p||''));}
+  function priceOf(ms){if(ms.length===1)return ms[0].price||'';var sum=0,from=false,ask=false;for(var i=0;i<ms.length;i++){var x=/^([0-9,]+)\s*円(〜)?$/.exec(String(ms[i].price||''));if(x){sum+=+x[1].replace(/,/g,'');if(x[2])from=true;}else ask=true;}return ask?'お問い合わせください':yen(sum)+(from?'〜':'');}
+  function askNames(ms){var o=[];for(var i=0;i<ms.length;i++)if(!isYen(ms[i].price))o.push(ms[i].n);return o;}   // 料金が「お問い合わせください」のメニュー
+  function namesOf(ms){var o=[];for(var i=0;i<ms.length;i++)o.push(ms[i].n);return o.join('＋');}
+  function selIdx(m){for(var i=0;i<st.sel.length;i++)if(st.sel[i].n===m.n)return i;return -1;}
+  function selOfGroup(g){for(var i=0;i<st.sel.length;i++)if(st.sel[i].base===g.n)return st.sel[i];return null;}   // グループ（ボディケア）で選んでいる長さ
+  function canAdd(m,without){if(!MAXT)return true;var t=0;for(var i=0;i<st.sel.length;i++)if(st.sel[i]!==without)t+=+st.sel[i].min;return t+(+m.min)<=MAXT;}   // 施術の合計の上限を越えないか
+  function starts(k,ms){   // 予約ページの starts() と同じ計算（営業時間・きざみ・当日の締切・埋まっている時間との重なり）。ms＝選んだメニューの並び
     var h=HOURS[k];if(!h)return [];
-    var slot=slotOf(menu);
+    var slot=lenOf(ms);
     var s=m2(h.s),e=m2(h.e),out=[],bl=BUSY[k]||[];
     for(var t=s;t+slot<=e;t+=STEP){
       if(k==TODAY&&t<NOWMIN+CUTOFF)continue;
@@ -941,21 +956,29 @@ button.yc-cd{cursor:pointer}
     var out=[],groups={};
     for(var i=0;i<list.length;i++){var m=list[i],mm=/^(.+?)\s*(\d+)分$/.exec(m.name);
       if(mm){var base=mm[1];if(!groups[base]){groups[base]={n:base,group:[],note:'',price:''};out.push(groups[base]);}
-        groups[base].group.push({n:m.name,min:+m.min,price:m.price||'',slot:m.slot||0});}
-      else out.push({n:m.name,min:+m.min,price:m.price||'',slot:m.slot||0});}
+        groups[base].group.push({n:m.name,min:+m.min,price:m.price||'',slot:m.slot||0,extraMin:+m.extraMin||0,extraNote:m.extraNote||'',base:base});}
+      else out.push({n:m.name,min:+m.min,price:m.price||'',slot:m.slot||0,extraMin:+m.extraMin||0,extraNote:m.extraNote||''});}
     for(var k in groups){if(groups.hasOwnProperty(k)){var g=groups[k].group,lo=g[0].min,hi=g[0].min;
       for(var j=0;j<g.length;j++){if(g[j].min<lo)lo=g[j].min;if(g[j].min>hi)hi=g[j].min;}
       groups[k].note=lo+'〜'+hi+'分';groups[k].price=(g[0].price?g[0].price+'〜':'');}}
     return out;
   }
-  function setDur(){var m=st.menu;$('ycDur').innerHTML='<span class="yc-ln">施術 '+m.min+'分</span><span class="yc-ln"><span class="yc-ck">（カウンセリング・お片づけ含め</span> <span class="yc-ck">約'+slotOf(m)+'分）</span></span>';}
+  function setDur(){
+    var ms=st.sel;
+    if(ms.length===1){var m=ms[0];$('ycDur').innerHTML='<span class="yc-ln">施術 '+m.min+'分</span><span class="yc-ln"><span class="yc-ck">（カウンセリング・お片づけ含め</span> <span class="yc-ck">約'+slotOf(m)+'分）</span></span>';return;}
+    var ex=extraNotes(ms),pr=priceOf(ms),h='<span class="yc-ln"><b>'+esc(namesOf(ms))+'</b></span>';
+    h+='<span class="yc-ln">施術 合計'+minOf(ms)+'分</span><span class="yc-ln"><span class="yc-ck">（カウンセリング・</span><span class="yc-ck">お片づけ'+(ex.length?'・</span><span class="yc-ck">'+esc(ex.join('・')):'')+'含め</span> <span class="yc-ck">約'+lenOf(ms)+'分）</span></span>';
+    if(/円/.test(pr))h+='<span class="yc-ln"><span class="yc-ck">料金の目安　合計 '+esc(pr)+'</span><span class="yc-ck">（税込）</span></span>';
+    else h+='<span class="yc-ln"><span class="yc-ck">料金はお問い合わせください</span><span class="yc-ck">（'+esc(askNames(ms).join('・'))+'の料金は</span><span class="yc-ck">部位などで変わるため）</span></span>';
+    $('ycDur').innerHTML=h;
+  }
   function drawMenus(){
     var h='';
-    for(var i=0;i<MENUS.length;i++){var m=MENUS[i],on=(st.top===m);
-      var pk=m.group?(on?'選択中 ▴':'時間を選ぶ ▾'):(on?'選択中':'選ぶ');
+    for(var i=0;i<MENUS.length;i++){var m=MENUS[i],gs=m.group?selOfGroup(m):null,open=(st.top===m),on=m.group?(open||!!gs):selIdx(m)>=0;
+      var pk=m.group?(open?(gs?'✓ '+gs.min+'分 ▴':'閉じる ▴'):(gs?'✓ '+gs.min+'分 ▾':'時間を選ぶ ▾')):(on?'✓ 選択中':'選ぶ');
       h+='<button type="button" data-i="'+i+'"'+(on?' class="yc-on" aria-pressed="true"':' aria-pressed="false"')+'><span class="yc-tx"><span class="yc-mn">'+esc(m.n)+'</span><small>'+(m.note||m.min+'分')+esc(priceText(m.price))+'</small></span><span class="yc-pick">'+pk+'</span></button>';
-      if(on&&m.group){
-        for(var k=0;k<m.group.length;k++){var g=m.group[k],so=st.menu&&st.menu.n===g.n;
+      if(open&&m.group){
+        for(var k=0;k<m.group.length;k++){var g=m.group[k],so=selIdx(g)>=0;
           h+='<button type="button" class="yc-sub'+(so?' yc-on':'')+'" data-j="'+k+'" aria-pressed="'+(so?'true':'false')+'"><span class="yc-tx"><span class="yc-mn">'+g.min+'分</span><small>'+esc(g.price)+'</small></span><span class="yc-pick">'+(so?'選択中':'選ぶ')+'</span></button>';}
       }
     }
@@ -973,7 +996,7 @@ button.yc-cd{cursor:pointer}
       var k=key(y,mo,d);
       if(k<TODAY){h+='<div class="yc-cd yc-off"><i>'+d+'</i><u>–</u></div>';continue;}
       if(!HOURS[k]){h+='<div class="yc-cd yc-off" aria-label="'+(mo+1)+'月'+d+'日 お休み"><i>'+d+'</i><u>休</u></div>';continue;}
-      var n=starts(k,st.menu).length;
+      var n=starts(k,st.sel).length;
       var sel=(st.date===k)?' yc-sel':'';
       if(n>0)h+='<button type="button" class="yc-cd yc-ok'+sel+'" data-d="'+k+'" aria-label="'+(mo+1)+'月'+d+'日 空きあり"><i>'+d+'</i><u>○</u></button>';
       else h+='<div class="yc-cd yc-ng" aria-label="'+(mo+1)+'月'+d+'日 空きなし"><i>'+d+'</i><u>×</u></div>';
@@ -984,14 +1007,14 @@ button.yc-cd{cursor:pointer}
   function jp(k){var a=k.split('-'),y=+a[0],m=+a[1]-1,d=+a[2];return m+1+'月'+d+'日（'+'日月火水木金土'.charAt(new Date(y,m,d).getDay())+'）';}
   function see(el){try{el.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}}
   function showTimes(msg){
-    var ts=starts(st.date,st.menu),h=(msg?'<p class="yc-note yc-err" role="alert">'+esc(msg)+'</p>':'')+'<h4>'+jp(st.date)+'の開始時間</h4><div class="yc-tms">';
+    var ts=starts(st.date,st.sel),h=(msg?'<p class="yc-note yc-err" role="alert">'+esc(msg)+'</p>':'')+'<h4>'+jp(st.date)+'の開始時間</h4><div class="yc-tms">';
     for(var i=0;i<ts.length;i++)h+='<button type="button" class="yc-tm" data-t="'+ts[i]+'">'+hm(ts[i])+'</button>';
     h+='</div><p class="yc-note" style="color:#75695f">※カウンセリング・お片づけの時間を含めて、少し長めにお時間をいただきます。</p>';
     $('ycT').innerHTML=h;$('ycT').hidden=false;hideBelow(1);see($('ycT'));
   }
   function showForm(){
     var pre=(location.hostname.indexOf('preview-')===0)?'<p class="yc-note yc-prev">確認用のページです。<span class="yc-ck">ここで予約すると、</span><span class="yc-ck">本物の予約が入ります。</span></p>':'';
-    $('ycF').innerHTML='<h4>お名前などを入力してください</h4><span class="yc-chip">'+jp(st.date)+' '+hm(st.time)+'〜 '+esc(st.menu.n)+'</span>'+
+    $('ycF').innerHTML='<h4>お名前などを入力してください</h4><span class="yc-chip">'+jp(st.date)+' '+hm(st.time)+'〜 '+esc(namesOf(st.sel))+'</span>'+
      '<label class="yc-fld" for="ycNm">お名前（必須）<input id="ycNm" type="text" autocomplete="name" placeholder="例：山田 花子"></label>'+
      '<label class="yc-fld" for="ycTl">電話番号（必須）<input id="ycTl" type="tel" autocomplete="tel" placeholder="例：090-0000-0000"></label>'+
      '<label class="yc-fld" for="ycMl">メール（必須・確認メールのため）<input id="ycMl" type="email" autocomplete="email" placeholder="例：sample@example.com"></label>'+
@@ -1000,7 +1023,7 @@ button.yc-cd{cursor:pointer}
      '<button type="button" class="yc-btn" id="ycGo" disabled>予約する</button>';
     $('ycF').hidden=false;hideBelow(2);see($('ycF'));
   }
-  var BOOK='https://yoyaku-colore.liftoff-358.workers.dev/api/book';
+  var BOOK='https://76397774-yoyaku-colore.liftoff-358.workers.dev/api/book';   // 同上（確認用の版）
   var FAIL_MSG='ご予約を完了できませんでした。お手数ですが LINE かお電話でご連絡ください。';
   var sending=false;
   function showErr(msg){var e=$('ycErr');if(!e)return;e.innerHTML=msg;e.hidden=!msg;}
@@ -1015,7 +1038,8 @@ button.yc-cd{cursor:pointer}
     var b=$('ycGo');b.disabled=true;b.textContent='送信中…';
     var done=false,ctl=window.AbortController?new AbortController():null;
     var timer=setTimeout(function(){if(done)return;done=true;sending=false;if(ctl)ctl.abort();onFail();},15000);
-    var body=JSON.stringify({date:st.date,start:hm(st.time),menu:st.menu.n,name:nm,tel:tl,email:ml});
+    var names=[];for(var i=0;i<st.sel.length;i++)names.push(st.sel[i].n);
+    var body=JSON.stringify({date:st.date,start:hm(st.time),menus:names,name:nm,tel:tl,email:ml});   // menus＝選んだメニューの名前の並び（2026/10/28。1 つでも配列）
     var opt={method:'POST',headers:{'content-type':'application/json'},body:body};
     if(ctl)opt.signal=ctl.signal;
     try{
@@ -1037,13 +1061,13 @@ button.yc-cd{cursor:pointer}
     try{
       fetch(API,{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
         if(d&&d.hours){HOURS={};for(var i=0;i<d.hours.length;i++)HOURS[d.hours[i].date]=d.hours[i];BUSY=d.busy||{};TODAY=d.today||TODAY;NOWMIN=m2(d.now||'00:00');}
-        if(st.menu)drawCal();if(cb)cb();
+        if(st.sel.length)drawCal();if(cb)cb();
       })['catch'](function(){if(cb)cb();});
     }catch(e){if(cb)cb();}
   }
   function showDone(j){
-    var slot=+j.slot||slotOf(st.menu);
-    $('ycD').innerHTML='<h4>ご予約を受け付けました</h4><div class="yc-done">'+jp(st.date)+' '+hm(st.time)+'〜<br>'+esc(st.menu.n)+'<br><span class="yc-ck">ご来店から約'+slot+'分</span><span class="yc-ck">（カウンセリング・お片づけ含め）</span></div>'+
+    var slot=+j.slot||lenOf(st.sel),many=st.sel.length>1,ex=many?extraNotes(st.sel):[];
+    $('ycD').innerHTML='<h4>ご予約を受け付けました</h4><div class="yc-done">'+jp(st.date)+' '+hm(st.time)+'〜<br>'+esc(namesOf(st.sel))+(many?'<br>施術 合計'+minOf(st.sel)+'分':'')+'<br><span class="yc-ck">ご来店から約'+slot+'分</span><span class="yc-ck">（カウンセリング・</span><span class="yc-ck">お片づけ'+(ex.length?'・</span><span class="yc-ck">'+esc(ex.join('・')):'')+'含め）</span></div>'+
      (j.mail===false
        ? '<p class="yc-note yc-err"><span class="yc-ck">ご予約は受け付けました。</span><span class="yc-ck">ただ、確認メールをお送りできませんでした。</span><span class="yc-ck">お手数ですが、</span><span class="yc-ck">LINE かお電話でご連絡ください。</span></p>'   // 予約は入ったがメールは送れなかった（2026/10/26。mail が無い古い返事では出ない）
        : '<p class="yc-note" style="color:#75695f"><span class="yc-ck">確認メールをお送りしました。</span><span class="yc-ck">届かないときは、</span><span class="yc-ck">迷惑メールフォルダをご確認のうえ、</span><span class="yc-ck">LINE かお電話でご連絡ください。</span></p>')+
@@ -1055,31 +1079,44 @@ button.yc-cd{cursor:pointer}
     while(t&&t!==root&&i<8){
       if(t.getAttribute){
         if(t.parentNode&&t.parentNode.id==='ycMenus'&&t.getAttribute('data-i')!==null){
-          st.top=MENUS[+t.getAttribute('data-i')];st.date=null;st.time=null;hideBelow(0);$('ycMnote').hidden=true;
-          if(st.top.group){st.menu=null;$('ycCalbox').hidden=true;$('ycHint').textContent='② '+st.top.n+'の時間を選んでください';drawMenus();return;}
-          st.menu=st.top;
-          $('ycMnote').textContent=(st.top.n==='脱毛')?'脱毛の料金は、部位によって変わります。上の「料金表を見る」からご覧ください。':'';$('ycMnote').hidden=!$('ycMnote').textContent;
-          $('ycHint').innerHTML='<span class="yc-ck">② 予約したい日を押してください</span><span class="yc-ck">（'+esc(st.menu.n)+'の空きです）</span>';
-          $('ycCalbox').hidden=false;setDur();drawMenus();drawCal();return;}
+          var m=MENUS[+t.getAttribute('data-i')];
+          if(m.group){st.top=(st.top===m)?null:m;drawMenus();if(st.top&&!selOfGroup(m)){$('ycMnote').hidden=true;$('ycHint').textContent='② '+m.n+'の時間を選んでください';}return;}   // グループは開く・閉じる
+          var at=selIdx(m);
+          if(at>=0)st.sel.splice(at,1);   // もう一度押すと外す
+          else{if(!canAdd(m,null)){overMax();return;}st.sel.push(m);}
+          afterSel();return;}
         if(t.parentNode&&t.parentNode.id==='ycMenus'&&t.getAttribute('data-j')!==null){
-          st.menu=st.top.group[+t.getAttribute('data-j')];st.date=null;st.time=null;hideBelow(0);
-          $('ycHint').innerHTML='<span class="yc-ck">③ 予約したい日を押してください</span><span class="yc-ck">（'+esc(st.menu.n)+'の空きです）</span>';
-          $('ycCalbox').hidden=false;setDur();drawMenus();drawCal();return;}
+          var g=st.top.group[+t.getAttribute('data-j')],cur=selOfGroup(st.top),gi=selIdx(g);
+          if(gi>=0)st.sel.splice(gi,1);   // 同じ長さをもう一度押すと外す
+          else{if(!canAdd(g,cur)){overMax();return;}if(cur)st.sel.splice(selIdx(cur),1,g);else st.sel.push(g);}   // 同じグループは 1 つだけ（長さを入れかえる）
+          afterSel();return;}
         if(t.getAttribute('data-d')!==null&&t.className.indexOf('yc-cd')>-1){
           st.date=t.getAttribute('data-d');st.time=null;drawCal();showTimes();return;}
         if(t.getAttribute('data-t')!==null){st.time=+t.getAttribute('data-t');showForm();return;}
         if(t.id==='ycPrev'||t.id==='ycNext'){st.month=new Date(st.month.getFullYear(),st.month.getMonth()+(t.id==='ycPrev'?-1:1),1);drawCal();return;}
         if(t.id==='ycGo'){send();return;}
-        if(t.id==='ycAgain'){st.top=null;st.menu=null;st.date=null;st.time=null;$('ycCalbox').hidden=true;$('ycHint').textContent='① 上のメニューを、1つ押してください';drawMenus();hideBelow(0);$('ycD').hidden=true;see(root);return;}
+        if(t.id==='ycAgain'){st.top=null;st.sel=[];st.date=null;st.time=null;$('ycCalbox').hidden=true;$('ycHint').textContent=HINT1;drawMenus();hideBelow(0);$('ycD').hidden=true;see(root);return;}
       }
       t=t.parentNode;i++;
     }
   });
   root.addEventListener('change',function(e){if(e.target&&e.target.id==='ycAg'&&$('ycGo'))$('ycGo').disabled=!e.target.checked;});
+  var HINT1='① 上のメニューを押してください';
+  // メニューを選んだ・外したあと：選んだ並びで空きを出し直す。何もなければ最初の案内に戻す
+  function afterSel(){
+    st.date=null;st.time=null;hideBelow(0);drawMenus();
+    var ms=st.sel;
+    if(!ms.length){$('ycCalbox').hidden=true;$('ycMnote').hidden=true;$('ycHint').textContent=HINT1;return;}
+    var ask=askNames(ms);
+    $('ycMnote').textContent=(ask.indexOf('脱毛')>=0)?'脱毛の料金は、部位によって変わります。上の「料金表を見る」からご覧ください。':'';$('ycMnote').hidden=!$('ycMnote').textContent;
+    $('ycHint').innerHTML='<span class="yc-ck">'+(st.top?'③':'②')+' 予約したい日を押してください</span><span class="yc-ck">（'+(ms.length>1?'選んだメニュー':esc(ms[0].n))+'の空きです）</span>';   // 2 つ以上は名前を並べない（320 幅で長すぎるため）
+    $('ycCalbox').hidden=false;setDur();drawCal();
+  }
+  function overMax(){$('ycMnote').textContent='施術の合計は '+MAXT+' 分までです。組み合わせを減らすか、LINE かお電話でご相談ください。';$('ycMnote').hidden=false;}
   function fail(){$('ycFb').hidden=false;$('ycHint').hidden=true;}
   function start(d){
     if(!d||!d.hours||!d.menus||d.open===false){fail();return;}
-    PRE=+d.preMin||0;BUF=+d.bufferMin||0;STEP=+d.stepMin||30;CUTOFF=(d.sameDayCutoffMin===undefined)?120:+d.sameDayCutoffMin;
+    PRE=+d.preMin||0;BUF=+d.bufferMin||0;STEP=+d.stepMin||30;CUTOFF=(d.sameDayCutoffMin===undefined)?120:+d.sameDayCutoffMin;MAXT=+d.maxTotalMin||0;
     TODAY=d.today;NOWMIN=m2(d.now||'00:00');
     for(var i=0;i<d.hours.length;i++)HOURS[d.hours[i].date]=d.hours[i];
     BUSY=d.busy||{};
@@ -1089,7 +1126,8 @@ button.yc-cd{cursor:pointer}
     st.month=new Date(+ta[0],+ta[1]-1,1);
     if(d.taxNote){$('ycTaxText').textContent=d.taxNote;$('ycTax').hidden=false;}
     $('ycOther').innerHTML='<span class="yc-ln"><span class="yc-ck">※空きは目安です。</span></span>'+(d.otherMenusNote?'<span class="yc-ln"><span class="yc-ck">※'+esc(d.otherMenusNote).split('、').join('、</span><span class="yc-ck">')+'</span></span>':'');
-    $('ycFb').hidden=true;$('ycHint').textContent='① 上のメニューを、1つ押してください';$('ycHint').hidden=false;
+    $('ycFb').hidden=true;$('ycHint').textContent=HINT1;$('ycHint').hidden=false;
+    $('ycMulti').innerHTML='<span class="yc-ck">複数のメニューも</span><span class="yc-ck">いっしょに選べます</span>'+(MAXT?'<span class="yc-ck">（施術の合計 '+MAXT+'分まで）</span>':'');$('ycMulti').hidden=false;   // 上限は予約システムの設定から（HP に数字を書かない）
     drawMenus();
   }
   // メニューの「予約する」ボタン：押すとカレンダーの節へ移り、そのメニューを選んだ状態にする（読めていないときは移るだけ）
@@ -1100,7 +1138,7 @@ button.yc-cd{cursor:pointer}
         var nm=t.getAttribute('data-book');
         if(nm&&MENUS.length){
           for(var q=0;q<MENUS.length;q++){
-            if(MENUS[q].n===nm){var b=$('ycMenus').querySelector('[data-i="'+q+'"]');if(b&&st.top!==MENUS[q])b.click();break;}
+            if(MENUS[q].n===nm){var b=$('ycMenus').querySelector('[data-i="'+q+'"]');var done=MENUS[q].group?(st.top===MENUS[q]):(selIdx(MENUS[q])>=0);if(b&&!done)b.click();break;}   // グループは開く、ほかはチェックを足す（付いていればそのまま）
           }
         }
         return;
