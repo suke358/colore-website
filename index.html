@@ -529,6 +529,8 @@ button.yc-cd{cursor:pointer}
 }
 /* 10/12 ヘッダーの折り返し（スマホ） */
 @media (max-width:480px){.head .wrap{gap:8px}.brand{gap:8px;min-width:0}.brand img{width:40px;height:40px}.brand span{font-size:.58rem;letter-spacing:.06em;line-height:1.5}.nav .rsv{padding:.5em 1em;font-size:.8rem}.menubtn{margin-left:4px;padding:.45em .75em;letter-spacing:.04em}}
+/* 幅 380 以下（iPhone SE など）：ロゴの文字が「ご予約」に重なる崩れを直す（2026/10/29）。文字を <wbr> で折り返し、ボタンを少し詰める */
+@media (max-width:380px){.head .wrap{gap:6px}.brand{gap:6px}.brand span{white-space:normal;font-size:.56rem;letter-spacing:.04em}.menubtn{margin-left:0;padding:.4em .65em}}
 </style>
 </head>
 <body>
@@ -555,7 +557,7 @@ button.yc-cd{cursor:pointer}
 
 <header class="head">
   <div class="wrap">
-    <a href="#top" class="brand" aria-label="colore トップへ"><img src="images/logo-pink.png" alt="colore" width="46" height="46"><span>防府市<br>よもぎ蒸し・脱毛サロン</span></a>
+    <a href="#top" class="brand" aria-label="colore トップへ"><img src="images/logo-pink.png" alt="colore" width="46" height="46"><span>防府市<br>よもぎ蒸し・<wbr>脱毛サロン</span></a>
     <nav class="nav" id="gnav" aria-label="ページ内">
       <a href="#greeting">ごあいさつ</a>
       <a href="#about">よもぎ蒸しとは</a>
