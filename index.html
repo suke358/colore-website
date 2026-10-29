@@ -310,6 +310,8 @@ button.yc-cd{cursor:pointer}
 .yc-tms{display:grid;grid-template-columns:repeat(3,1fr);grid-gap:8px;gap:8px}
 .yc-tm{min-height:48px;border:2px solid var(--pink-deep);background:#fff;color:var(--pink-deep);border-radius:10px;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;appearance:none}
 .yc-cd.yc-ok[disabled],.yc-tm[disabled]{opacity:.5;cursor:default}   /* 送信中は日付・時間を押せない（2026/10/30） */
+.yc-tm.yc-on{background:var(--pink-deep);color:#fff}   /* 押した時間の「選んだ印」（メニューのボタンと同じ yc-on。2026/10/30） */
+#ycF h4{scroll-margin-top:14px}   /* 時間を押したあと見出しへ寄せるとき、上に少し余白（効かない端末ではぴったり上端） */
 .yc-chip{display:inline-block;background:#e8f3ea;color:#2b6a3b;border-radius:14px;padding:2px 12px;font-size:.82rem;margin-bottom:8px}
 .yc-fld{display:block;font-size:.82rem;color:var(--stone);margin-bottom:10px}
 .yc-fld input{display:block;width:100%;margin-top:4px;padding:12px;border:1px solid #d9cdbd;border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:16px;-webkit-appearance:none;appearance:none}
@@ -1017,10 +1019,14 @@ button.yc-cd{cursor:pointer}
   }
   function hideBelow(from){var ids=['ycT','ycF','ycD'];for(var i=from;i<ids.length;i++)$(ids[i]).hidden=true;}
   function jp(k){var a=k.split('-'),y=+a[0],m=+a[1]-1,d=+a[2];return m+1+'月'+d+'日（'+'日月火水木金土'.charAt(new Date(y,m,d).getDay())+'）';}
-  function see(el){try{el.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}}
+  function reduced(){try{return !!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}catch(e){return false;}}   // 動きを減らす設定の人
+  function see(el){try{el.scrollIntoView({behavior:reduced()?'auto':'smooth',block:'nearest'});}catch(e){}}
+  // 見出しが画面の外にあるときだけ、見える所（上端）へ。画面の中にあれば動かさない（2026/10/30）
+  function seeHead(el){try{var r=el.getBoundingClientRect(),vh=window.innerHeight||document.documentElement.clientHeight,bar=document.querySelector('.spbar'),bh=0;if(bar){var br=bar.getBoundingClientRect();if(br.height>0&&br.top<vh)bh=vh-br.top;}   // スマホの下の固定バー（電話する・LINE・ネット予約）の裏は「見えていない」扱い
+    if(r.top>=0&&r.bottom<=vh-bh)return;el.scrollIntoView({behavior:reduced()?'auto':'smooth',block:'start'});}catch(e){}}
   function showTimes(msg){
     var ts=starts(st.date,st.sel),h=(msg?'<p class="yc-note yc-err" role="alert">'+esc(msg)+'</p>':'')+'<h4>'+jp(st.date)+'の開始時間</h4><div class="yc-tms">';
-    for(var i=0;i<ts.length;i++)h+='<button type="button" class="yc-tm" data-t="'+ts[i]+'">'+hm(ts[i])+'</button>';
+    for(var i=0;i<ts.length;i++){var on=(st.time===ts[i]);h+='<button type="button" class="yc-tm'+(on?' yc-on':'')+'" data-t="'+ts[i]+'" aria-pressed="'+(on?'true':'false')+'">'+hm(ts[i])+'</button>';}   // 選んだ時間に印（日付を変えると st.time が null になり消える）
     h+='</div><p class="yc-note" style="color:#75695f">※カウンセリング・お片づけの時間を含めて、少し長めにお時間をいただきます。</p>';
     $('ycT').innerHTML=h;$('ycT').hidden=false;hideBelow(1);see($('ycT'));
   }
@@ -1034,8 +1040,10 @@ button.yc-cd{cursor:pointer}
      '<p class="yc-note yc-err" id="ycErr" role="alert" hidden></p>'+
      '<button type="button" class="yc-btn" id="ycGo" disabled>入力内容を確認する</button></div>'+
      '<div id="ycFc" hidden></div>';   // 送信前の「入力内容の確認」画面（2026/10/29）。入力画面 #ycFi は隠すだけで消さない（「直す」で値が残る）
-    $('ycF').hidden=false;hideBelow(2);see($('ycF'));
+    $('ycF').hidden=false;hideBelow(2);seeHead($('ycF').getElementsByTagName('h4')[0]||$('ycF'));   // 入力欄の見出しが画面の外なら見える所へ
   }
+  // 押した時間ボタンに「選んだ印」を付け、ほかの時間から外す（メニューのボタンと同じ yc-on と aria-pressed）
+  function markTime(btn){try{var bs=root.querySelectorAll('.yc-tm');for(var i=0;i<bs.length;i++){bs[i].className=bs[i].className.replace(/\s*\byc-on\b/g,'');bs[i].setAttribute('aria-pressed','false');}if(btn){btn.className+=' yc-on';btn.setAttribute('aria-pressed','true');}}catch(e){}}
   // 入力のチェック（必須・電話の形・メールの形）。通れば値を返す。サーバー側の確かめは別（変えていない）
   function checkForm(){
     var nm=trim($('ycNm').value),tl=trim($('ycTl').value),ml=trim($('ycMl').value);
@@ -1135,7 +1143,7 @@ button.yc-cd{cursor:pointer}
         if(t.getAttribute('data-d')!==null&&t.className.indexOf('yc-cd')>-1){
           if(sending)return;   // 送信中は日付を変えない（disabled の予備）
           st.date=t.getAttribute('data-d');st.time=null;drawCal();showTimes();return;}
-        if(t.getAttribute('data-t')!==null){if(sending)return;st.time=+t.getAttribute('data-t');showForm();return;}
+        if(t.getAttribute('data-t')!==null){if(sending)return;st.time=+t.getAttribute('data-t');markTime(t);showForm();return;}
         if(t.id==='ycPrev'||t.id==='ycNext'){st.month=new Date(st.month.getFullYear(),st.month.getMonth()+(t.id==='ycPrev'?-1:1),1);drawCal();return;}
         if(t.id==='ycGo'){confirmForm();return;}
         if(t.id==='ycSend'){send();return;}
