@@ -318,6 +318,14 @@ button.yc-cd{cursor:pointer}
 .yc-fb{background:rgba(255,255,255,.08);border:1px dashed var(--line-dark);border-radius:10px;padding:12px;color:#fbf7ef;font-size:.88rem;margin:6px 4px 0}
 .yc-alt{margin-top:14px}.yc-alt a{color:#cdd0c6}
 .yc-err{background:#fdeef2;border:1px solid var(--pink-deep);border-radius:10px;padding:9px 12px;color:#8a2a3f;font-size:.86rem;line-height:1.7;margin:0 0 12px}.yc-err a{color:#8a2a3f}
+.yc-cfh{margin:0 0 4px;font-size:.97rem;font-family:var(--gothic);font-weight:700}
+.yc-cfn{font-size:.82rem;color:var(--stone);margin:0 0 10px}
+.yc-cfr{border-bottom:1px dotted #d9cdbd;padding:8px 0}
+.yc-cfk{display:block;font-size:.78rem;color:var(--stone)}
+.yc-cfv{display:block;font-size:1rem;word-break:break-all}
+.yc-cfm{background:#fdeef2;border:1.5px solid var(--pink-deep);border-radius:10px;padding:10px 12px;margin:10px 0 8px}
+.yc-cfm .yc-cfv{font-size:1.1rem;font-weight:700}
+.yc-cfm .yc-cfs{display:block;font-size:.78rem;color:#8a2a3f;margin-top:4px}
 .yc-prev{font-size:.78rem;color:#8a5a28;background:#fff6e5;border:1px dashed #d9a65a;border-radius:8px;padding:6px 10px;margin:0 0 10px;text-align:center}
 .yc-menus button:focus-visible,.yc-cd:focus-visible,.yc-tm:focus-visible,.yc-btn:focus-visible,.yc-nv:focus-visible{outline:3px solid var(--gold-soft);outline-offset:2px}
 .yc [hidden]{display:none!important}
@@ -1014,28 +1022,53 @@ button.yc-cd{cursor:pointer}
   }
   function showForm(){
     var pre=(location.hostname.indexOf('preview-')===0)?'<p class="yc-note yc-prev">確認用のページです。<span class="yc-ck">ここで予約すると、</span><span class="yc-ck">本物の予約が入ります。</span></p>':'';
-    $('ycF').innerHTML='<h4>お名前などを入力してください</h4><span class="yc-chip">'+jp(st.date)+' '+hm(st.time)+'〜 '+esc(namesOf(st.sel))+'</span>'+
+    $('ycF').innerHTML='<div id="ycFi"><h4>お名前などを入力してください</h4><span class="yc-chip">'+jp(st.date)+' '+hm(st.time)+'〜 '+esc(namesOf(st.sel))+'</span>'+
      '<label class="yc-fld" for="ycNm">お名前（必須）<input id="ycNm" type="text" autocomplete="name" placeholder="例：山田 花子"></label>'+
      '<label class="yc-fld" for="ycTl">電話番号（必須）<input id="ycTl" type="tel" autocomplete="tel" placeholder="例：090-0000-0000"></label>'+
      '<label class="yc-fld" for="ycMl">メール（必須・確認メールのため）<input id="ycMl" type="email" autocomplete="email" placeholder="例：sample@example.com"></label>'+
      '<label class="yc-chk" for="ycAg"><input id="ycAg" type="checkbox"><span>キャンセルの決まり（前日50%・当日100%）に同意します</span></label>'+
-     '<p class="yc-note yc-err" id="ycErr" role="alert" hidden></p>'+pre+
-     '<button type="button" class="yc-btn" id="ycGo" disabled>予約する</button>';
+     '<p class="yc-note yc-err" id="ycErr" role="alert" hidden></p>'+
+     '<button type="button" class="yc-btn" id="ycGo" disabled>入力内容を確認する</button></div>'+
+     '<div id="ycFc" hidden></div>';   // 送信前の「入力内容の確認」画面（2026/10/29）。入力画面 #ycFi は隠すだけで消さない（「直す」で値が残る）
     $('ycF').hidden=false;hideBelow(2);see($('ycF'));
   }
+  // 入力のチェック（必須・電話の形・メールの形）。通れば値を返す。サーバー側の確かめは別（変えていない）
+  function checkForm(){
+    var nm=trim($('ycNm').value),tl=trim($('ycTl').value),ml=trim($('ycMl').value);
+    if(!nm||!tl||!ml){showErr('お名前・電話番号・メールを<wbr>入れてください。');return null;}
+    if(!/^[0-9\-]{10,13}$/.test(tl)){showErr('電話番号を数字で<wbr>入れてください。');return null;}
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(ml)){showErr('メールアドレスの形を<wbr>確かめてください。');return null;}
+    showErr('');return {nm:nm,tl:tl,ml:ml};
+  }
+  // 「入力内容を確認する」：送らずに確認画面を出す。メールは目立たせる（打ち間違いで確認メールが他人に届くのを防ぐ）
+  function confirmForm(){
+    var v=checkForm();if(!v)return;
+    var pre=(location.hostname.indexOf('preview-')===0)?'<p class="yc-note yc-prev">確認用のページです。<span class="yc-ck">ここで予約すると、</span><span class="yc-ck">本物の予約が入ります。</span></p>':'';
+    $('ycFc').innerHTML='<h4 class="yc-cfh">入力内容の確認</h4><p class="yc-cfn"><span class="yc-ck">まだ送信していません。</span><span class="yc-ck">内容を確かめてください。</span></p>'+
+     '<span class="yc-chip">'+jp(st.date)+' '+hm(st.time)+'〜 '+esc(namesOf(st.sel))+'</span>'+
+     '<p class="yc-dur" style="color:var(--ink);margin:6px 0 4px">'+$('ycDur').innerHTML+'</p>'+
+     '<div class="yc-cfr"><span class="yc-cfk">お名前</span><span class="yc-cfv">'+esc(v.nm)+' 様</span></div>'+
+     '<div class="yc-cfr"><span class="yc-cfk">電話番号</span><span class="yc-cfv">'+esc(v.tl)+'</span></div>'+
+     '<div class="yc-cfm"><span class="yc-cfk">メールアドレス</span><span class="yc-cfv">'+esc(v.ml)+'</span><span class="yc-cfs"><span class="yc-ck">このアドレスに</span><span class="yc-ck">確認メールをお送りします。</span></span></div>'+
+     '<p class="yc-note yc-err" id="ycErrC" role="alert" hidden></p>'+pre+
+     '<button type="button" class="yc-btn" id="ycSend">この内容で予約する</button><button type="button" class="yc-btn yc-line" id="ycFix">直す</button>';
+    $('ycFi').hidden=true;$('ycFc').hidden=false;see($('ycF'));
+    try{$('ycSend').focus();}catch(e){}
+  }
+  function fixForm(){$('ycFc').hidden=true;$('ycFi').hidden=false;see($('ycF'));try{$('ycNm').focus();}catch(e){}}   // 入力画面にもどる（値はそのまま）
   var BOOK='https://yoyaku-colore.liftoff-358.workers.dev/api/book';   // 同上（本番）
   var FAIL_MSG='ご予約を完了できませんでした。お手数ですが LINE かお電話でご連絡ください。';
   var sending=false;
-  function showErr(msg){var e=$('ycErr');if(!e)return;e.innerHTML=msg;e.hidden=!msg;}
-  function btnBack(){var b=$('ycGo');if(!b)return;b.disabled=!($('ycAg')&&$('ycAg').checked);b.textContent='予約する';}
+  function showErr(msg){var ids=['ycErr','ycErrC'];for(var i=0;i<ids.length;i++){var e=$(ids[i]);if(e){e.innerHTML=msg;e.hidden=!msg;}}}   // 入力画面と確認画面の両方に
+  function btnBack(){var b=$('ycSend');if(!b)return;b.disabled=false;b.textContent='この内容で予約する';}
   function trim(v){return String(v||'').replace(/^\s+|\s+$/g,'');}
-  // 「予約する」：予約システムの /api/book に送る。押したらボタンを「送信中…」にして二重送信を防ぐ。15 秒で時間切れ。名前・電話・メールはどこにも保存しない
+  // 確認画面の「この内容で予約する」：予約システムの /api/book に送る。押したらボタンを「送信中…」にして二重送信を防ぐ。15 秒で時間切れ。名前・電話・メールはどこにも保存しない
   function send(){
     if(sending)return;
-    var nm=trim($('ycNm').value),tl=trim($('ycTl').value),ml=trim($('ycMl').value);
-    if(!nm||!tl||!ml){showErr('お名前・電話番号・メールを<wbr>入れてください。');return;}
+    var v=checkForm();if(!v)return;   // 隠した入力欄から読み直す（チェックももう一度）
+    var nm=v.nm,tl=v.tl,ml=v.ml;
     sending=true;showErr('');
-    var b=$('ycGo');b.disabled=true;b.textContent='送信中…';
+    var b=$('ycSend');if(!b||b.disabled)return;b.disabled=true;b.textContent='送信中…';
     var done=false,ctl=window.AbortController?new AbortController():null;
     var timer=setTimeout(function(){if(done)return;done=true;sending=false;if(ctl)ctl.abort();onFail();},15000);
     var names=[];for(var i=0;i<st.sel.length;i++)names.push(st.sel[i].n);
@@ -1094,7 +1127,9 @@ button.yc-cd{cursor:pointer}
           st.date=t.getAttribute('data-d');st.time=null;drawCal();showTimes();return;}
         if(t.getAttribute('data-t')!==null){st.time=+t.getAttribute('data-t');showForm();return;}
         if(t.id==='ycPrev'||t.id==='ycNext'){st.month=new Date(st.month.getFullYear(),st.month.getMonth()+(t.id==='ycPrev'?-1:1),1);drawCal();return;}
-        if(t.id==='ycGo'){send();return;}
+        if(t.id==='ycGo'){confirmForm();return;}
+        if(t.id==='ycSend'){send();return;}
+        if(t.id==='ycFix'){fixForm();return;}
         if(t.id==='ycAgain'){st.top=null;st.sel=[];st.date=null;st.time=null;$('ycCalbox').hidden=true;$('ycHint').textContent=HINT1;drawMenus();hideBelow(0);$('ycD').hidden=true;see(root);return;}
       }
       t=t.parentNode;i++;
