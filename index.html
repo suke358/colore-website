@@ -309,6 +309,7 @@ button.yc-cd{cursor:pointer}
 .yc-panel h4{margin:0 0 8px;font-size:.97rem;font-family:var(--gothic);font-weight:700;letter-spacing:.04em}
 .yc-tms{display:grid;grid-template-columns:repeat(3,1fr);grid-gap:8px;gap:8px}
 .yc-tm{min-height:48px;border:2px solid var(--pink-deep);background:#fff;color:var(--pink-deep);border-radius:10px;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;-webkit-appearance:none;appearance:none}
+.yc-cd.yc-ok[disabled],.yc-tm[disabled]{opacity:.5;cursor:default}   /* 送信中は日付・時間を押せない（2026/10/30） */
 .yc-chip{display:inline-block;background:#e8f3ea;color:#2b6a3b;border-radius:14px;padding:2px 12px;font-size:.82rem;margin-bottom:8px}
 .yc-fld{display:block;font-size:.82rem;color:var(--stone);margin-bottom:10px}
 .yc-fld input{display:block;width:100%;margin-top:4px;padding:12px;border:1px solid #d9cdbd;border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:16px;-webkit-appearance:none;appearance:none}
@@ -1064,7 +1065,9 @@ button.yc-cd{cursor:pointer}
   var FAIL_MSG='ご予約を完了できませんでした。お手数ですが LINE かお電話でご連絡ください。';
   var sending=false;
   function showErr(msg){var ids=['ycErr','ycErrC'];for(var i=0;i<ids.length;i++){var e=$(ids[i]);if(e){e.innerHTML=msg;e.hidden=!msg;}}}   // 入力画面と確認画面の両方に
-  function btnBack(){var b=$('ycSend');if(!b)return;b.disabled=false;b.textContent='この内容で予約する';var f=$('ycFix');if(f)f.disabled=false;}
+  function btnBack(){lockPick(false);var b=$('ycSend');if(!b)return;b.disabled=false;b.textContent='この内容で予約する';var f=$('ycFix');if(f)f.disabled=false;}
+  // 送信中は日付・時間のボタンも押せなくする（押せると、送っている最中に別の時間へ進めてしまう。2026/10/30）。終わったら戻す（成功・409 のときは描き直すので自然に戻る）
+  function lockPick(on){try{var els=root.querySelectorAll('.yc-cd.yc-ok,.yc-tm');for(var i=0;i<els.length;i++)els[i].disabled=on;}catch(e){}}
   function trim(v){return String(v||'').replace(/^\s+|\s+$/g,'');}
   // 確認画面の「この内容で予約する」：予約システムの /api/book に送る。押したらボタンを「送信中…」にして二重送信を防ぐ。15 秒で時間切れ。名前・電話・メールはどこにも保存しない
   function send(){
@@ -1074,6 +1077,7 @@ button.yc-cd{cursor:pointer}
     var b=$('ycSend');if(!b||b.disabled)return;   // ボタンの確認を先に（sending を立てたまま戻らない）
     sending=true;showErr('');
     b.disabled=true;b.textContent='送信中…';var f=$('ycFix');if(f)f.disabled=true;   // 送信中は「直す」も押せなく
+    lockPick(true);   // 日付・時間も
     var done=false,ctl=window.AbortController?new AbortController():null;
     var timer=setTimeout(function(){if(done)return;done=true;sending=false;if(ctl)ctl.abort();onFail();},15000);
     var names=[];for(var i=0;i<st.sel.length;i++)names.push(st.sel[i].n);
@@ -1129,8 +1133,9 @@ button.yc-cd{cursor:pointer}
           else{if(!canAdd(g,cur)){overMax();return;}if(cur)st.sel.splice(selIdx(cur),1,g);else st.sel.push(g);}   // 同じグループは 1 つだけ（長さを入れかえる）
           afterSel();return;}
         if(t.getAttribute('data-d')!==null&&t.className.indexOf('yc-cd')>-1){
+          if(sending)return;   // 送信中は日付を変えない（disabled の予備）
           st.date=t.getAttribute('data-d');st.time=null;drawCal();showTimes();return;}
-        if(t.getAttribute('data-t')!==null){st.time=+t.getAttribute('data-t');showForm();return;}
+        if(t.getAttribute('data-t')!==null){if(sending)return;st.time=+t.getAttribute('data-t');showForm();return;}
         if(t.id==='ycPrev'||t.id==='ycNext'){st.month=new Date(st.month.getFullYear(),st.month.getMonth()+(t.id==='ycPrev'?-1:1),1);drawCal();return;}
         if(t.id==='ycGo'){confirmForm();return;}
         if(t.id==='ycSend'){send();return;}
