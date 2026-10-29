@@ -1042,9 +1042,10 @@ button.yc-cd{cursor:pointer}
   }
   // 「入力内容を確認する」：送らずに確認画面を出す。メールは目立たせる（打ち間違いで確認メールが他人に届くのを防ぐ）
   function confirmForm(){
+    if(sending)return;
     var v=checkForm();if(!v)return;
     var pre=(location.hostname.indexOf('preview-')===0)?'<p class="yc-note yc-prev">確認用のページです。<span class="yc-ck">ここで予約すると、</span><span class="yc-ck">本物の予約が入ります。</span></p>':'';
-    $('ycFc').innerHTML='<h4 class="yc-cfh">入力内容の確認</h4><p class="yc-cfn"><span class="yc-ck">まだ送信していません。</span><span class="yc-ck">内容を確かめてください。</span></p>'+
+    $('ycFc').innerHTML='<h4 class="yc-cfh" id="ycCfH" tabindex="-1">入力内容の確認</h4><p class="yc-cfn"><span class="yc-ck">まだ送信していません。</span><span class="yc-ck">内容を確かめてください。</span></p>'+
      '<span class="yc-chip">'+jp(st.date)+' '+hm(st.time)+'〜 '+esc(namesOf(st.sel))+'</span>'+
      '<p class="yc-dur" style="color:var(--ink);margin:6px 0 4px">'+$('ycDur').innerHTML+'</p>'+
      '<div class="yc-cfr"><span class="yc-cfk">お名前</span><span class="yc-cfv">'+esc(v.nm)+' 様</span></div>'+
@@ -1053,22 +1054,23 @@ button.yc-cd{cursor:pointer}
      '<p class="yc-note yc-err" id="ycErrC" role="alert" hidden></p>'+pre+
      '<button type="button" class="yc-btn" id="ycSend">この内容で予約する</button><button type="button" class="yc-btn yc-line" id="ycFix">直す</button>';
     $('ycFi').hidden=true;$('ycFc').hidden=false;see($('ycF'));
-    try{$('ycSend').focus();}catch(e){}
+    try{$('ycCfH').focus({preventScroll:true});}catch(e){}   // 見出しにフォーカス（送信ボタンに当てると下へ戻るため）
   }
-  function fixForm(){$('ycFc').hidden=true;$('ycFi').hidden=false;see($('ycF'));try{$('ycNm').focus();}catch(e){}}   // 入力画面にもどる（値はそのまま）
+  function fixForm(){if(sending)return;$('ycFc').hidden=true;$('ycFi').hidden=false;see($('ycF'));try{$('ycNm').focus();}catch(e){}}   // 入力画面にもどる（値はそのまま）。送信中は戻れない
   var BOOK='https://yoyaku-colore.liftoff-358.workers.dev/api/book';   // 同上（本番）
   var FAIL_MSG='ご予約を完了できませんでした。お手数ですが LINE かお電話でご連絡ください。';
   var sending=false;
   function showErr(msg){var ids=['ycErr','ycErrC'];for(var i=0;i<ids.length;i++){var e=$(ids[i]);if(e){e.innerHTML=msg;e.hidden=!msg;}}}   // 入力画面と確認画面の両方に
-  function btnBack(){var b=$('ycSend');if(!b)return;b.disabled=false;b.textContent='この内容で予約する';}
+  function btnBack(){var b=$('ycSend');if(!b)return;b.disabled=false;b.textContent='この内容で予約する';var f=$('ycFix');if(f)f.disabled=false;}
   function trim(v){return String(v||'').replace(/^\s+|\s+$/g,'');}
   // 確認画面の「この内容で予約する」：予約システムの /api/book に送る。押したらボタンを「送信中…」にして二重送信を防ぐ。15 秒で時間切れ。名前・電話・メールはどこにも保存しない
   function send(){
     if(sending)return;
     var v=checkForm();if(!v)return;   // 隠した入力欄から読み直す（チェックももう一度）
     var nm=v.nm,tl=v.tl,ml=v.ml;
+    var b=$('ycSend');if(!b||b.disabled)return;   // ボタンの確認を先に（sending を立てたまま戻らない）
     sending=true;showErr('');
-    var b=$('ycSend');if(!b||b.disabled)return;b.disabled=true;b.textContent='送信中…';
+    b.disabled=true;b.textContent='送信中…';var f=$('ycFix');if(f)f.disabled=true;   // 送信中は「直す」も押せなく
     var done=false,ctl=window.AbortController?new AbortController():null;
     var timer=setTimeout(function(){if(done)return;done=true;sending=false;if(ctl)ctl.abort();onFail();},15000);
     var names=[];for(var i=0;i<st.sel.length;i++)names.push(st.sel[i].n);
