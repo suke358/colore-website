@@ -754,7 +754,7 @@ button.yc-cd{cursor:pointer}
               <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="デコルテケア" data-price="1650" data-min="15" aria-label="デコルテケア（15分）1,650円"><span class="mark"></span></label></td><th>デコルテケア<wbr><span class="nw">（15分）</span></th><td class="yen">1,650円</td></tr>
               <tr><td class="sel"><label class="mk box"><input type="checkbox" name="bc-opt" value="オイルマッサージ" data-price="3000" data-min="0" aria-label="オイルマッサージ ＋3,000円（各コースに追加）"><span class="mark"></span></label></td><th>オイル<wbr>マッサージ<br><small style="font-family:var(--gothic);color:var(--stone)">各コースに<wbr>追加</small></th><td class="yen"><span class="plus">＋</span>3,000円</td></tr>
             </table>
-            <p class="extra">オイルマッサージを<wbr>ご利用の<wbr>方は、<wbr>シャワーを<wbr>無料で<wbr>お使いいただけます。</p>
+            <p class="extra">オプションは、<wbr>当日か<wbr> LINE で<wbr>ご相談ください。<br>オイルマッサージを<wbr>ご利用の<wbr>方は、<wbr>シャワーを<wbr>無料で<wbr>お使いいただけます。</p>
           </div>
         </div>
         <!-- タクティールケア（2026/10/12 「そのほかのケア」からボディケアへ） -->
@@ -1285,6 +1285,7 @@ button.yc-cd{cursor:pointer}
 // 表の行の印（コースは○で1つ、オプションは□でいくつでも）を押すと、金額を足して合計の目安と時間の目安を出し、
 // その内容を下書きにして LINE が開くようにする。行のどこを押しても選べる。何も選んでいないときは A案と同じ下書き（href は最初のまま）。
 (function(){
+  return;   // 2026/11/2 止めた（しほさん：ボディケアの表は料金を見せるだけ。選ぶ作りが「予約した」と勘違いされるため）。表の下は A案（予約する・LINE で相談）が出る。戻すときはこの行を消す
   var menu = document.getElementById('m-body'), box = document.getElementById('body-pick'), fb = document.getElementById('body-ask');
   var line = document.getElementById('bc-line'), total = document.getElementById('bc-total'), time = document.getElementById('bc-time'), reset = document.getElementById('bc-reset');
   if (!menu || !box || !fb || !line || !total || !time || !reset) return;
