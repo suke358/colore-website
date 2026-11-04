@@ -535,6 +535,39 @@ button.yc-cd{cursor:pointer}
 @media (max-width:480px){.head .wrap{gap:8px}.brand{gap:8px;min-width:0}.brand img{width:40px;height:40px}.brand span{font-size:.58rem;letter-spacing:.06em;line-height:1.5}.nav .rsv{padding:.5em 1em;font-size:.8rem}.menubtn{margin-left:4px;padding:.45em .75em;letter-spacing:.04em}}
 /* 幅 380 以下（iPhone SE など）：ロゴの文字が「ご予約」に重なる崩れを直す（2026/10/29）。文字を <wbr> で折り返し、ボタンを少し詰める */
 @media (max-width:380px){.head .wrap{gap:6px}.brand{gap:6px}.brand span{white-space:normal;font-size:.56rem;letter-spacing:.04em}.menubtn{margin-left:0;padding:.4em .65em}}
+/* 営業日カレンダー（ページの上のほう。2026/11/4）。データは予約システム（yoyaku-colore）の /api/days を読むだけ。今月と来月。○△×＝空きの目安 */
+.ec{padding:56px 0 60px;background:var(--cream-2)}
+.ec .sec-head{margin-bottom:18px}
+.ec-lead{text-align:center;color:var(--stone);font-size:.92rem;line-height:1.8;margin:0 0 18px}
+.ec-tabs{display:none;text-align:center;margin:0 0 10px}
+.ec-tabs button{font:inherit;font-size:.92rem;letter-spacing:.06em;padding:6px 22px;margin:0 4px;border-radius:999px;border:1px solid var(--line-light);background:#fff;color:var(--ink);cursor:pointer}
+.ec-tabs button[aria-selected="true"]{background:var(--forest);border-color:var(--forest);color:#fff}
+.ec-ms{display:grid;grid-template-columns:1fr 1fr;grid-gap:24px;gap:24px;max-width:900px;margin:0 auto}
+.ec-m{background:#fff;border:1px solid var(--line-light);border-radius:var(--r);padding:14px 8px 12px;line-height:1.5;letter-spacing:.02em;min-width:0}
+.ec-m h3{font-family:var(--mincho);font-size:1.05rem;text-align:center;margin:0 0 8px;letter-spacing:.1em}
+.ec-g{display:grid;grid-template-columns:repeat(7,1fr);grid-gap:5px 4px;gap:5px 4px}
+.ec-w{font-size:.72rem;color:var(--stone);text-align:center}
+.ec-w.su{color:#b84d68}.ec-w.sa{color:#4a6b96}
+.ec-d{display:block;width:100%;min-height:50px;border-radius:9px;border:1px solid transparent;padding:4px 0 2px;font:inherit;text-align:center;background:none;color:var(--ink);text-decoration:none}
+.ec-d i{display:block;font-style:normal;font-size:.75rem;line-height:15px}
+.ec-d u{display:block;text-decoration:none;font-size:1.05rem;font-weight:700;line-height:24px}
+.ec-d.o{background:#e8f3ea;border-color:#b7d6bd;color:#2b6a3b}
+.ec-d.t{background:#fbf1dc;border-color:#e2cf9f;color:#86601c}
+.ec-d.x{background:#f7e4e9;border-color:#ecc2cd;color:#a3405a}
+.ec-d.h{background:#ececec;color:#7d7d7d}
+.ec-d.h u{font-size:.8rem;font-weight:400}
+.ec-d.p,.ec-d.n{color:#b9b2aa}.ec-d.p u,.ec-d.n u{font-size:.75rem;font-weight:400}
+.ec-d.e{visibility:hidden}
+.ec-d.td{outline:2px solid var(--pink-deep);outline-offset:-1px}
+a.ec-d{cursor:pointer}
+a.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.ec-leg{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:center;-webkit-justify-content:center;justify-content:center;font-size:.8rem;color:var(--stone);margin:14px 0 0;line-height:1.6}
+.ec-leg span{margin:3px 8px;white-space:nowrap}.ec-leg b{display:inline-block;min-width:1.7em;border-radius:6px;margin-right:4px;text-align:center}
+.ec-leg .o{background:#e8f3ea;color:#2b6a3b}.ec-leg .t{background:#fbf1dc;color:#86601c}.ec-leg .x{background:#f7e4e9;color:#a3405a}.ec-leg .h{background:#ececec;color:#7d7d7d;font-weight:400}.ec-leg .n{color:#b9b2aa}
+.ec-note{text-align:center;font-size:.8rem;color:var(--stone);margin:6px 0 0;line-height:1.7}
+.ec-fb{max-width:560px;margin:0 auto;text-align:center;background:#fff;border:1px dashed var(--line-light);border-radius:12px;padding:14px;font-size:.92rem;line-height:1.8;color:var(--ink)}
+.ec-fb a{color:var(--pink-deep)}
+@media (max-width:720px){.ec{padding:44px 0 48px}.ec-tabs{display:block}.ec-ms{grid-template-columns:1fr}.ec-m.ec-hid{display:none}}
 </style>
 </head>
 <body>
@@ -610,6 +643,15 @@ button.yc-cd{cursor:pointer}
           <li><a href="#greeting">ごあいさつ</a></li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <!-- 営業日カレンダー（2026/11/4）。営業日・お休み・空きの目安（○△×）は予約システムの /api/days から読む（しほさんが管理画面で営業日を変えると、ここも変わる）。読めないときは「予約欄からご確認ください」 -->
+  <section id="eigyobi" class="ec" aria-labelledby="ecH">
+    <div class="wrap">
+      <div class="sec-head center"><i><svg class="heart"><use href="#h"/></svg>calendar</i><h2 id="ecH">営業日カレンダー</h2></div>
+      <p class="ec-lead">営業日と、<wbr>空きの目安です。<wbr>日付を押すと、<wbr>ご予約の欄へ<wbr>進みます。</p>
+      <div id="ec"><p class="ec-fb">営業日を<wbr>読み込んでいます…</p></div>
     </div>
   </section>
 
@@ -1155,6 +1197,22 @@ button.yc-cd{cursor:pointer}
   });
   root.addEventListener('change',function(e){if(e.target&&e.target.id==='ycAg'&&$('ycGo'))$('ycGo').disabled=!e.target.checked;});
   var HINT1='① 上のメニューを押してください';
+  // 営業日カレンダー（ページの上のほう）の日付から来たとき（2026/11/4）：その日の月を出し、メニューを選んだらその日の開始時間を出す。読み込み前・送信中は false（ふつうに #reserve へ飛ぶ）
+  var GO=null;
+  window.ycGoDate=function(k){
+    try{
+      if(!st.month||!HOURS[k]||sending)return false;
+      var a=k.split('-');st.month=new Date(+a[0],+a[1]-1,1);
+      if(st.sel.length&&starts(k,st.sel).length){st.date=k;st.time=null;drawCal();showTimes();return true;}
+      if(st.sel.length){st.date=null;st.time=null;hideBelow(0);drawCal();$('ycHint').innerHTML=goNo(k);}
+      else{GO=k;$('ycHint').innerHTML='<span class="yc-ck">① 上のメニューを押すと、</span><span class="yc-ck">'+jp(k)+'の空き時間が出ます</span>';}
+      $('ycHint').hidden=false;
+      var y=root.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-16;
+      try{window.scrollTo({top:y,behavior:reduced()?'auto':'smooth'});}catch(e){window.scrollTo(0,y);}
+      return true;
+    }catch(e){return false;}
+  };
+  function goNo(k){return '<span class="yc-ck">選んだメニューは、</span><span class="yc-ck">'+jp(k)+'に入る時間がありません。</span><span class="yc-ck">ほかの日をお選びください。</span>';}
   // メニューを選んだ・外したあと：選んだ並びで空きを出し直す。何もなければ最初の案内に戻す
   function afterSel(){
     st.date=null;st.time=null;hideBelow(0);drawMenus();
@@ -1164,6 +1222,7 @@ button.yc-cd{cursor:pointer}
     $('ycMnote').textContent=(ask.indexOf('脱毛')>=0)?'脱毛の料金は、部位によって変わります。上の「料金表を見る」からご覧ください。':'';$('ycMnote').hidden=!$('ycMnote').textContent;
     $('ycHint').innerHTML='<span class="yc-ck">'+(st.top?'③':'②')+' 予約したい日を押してください</span><span class="yc-ck">（'+(ms.length>1?'選んだメニュー':esc(ms[0].n))+'の空きです）</span>';   // 2 つ以上は名前を並べない（320 幅で長すぎるため）
     $('ycCalbox').hidden=false;setDur();drawCal();
+    if(GO){var g=GO;GO=null;if(HOURS[g]&&starts(g,ms).length){st.date=g;drawCal();showTimes();}else $('ycHint').innerHTML=goNo(g);}   // 営業日カレンダーから来た日（2026/11/4）
   }
   function overMax(){$('ycMnote').textContent='施術の合計は '+MAXT+' 分までです。組み合わせを減らすか、LINE かお電話でご相談ください。';$('ycMnote').hidden=false;}
   function fail(){$('ycFb').hidden=false;$('ycHint').hidden=true;}
@@ -1201,6 +1260,85 @@ button.yc-cd{cursor:pointer}
   });
   try{
     fetch(API,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();}).then(start)['catch'](fail);
+  }catch(e){fail();}
+})();
+</script>
+<script>
+// 営業日カレンダー（2026/11/4）。予約システムの /api/days を読むだけ（書きかえない）。古いスマホ向けに var・function だけ。読めないときは「予約欄からご確認ください」
+// ○△× の分け方：○＝その日の営業時間のうち、埋まっていない時間が半分以上／△＝それより少ないが、いちばん短いメニューが入る時間がある／×＝入る時間がない（満席）
+// 「入る時間があるか」は予約欄の starts() と同じ計算（営業時間・きざみ・当日の締切・埋まっている時間との重なり）。いちばん短いメニューで見るので、× の日は予約欄でもどのメニューも選べない
+(function(){
+  var API='https://yoyaku-colore.liftoff-358.workers.dev/api/days';
+  var box=document.getElementById('ec');if(!box)return;
+  var done=false;
+  function fail(){if(done)return;done=true;box.innerHTML='<p class="ec-fb">ただいま営業日を読み込めません。<br><a href="#reserve">予約欄から<wbr>ご確認ください</a>。</p>';}
+  if(!window.fetch||!window.JSON){fail();return;}
+  var W='日月火水木金土';
+  function pad(n){return n<10?'0'+n:''+n;}
+  function key(y,m,d){return y+'-'+pad(m+1)+'-'+pad(d);}
+  function m2(t){var a=String(t).split(':');return (+a[0])*60+(+a[1]);}
+  function level(k,c){
+    var h=c.H[k],s=m2(h.s),e=m2(h.e),bl=c.B[k]||[],span=e-s,j,t,x;
+    if(!(span>0))return 'x';
+    var from=(k===c.today)?Math.max(s,c.now+c.cut):s,can=false;
+    for(t=s;t+c.slot<=e;t+=c.step){
+      if(k===c.today&&t<c.now+c.cut)continue;
+      var end=t+c.slot,hit=false;
+      for(j=0;j<bl.length;j++){if(t<m2(bl[j].e)&&end>m2(bl[j].s)){hit=true;break;}}
+      if(!hit){can=true;break;}
+    }
+    if(!can)return 'x';
+    var free=0;
+    for(x=from;x<e;x++){var b=false;for(j=0;j<bl.length;j++){if(x>=m2(bl[j].s)&&x<m2(bl[j].e)){b=true;break;}}if(!b)free++;}
+    return (free*2>=span)?'o':'t';
+  }
+  var LV={o:['○','空きあり'],t:['△','残りわずか'],x:['×','満席']};
+  function month(y,mo,c){
+    var first=new Date(y,mo,1).getDay(),days=new Date(y,mo+1,0).getDate(),h='',d,k,lb,lv;
+    for(d=0;d<7;d++)h+='<div class="ec-w'+(d===0?' su':d===6?' sa':'')+'" aria-hidden="true">'+W.charAt(d)+'</div>';
+    for(d=0;d<first;d++)h+='<div class="ec-d e"></div>';
+    for(d=1;d<=days;d++){
+      k=key(y,mo,d);lb=(mo+1)+'月'+d+'日（'+W.charAt(new Date(y,mo,d).getDay())+'）'+(k===c.today?' 今日':'');
+      var td=(k===c.today)?' td':'';
+      if(k<c.today){h+='<div class="ec-d p" aria-label="'+lb+' 過ぎた日"><i>'+d+'</i><u>–</u></div>';continue;}
+      if(!c.last||k>c.last){h+='<div class="ec-d n'+td+'" aria-label="'+lb+' まだ決まっていません"><i>'+d+'</i><u>–</u></div>';continue;}
+      if(!c.H[k]){h+='<div class="ec-d h'+td+'" aria-label="'+lb+' お休み"><i>'+d+'</i><u>休</u></div>';continue;}
+      lv=level(k,c);
+      if(lv==='x'){h+='<div class="ec-d x'+td+'" aria-label="'+lb+' 満席"><i>'+d+'</i><u>×</u></div>';continue;}
+      h+='<a class="ec-d '+lv+td+'" href="#reserve" data-d="'+k+'" aria-label="'+lb+' '+LV[lv][1]+'。押すとご予約の欄へ"><i>'+d+'</i><u>'+LV[lv][0]+'</u></a>';
+    }
+    return '<div class="ec-g">'+h+'</div>';
+  }
+  function draw(d){
+    if(done)return;
+    if(!d||!d.hours||!d.today||d.open===false){fail();return;}
+    var c={H:{},B:d.busy||{},today:String(d.today),now:m2(d.now||'00:00'),cut:(d.sameDayCutoffMin===undefined)?120:+d.sameDayCutoffMin,step:+d.stepMin||30,slot:0,last:''};
+    var pre=+d.preMin||0,buf=+d.bufferMin||0,ms=d.menus||[],i;
+    for(i=0;i<ms.length;i++){var sl=+ms[i].slot||(pre+(+ms[i].min)+buf);if(sl>0&&(!c.slot||sl<c.slot))c.slot=sl;}   // いちばん短いメニューの予約1回の長さ（予約欄の slotOf と同じ）
+    if(!c.slot){fail();return;}
+    for(i=0;i<d.hours.length;i++){var hh=d.hours[i];c.H[hh.date]=hh;if(hh.date>c.last)c.last=hh.date;}
+    var ta=c.today.split('-'),y=+ta[0],mo=+ta[1]-1,list=[[y,mo],[mo===11?y+1:y,(mo+1)%12]],tabs='',ms2='';
+    for(i=0;i<2;i++){
+      var nm=list[i][1]+1+'月';
+      tabs+='<button type="button" role="tab" id="ecT'+i+'" aria-controls="ecM'+i+'" aria-selected="'+(i===0?'true':'false')+'" data-ec="'+i+'">'+nm+'</button>';
+      ms2+='<div class="ec-m'+(i===0?'':' ec-hid')+'" id="ecM'+i+'" role="tabpanel" aria-labelledby="ecT'+i+'"><h3>'+list[i][0]+'年'+nm+'</h3>'+month(list[i][0],list[i][1],c)+'</div>';
+    }
+    done=true;
+    box.innerHTML='<div class="ec-tabs" role="tablist" aria-label="月を選ぶ">'+tabs+'</div><div class="ec-ms">'+ms2+'</div>'+
+      '<p class="ec-leg"><span><b class="o">○</b>空きあり</span><span><b class="t">△</b>残りわずか</span><span><b class="x">×</b>満席</span><span><b class="h">休</b>お休み</span><span><b class="n">–</b>まだ決まっていません</span></p>'+
+      '<p class="ec-note"><span class="nw">※空きは目安です。</span><span class="nw">メニューによって、</span><span class="nw">予約できる時間が変わります。</span></p>';
+  }
+  box.addEventListener('click',function(e){
+    var t=e.target,i=0;
+    while(t&&t!==box&&i<4){
+      if(t.getAttribute&&t.getAttribute('data-ec')!==null){var n=t.getAttribute('data-ec');for(var j=0;j<2;j++){var b=document.getElementById('ecT'+j),m=document.getElementById('ecM'+j);if(b)b.setAttribute('aria-selected',String(j)===n?'true':'false');if(m)m.className='ec-m'+(String(j)===n?'':' ec-hid');}return;}
+      if(t.getAttribute&&t.getAttribute('data-d')!==null){if(window.ycGoDate&&window.ycGoDate(t.getAttribute('data-d'))&&e.preventDefault)e.preventDefault();return;}   // 予約欄が読めていなければ、ふつうに #reserve へ
+      t=t.parentNode;i++;
+    }
+  });
+  setTimeout(fail,15000);   // 15 秒たっても読めなければ、あきらめて案内を出す
+  try{
+    fetch(API,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();}).then(draw)['catch'](fail);
   }catch(e){fail();}
 })();
 </script>
