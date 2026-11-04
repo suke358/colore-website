@@ -559,8 +559,14 @@ button.yc-cd{cursor:pointer}
 .ec-d.p,.ec-d.n{color:#b9b2aa}.ec-d.p u,.ec-d.n u{font-size:.75rem;font-weight:400}
 .ec-d.e{visibility:hidden}
 .ec-d.td{outline:2px solid var(--pink-deep);outline-offset:-1px}
-a.ec-d{cursor:pointer}
-a.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button.ec-d{cursor:pointer}
+.ec-d.sel{outline:3px solid var(--forest);outline-offset:-1px}
+.ec-day{max-width:560px;margin:18px auto 0;background:#fff;border:1px solid var(--line-light);border-radius:var(--r);padding:16px 14px;text-align:center;line-height:1.7}
+.ec-day h4{font-size:1rem;margin:0 0 10px;letter-spacing:.06em}
+.ec-tms{margin:0 0 4px}
+.ec-tm{display:inline-block;background:#e8f3ea;color:#2b6a3b;border-radius:14px;padding:3px 14px;margin:3px 4px;font-size:.95rem;white-space:nowrap}
+.ec-go{margin-top:12px;min-width:220px}
+button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .ec-leg{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:center;-webkit-justify-content:center;justify-content:center;font-size:.8rem;color:var(--stone);margin:14px 0 0;line-height:1.6}
 .ec-leg span{margin:3px 8px;white-space:nowrap}.ec-leg b{display:inline-block;min-width:1.7em;border-radius:6px;margin-right:4px;text-align:center}
 .ec-leg .o{background:#e8f3ea;color:#2b6a3b}.ec-leg .t{background:#fbf1dc;color:#86601c}.ec-leg .x{background:#f7e4e9;color:#a3405a}.ec-leg .h{background:#ececec;color:#7d7d7d;font-weight:400}.ec-leg .n{color:#b9b2aa}
@@ -650,7 +656,7 @@ a.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--gold)
   <section id="eigyobi" class="ec" aria-labelledby="ecH">
     <div class="wrap">
       <div class="sec-head center"><i><svg class="heart"><use href="#h"/></svg>calendar</i><h2 id="ecH">営業日カレンダー</h2></div>
-      <p class="ec-lead">営業日と、<wbr>空きの目安です。<wbr>日付を押すと、<wbr>ご予約の欄へ<wbr>進みます。</p>
+      <p class="ec-lead">営業日と、<wbr>空きの目安です。<wbr>日付を押すと、<wbr>その日の<wbr>空いている時間が<wbr>出ます。</p>
       <div id="ec"><p class="ec-fb">営業日を<wbr>読み込んでいます…</p></div>
     </div>
   </section>
@@ -1266,7 +1272,7 @@ a.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--gold)
 </script>
 <script>
 // 営業日カレンダー（2026/11/4）。予約システムの /api/days を読むだけ（書きかえない）。古いスマホ向けに var・function だけ。読めないときは「予約欄からご確認ください」
-// ○△× の分け方：○＝その日の営業時間のうち、埋まっていない時間が半分以上／△＝それより少ないが、いちばん短いメニューが入る時間がある／×＝入る時間がない（満席）
+// ○△× の分け方：○＝その日の営業時間のうち、埋まっていない時間が半分以上／△（空き少なめ）＝それより少ないが、いちばん短いメニューが入る時間がある／×＝入る時間がない（満席）
 // 「入る時間があるか」は予約欄の starts() と同じ計算（営業時間・きざみ・当日の締切・埋まっている時間との重なり）。いちばん短いメニューで見るので、× の日は予約欄でもどのメニューも選べない
 (function(){
   var API='https://yoyaku-colore.liftoff-358.workers.dev/api/days';
@@ -1296,7 +1302,34 @@ a.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--gold)
     for(x=from;x<e;x++){var b=false;for(j=0;j<bl.length;j++){if(x>=m2(bl[j].s)&&x<m2(bl[j].e)){b=true;break;}}if(!b)free++;}
     return (free*2>=span)?'o':'t';
   }
-  var LV={o:['○','空きあり'],t:['△','残りわずか'],x:['×','満席']};
+  var C=null;
+  // その日の空いている時間（営業時間から埋まっている時間を除き、いちばん短いメニューが入る長さのものだけ。今日は締切より後だけ）
+  function ranges(k){
+    var c=C,h=c.H[k],s=m2(h.s),e=m2(h.e),bl=c.B[k]||[],from=(k===c.today)?Math.max(s,c.now+c.cut):s,out=[],x=from,st=-1,j;
+    for(;x<=e;x++){var b=(x===e);if(!b)for(j=0;j<bl.length;j++){if(x>=m2(bl[j].s)&&x<m2(bl[j].e)){b=true;break;}}
+      if(!b&&st<0)st=x;if(b&&st>=0){if(x-st>=c.slot)out.push([st,x]);st=-1;}}
+    return out;
+  }
+  function hm(x){return pad(Math.floor(x/60))+':'+pad(x%60);}
+  function showDay(k,btn){
+    var p=document.getElementById('ecDay');if(!p)return;
+    var bs=box.querySelectorAll('button.ec-d');for(var i=0;i<bs.length;i++){bs[i].className=bs[i].className.replace(/\s*\bsel\b/g,'');bs[i].setAttribute('aria-pressed','false');}
+    if(btn){btn.className+=' sel';btn.setAttribute('aria-pressed','true');}
+    var a=k.split('-'),y=+a[0],mo=+a[1]-1,d=+a[2],rs=ranges(k),h='';
+    for(var j=0;j<rs.length;j++)h+='<span class="ec-tm">'+hm(rs[j][0])+'〜'+hm(rs[j][1])+'</span>';
+    p.innerHTML='<h4>'+(mo+1)+'月'+d+'日（'+W.charAt(new Date(y,mo,d).getDay())+'）の空いている時間</h4>'+
+      '<div class="ec-tms">'+(h||'<span class="ec-tm">お問い合わせください</span>')+'</div>'+
+      '<p class="ec-note"><span class="nw">※目安です。</span><span class="nw">メニューの長さによっては、</span><span class="nw">入らない時間もあります。</span></p>'+
+      '<a class="btn btn-pink ec-go" href="#reserve" data-go="'+k+'">この日で予約する</a>';
+    p.hidden=false;
+    try{   // 出した枠が画面の外（スマホの下の固定バーの裏も）なら、見える所まで動かす
+      var r=p.getBoundingClientRect(),vh=window.innerHeight||document.documentElement.clientHeight,bar=document.querySelector('.spbar'),bh=0;
+      if(bar){var br=bar.getBoundingClientRect();if(br.height>0&&br.top<vh)bh=vh-br.top;}
+      var dy=0;if(r.bottom>vh-bh-12)dy=Math.min(r.bottom-(vh-bh-12),r.top-16);else if(r.top<0)dy=r.top-16;
+      if(dy){var rd=(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);try{window.scrollBy({top:dy,behavior:rd?'auto':'smooth'});}catch(e2){window.scrollBy(0,dy);}}
+    }catch(e){}
+  }
+  var LV={o:['○','空きあり'],t:['△','空き少なめ'],x:['×','満席']};
   function month(y,mo,c){
     var first=new Date(y,mo,1).getDay(),days=new Date(y,mo+1,0).getDate(),h='',d,k,lb,lv;
     for(d=0;d<7;d++)h+='<div class="ec-w'+(d===0?' su':d===6?' sa':'')+'" aria-hidden="true">'+W.charAt(d)+'</div>';
@@ -1310,7 +1343,7 @@ a.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--gold)
       lv=level(k,c);
       if(lv==='c'){c.endc=true;h+='<div class="ec-d h'+td+'" aria-label="'+lb+' 本日の受付は終了しました"><i>'+d+'</i><u>終</u></div>';continue;}
       if(lv==='x'){h+='<div class="ec-d x'+td+'" aria-label="'+lb+' 満席"><i>'+d+'</i><u>×</u></div>';continue;}
-      h+='<a class="ec-d '+lv+td+'" href="#reserve" data-d="'+k+'" aria-label="'+lb+' '+LV[lv][1]+'。押すとご予約の欄へ"><i>'+d+'</i><u>'+LV[lv][0]+'</u></a>';
+      h+='<button type="button" class="ec-d '+lv+td+'" data-d="'+k+'" aria-label="'+lb+' '+LV[lv][1]+'。押すと空いている時間が出ます" aria-pressed="false"><i>'+d+'</i><u>'+LV[lv][0]+'</u></button>';
     }
     return '<div class="ec-g">'+h+'</div>';
   }
@@ -1328,16 +1361,17 @@ a.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--gold)
       tabs+='<button type="button" role="tab" id="ecT'+i+'" aria-controls="ecM'+i+'" aria-selected="'+(i===0?'true':'false')+'" data-ec="'+i+'">'+nm+'</button>';
       ms2+='<div class="ec-m'+(i===0?'':' ec-hid')+'" id="ecM'+i+'" role="tabpanel" aria-labelledby="ecT'+i+'"><h3>'+list[i][0]+'年'+nm+'</h3>'+month(list[i][0],list[i][1],c)+'</div>';
     }
-    done=true;
-    box.innerHTML='<div class="ec-tabs" role="tablist" aria-label="月を選ぶ">'+tabs+'</div><div class="ec-ms">'+ms2+'</div>'+
-      '<p class="ec-leg"><span><b class="o">○</b>空きあり</span><span><b class="t">△</b>残りわずか</span><span><b class="x">×</b>満席</span><span><b class="h">休</b>お休み</span><span><b class="n">–</b>まだ決まっていません</span>'+(c.endc?'<span><b class="h">終</b>本日の受付終了</span>':'')+'</p>'+
+    done=true;C=c;
+    box.innerHTML='<div class="ec-tabs" role="tablist" aria-label="月を選ぶ">'+tabs+'</div><div class="ec-ms">'+ms2+'</div><div class="ec-day" id="ecDay" aria-live="polite" hidden></div>'+
+      '<p class="ec-leg"><span><b class="o">○</b>空きあり</span><span><b class="t">△</b>空き少なめ</span><span><b class="x">×</b>満席</span><span><b class="h">休</b>お休み</span><span><b class="n">–</b>まだ決まっていません</span>'+(c.endc?'<span><b class="h">終</b>本日の受付終了</span>':'')+'</p>'+
       '<p class="ec-note"><span class="nw">※空きは目安です。</span><span class="nw">メニューによって、</span><span class="nw">予約できる時間が変わります。</span></p>';
   }
   box.addEventListener('click',function(e){
     var t=e.target,i=0;
     while(t&&t!==box&&i<4){
       if(t.getAttribute&&t.getAttribute('data-ec')!==null){var n=t.getAttribute('data-ec');for(var j=0;j<2;j++){var b=document.getElementById('ecT'+j),m=document.getElementById('ecM'+j);if(b)b.setAttribute('aria-selected',String(j)===n?'true':'false');if(m)m.className='ec-m'+(String(j)===n?'':' ec-hid');}return;}
-      if(t.getAttribute&&t.getAttribute('data-d')!==null){if(window.ycGoDate&&window.ycGoDate(t.getAttribute('data-d'))&&e.preventDefault)e.preventDefault();return;}   // 予約欄が読めていなければ、ふつうに #reserve へ
+      if(t.getAttribute&&t.getAttribute('data-d')!==null){showDay(t.getAttribute('data-d'),t);return;}   // 日付：その日の空いている時間を先に出す（11/4 本人）
+      if(t.getAttribute&&t.getAttribute('data-go')!==null){if(window.ycGoDate&&window.ycGoDate(t.getAttribute('data-go'))&&e.preventDefault)e.preventDefault();return;}   // 予約欄が読めていなければ、ふつうに #reserve へ
       t=t.parentNode;i++;
     }
   });
