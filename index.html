@@ -320,7 +320,8 @@ button.yc-cd{cursor:pointer}
 .yc-btn[disabled]{background:#cfc8bf;color:#fff;cursor:default}.yc-btn.yc-line{background:#fff;color:var(--pink-deep);border:2px solid var(--pink-deep);margin-top:10px}
 .yc-done{background:#fdeef2;border:1px solid var(--pink);border-radius:12px;padding:12px;margin:8px 0;font-size:.88rem}
 .yc-fb{background:rgba(255,255,255,.08);border:1px dashed var(--line-dark);border-radius:10px;padding:12px;color:#fbf7ef;font-size:.88rem;margin:6px 4px 0}
-.yc-alt{margin-top:14px}.yc-alt a{color:#cdd0c6}
+.yc-alt{margin-top:14px}
+.yc-gonote{background:#fdeef2;color:#a3405a;border-radius:10px;padding:6px 10px;margin:6px 8px 10px;font-size:.88rem}   /* 営業日カレンダーから来たときの案内（2026/11/4） */.yc-alt a{color:#cdd0c6}
 .yc-err{background:#fdeef2;border:1px solid var(--pink-deep);border-radius:10px;padding:9px 12px;color:#8a2a3f;font-size:.86rem;line-height:1.7;margin:0 0 12px}.yc-err a{color:#8a2a3f}
 .yc-cfh{margin:0 0 4px;font-size:.97rem;font-family:var(--gothic);font-weight:700}
 .yc-cfn{font-size:.82rem;color:var(--stone);margin:0 0 10px}
@@ -842,6 +843,7 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
         <div class="yc-box">
           <h3 class="yc-h">ネット予約</h3>
           <p class="yc-lead">① ご希望の<wbr>メニューを<wbr>押してください。</p>
+          <p class="yc-note yc-gonote" id="ycGoNote" hidden></p>
           <p class="yc-note yc-multi" id="ycMulti" hidden></p>
           <div class="yc-menus" id="ycMenus" role="group" aria-label="メニュー"></div>
           <p class="yc-note" id="ycTax" hidden><span id="ycTaxText"></span>　<a class="yc-plink" href="#menu">料金表を見る</a></p>
@@ -1211,10 +1213,9 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
       var a=k.split('-');st.month=new Date(+a[0],+a[1]-1,1);
       if(st.sel.length&&starts(k,st.sel).length){st.date=k;st.time=null;drawCal();showTimes();return true;}
       if(st.sel.length){st.date=null;st.time=null;hideBelow(0);drawCal();$('ycHint').innerHTML=goNo(k);}
-      else{GO=k;$('ycHint').innerHTML='<span class="yc-ck">① 上のメニューを押すと、</span><span class="yc-ck">'+jp(k)+'の空き時間が出ます</span>';}
-      $('ycHint').hidden=false;
-      var py=window.pageYOffset||document.documentElement.scrollTop,vh=window.innerHeight||document.documentElement.clientHeight,y=root.getBoundingClientRect().top+py-16,hy=$('ycHint').getBoundingClientRect().top+py;
-      if(hy-y>vh*0.6)y=hy-Math.round(vh*0.4);   // 知らせの文が画面の外になるときは、文が見える所まで（メニューの一覧が開いているときなど）
+      else{GO=k;$('ycGoNote').innerHTML='<span class="yc-ck">'+jp(k)+'の空き時間を出します。</span><span class="yc-ck">メニューを押してください。</span>';$('ycGoNote').hidden=false;}   // 案内はメニューの上に（下だとメニューが画面の外になるため。11/4 本人の動画）
+      var py=window.pageYOffset||document.documentElement.scrollTop,vh=window.innerHeight||document.documentElement.clientHeight,y=root.getBoundingClientRect().top+py-16;
+      if(st.sel.length){$('ycHint').hidden=false;var hy=$('ycHint').getBoundingClientRect().top+py;if(hy-y>vh*0.6)y=hy-Math.round(vh*0.4);}   // 合わない日の知らせ（メニューの下）が画面の外になるときは、文が見える所まで
       try{window.scrollTo({top:y,behavior:reduced()?'auto':'smooth'});}catch(e){window.scrollTo(0,y);}
       return true;
     }catch(e){return false;}
@@ -1229,7 +1230,7 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
     $('ycMnote').textContent=(ask.indexOf('脱毛')>=0)?'脱毛の料金は、部位によって変わります。上の「料金表を見る」からご覧ください。':'';$('ycMnote').hidden=!$('ycMnote').textContent;
     $('ycHint').innerHTML='<span class="yc-ck">'+(st.top?'③':'②')+' 予約したい日を押してください</span><span class="yc-ck">（'+(ms.length>1?'選んだメニュー':esc(ms[0].n))+'の空きです）</span>';   // 2 つ以上は名前を並べない（320 幅で長すぎるため）
     $('ycCalbox').hidden=false;setDur();drawCal();
-    if(GO){var g=GO;GO=null;if(HOURS[g]&&starts(g,ms).length){st.date=g;drawCal();showTimes();}else $('ycHint').innerHTML=goNo(g);}   // 営業日カレンダーから来た日（2026/11/4）
+    if(GO){var g=GO;GO=null;$('ycGoNote').hidden=true;if(HOURS[g]&&starts(g,ms).length){st.date=g;drawCal();showTimes();}else $('ycHint').innerHTML=goNo(g);}   // 営業日カレンダーから来た日（2026/11/4）
   }
   function overMax(){$('ycMnote').textContent='施術の合計は '+MAXT+' 分までです。組み合わせを減らすか、LINE かお電話でご相談ください。';$('ycMnote').hidden=false;}
   function fail(){$('ycFb').hidden=false;$('ycHint').hidden=true;}
@@ -1319,7 +1320,7 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
     for(var j=0;j<rs.length;j++)h+='<span class="ec-tm">'+hm(rs[j][0])+'〜'+hm(rs[j][1])+'</span>';
     p.innerHTML='<h4>'+(mo+1)+'月'+d+'日（'+W.charAt(new Date(y,mo,d).getDay())+'）の空いている時間</h4>'+
       '<div class="ec-tms">'+(h||'<span class="ec-tm">お問い合わせください</span>')+'</div>'+
-      '<p class="ec-note"><span class="nw">※目安です。</span><span class="nw">メニューの長さによっては、</span><span class="nw">入らない時間もあります。</span></p>'+
+      '<p class="ec-note"><span class="nw">※目安です。</span><wbr><span class="nw">メニューの長さによっては、</span><wbr><span class="nw">入らない時間もあります。</span></p>'+
       '<a class="btn btn-pink ec-go" href="#reserve" data-go="'+k+'">この日で予約する</a>';
     p.hidden=false;
     try{   // 出した枠が画面の外（スマホの下の固定バーの裏も）なら、見える所まで動かす
@@ -1364,7 +1365,7 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
     done=true;C=c;
     box.innerHTML='<div class="ec-tabs" role="tablist" aria-label="月を選ぶ">'+tabs+'</div><div class="ec-ms">'+ms2+'</div><div class="ec-day" id="ecDay" aria-live="polite" hidden></div>'+
       '<p class="ec-leg"><span><b class="o">○</b>空きあり</span><span><b class="t">△</b>空き少なめ</span><span><b class="x">×</b>満席</span><span><b class="h">休</b>お休み</span><span><b class="n">–</b>まだ決まっていません</span>'+(c.endc?'<span><b class="h">終</b>本日の受付終了</span>':'')+'</p>'+
-      '<p class="ec-note"><span class="nw">※空きは目安です。</span><span class="nw">メニューによって、</span><span class="nw">予約できる時間が変わります。</span></p>';
+      '<p class="ec-note"><span class="nw">※空きは目安です。</span><wbr><span class="nw">メニューによって、</span><wbr><span class="nw">予約できる時間が変わります。</span></p>';
   }
   box.addEventListener('click',function(e){
     var t=e.target,i=0;
