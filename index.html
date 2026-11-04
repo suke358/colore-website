@@ -1365,7 +1365,7 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
     done=true;C=c;
     box.innerHTML='<div class="ec-tabs" role="tablist" aria-label="月を選ぶ">'+tabs+'</div><div class="ec-ms">'+ms2+'</div><div class="ec-day" id="ecDay" aria-live="polite" hidden></div>'+
       '<p class="ec-leg"><span><b class="o">○</b>空きあり</span><span><b class="t">△</b>空き少なめ</span><span><b class="x">×</b>満席</span><span><b class="h">休</b>お休み</span><span><b class="n">–</b>まだ決まっていません</span>'+(c.endc?'<span><b class="h">終</b>本日の受付終了</span>':'')+'</p>'+
-      '<p class="ec-note"><span class="nw">※空きは目安です。</span><wbr><span class="nw">メニューによって、</span><wbr><span class="nw">予約できる時間が変わります。</span></p>';
+      '<p class="ec-note"><span class="nw">※空きは目安です。</span><br><span class="nw">メニューによって、</span><wbr><span class="nw">予約できる時間が変わります。</span></p>';
   }
   box.addEventListener('click',function(e){
     var t=e.target,i=0;
