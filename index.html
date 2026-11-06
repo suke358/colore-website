@@ -1027,18 +1027,19 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
   function priceText(p){return (p&&p!=='お問い合わせください')?'・'+p:'';}
   function buildMenus(list){   // 「ボディケア 15分」「ボディケア 30分」… は 1 つにまとめて、押すと長さを選ぶ
     var out=[],groups={};
-    for(var i=0;i<list.length;i++){var m=list[i],mm=/^(.+?)\s*(\d+)分$/.exec(m.name);
-      if(mm){var base=mm[1];if(!groups[base]){groups[base]={n:base,group:[],note:'',price:''};out.push(groups[base]);}
-        groups[base].group.push({n:m.name,min:+m.min,price:m.price||'',slot:m.slot||0,extraMin:+m.extraMin||0,extraNote:m.extraNote||'',base:base});}
+    for(var i=0;i<list.length;i++){var m=list[i],mm=/^(.+?)\s*(\d+)分$/.exec(m.name),mk=mm?null:/^(.+?)（(.+)）$/.exec(m.name);   // 「バストアップ（5回コース）」のように（）の前が同じものもまとめる（2026/11/6）
+      if(mm||mk){var base=mm?mm[1]:mk[1];if(!groups[base]){groups[base]={n:base,group:[],note:'',price:'',kind:!!mk};out.push(groups[base]);}
+        groups[base].group.push({n:m.name,min:+m.min,price:m.price||'',slot:m.slot||0,extraMin:+m.extraMin||0,extraNote:m.extraNote||'',base:base,label:mk?mk[2]:''});}
       else out.push({n:m.name,min:+m.min,price:m.price||'',slot:m.slot||0,extraMin:+m.extraMin||0,extraNote:m.extraNote||''});}
     for(var k in groups){if(groups.hasOwnProperty(k)){var g=groups[k].group,lo=g[0].min,hi=g[0].min;
       for(var j=0;j<g.length;j++){if(g[j].min<lo)lo=g[j].min;if(g[j].min>hi)hi=g[j].min;}
-      groups[k].note=lo+'〜'+hi+'分';groups[k].price=(g[0].price?g[0].price+'〜':'');}}
+      groups[k].note=(lo===hi?lo+'分':lo+'〜'+hi+'分');var pmin=null;for(var q=0;q<g.length;q++){var yv=/^([\d,]+)円$/.exec(g[q].price);if(yv){var nv=+yv[1].replace(/,/g,'');if(pmin===null||nv<pmin)pmin=nv;}}
+      groups[k].price=(pmin!==null?String(pmin).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'円〜':(g[0].price?g[0].price+'〜':''));}}
     return out;
   }
   function setDur(){
     var ms=st.sel;
-    if(ms.length===1){var m=ms[0];$('ycDur').innerHTML='<span class="yc-ln">施術 '+m.min+'分</span><span class="yc-ln"><span class="yc-ck">（カウンセリング・お片づけ含め</span> <span class="yc-ck">約'+slotOf(m)+'分）</span></span>';return;}
+    if(ms.length===1){var m=ms[0],p1=/円/.test(m.price||'')?'<span class="yc-ln"><span class="yc-ck">料金の目安　'+esc(m.price)+'</span><span class="yc-ck">（税込）</span></span>':'';$('ycDur').innerHTML='<span class="yc-ln">施術 '+m.min+'分</span><span class="yc-ln"><span class="yc-ck">（カウンセリング・お片づけ含め</span> <span class="yc-ck">約'+slotOf(m)+'分）</span></span>'+p1;return;}   // 1 つだけのときも料金を出す（2026/11/6 本人「選んでも合計に出てこない」）
     var ex=extraNotes(ms),pr=priceOf(ms),h='<span class="yc-ln"><b>'+esc(namesOf(ms))+'</b></span>';
     h+='<span class="yc-ln">施術 合計'+minOf(ms)+'分</span><span class="yc-ln"><span class="yc-ck">（カウンセリング・</span><span class="yc-ck">お片づけ'+(ex.length?'・</span><span class="yc-ck">'+esc(ex.join('・')):'')+'含め</span> <span class="yc-ck">約'+lenOf(ms)+'分）</span></span>';
     if(/円/.test(pr))h+='<span class="yc-ln"><span class="yc-ck">料金の目安　合計 '+esc(pr)+'</span><span class="yc-ck">（税込）</span></span>';
@@ -1048,11 +1049,11 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
   function drawMenus(){
     var h='';
     for(var i=0;i<MENUS.length;i++){var m=MENUS[i],gs=m.group?selOfGroup(m):null,open=(st.top===m),on=m.group?(open||!!gs):selIdx(m)>=0;
-      var pk=m.group?(open?(gs?'✓ '+gs.min+'分 ▴':'閉じる ▴'):(gs?'✓ '+gs.min+'分 ▾':'時間を選ぶ ▾')):(on?'✓ 選択中':'選ぶ');
+      var gl=gs?(gs.label||gs.min+'分'):'',pk=m.group?(open?(gs?'✓ '+gl+' ▴':'閉じる ▴'):(gs?'✓ '+gl+' ▾':(m.kind?'選ぶ ▾':'時間を選ぶ ▾'))):(on?'✓ 選択中':'選ぶ');   // （）でまとめたもの（バストアップ）は名前で出す（2026/11/6）
       h+='<button type="button" data-i="'+i+'"'+(on?' class="yc-on" aria-pressed="true"':' aria-pressed="false"')+'><span class="yc-tx"><span class="yc-mn">'+esc(m.n)+'</span><small>'+(m.note||m.min+'分')+esc(priceText(m.price))+'</small></span><span class="yc-pick">'+pk+'</span></button>';
       if(open&&m.group){
         for(var k=0;k<m.group.length;k++){var g=m.group[k],so=selIdx(g)>=0;
-          h+='<button type="button" class="yc-sub'+(so?' yc-on':'')+'" data-j="'+k+'" aria-pressed="'+(so?'true':'false')+'"><span class="yc-tx"><span class="yc-mn">'+g.min+'分</span><small>'+esc(g.price)+'</small></span><span class="yc-pick">'+(so?'選択中':'選ぶ')+'</span></button>';}
+          h+='<button type="button" class="yc-sub'+(so?' yc-on':'')+'" data-j="'+k+'" aria-pressed="'+(so?'true':'false')+'"><span class="yc-tx"><span class="yc-mn">'+(g.label?esc(g.label):g.min+'分')+'</span><small>'+(g.label?g.min+'分・':'')+esc(g.price)+'</small></span><span class="yc-pick">'+(so?'選択中':'選ぶ')+'</span></button>';}
       }
     }
     $('ycMenus').innerHTML=h;
