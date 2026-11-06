@@ -347,6 +347,8 @@ button.yc-cd{cursor:pointer}
 .info dt{font-family:var(--mincho);letter-spacing:.12em}
 .info dd{margin:0;line-height:1.85}
 .info small{color:var(--stone);font-size:.82rem}
+.info dd.pay .pay-k,.info dd.pay .pay-v{display:block}
+.info dd.pay .pay-v{padding-left:1em;font-size:.86rem;color:var(--stone);line-height:1.7;margin-bottom:2px}  /* 1段下げ。折れても2行目は同じ位置（11/6） */
 .map{border-radius:var(--r);overflow:hidden;min-height:420px;background:#e8e2d8}
 .map iframe{width:100%;height:100%;min-height:420px;border:0;display:block}
 @media (max-width:860px){.access .wrap{grid-template-columns:1fr;gap:40px}.info{padding:4px 18px}.info div{grid-template-columns:5.5em 1fr}.map,.map iframe{min-height:300px}}
@@ -899,8 +901,8 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
           <div><dt>駐車場</dt><dd>あり<wbr>（15番）</dd></div>
           <div><dt>ご予約</dt><dd>完全予約制<br><span class="nw">（当日のご予約も可）</span></dd></div>
           <!-- お支払い：2026/11/6 しほさんの電話で確定（決済の審査完了の写真 5枚）。まとめ書き（全部の名前は並べない。本人決定） -->
-          <!-- お支払い：名前ごとに折り返さない（11/6 iPhone で「au PAY」などが割れたため。名前は span.nw） -->
-          <div><dt>お支払い</dt><dd>現金<br>クレジットカード<br><small>（<span class="nw">Visa</span>・<wbr><span class="nw">Mastercard</span>・<wbr><span class="nw">JCB</span>・<wbr><span class="nw">AMEX ほか</span>）</small><br>電子マネー<br><small>（<span class="nw">交通系</span>・<wbr><span class="nw">iD</span>・<wbr><span class="nw">QUICPay</span>・<wbr><span class="nw">楽天Edy</span>）</small><br>QR決済<br><small>（<span class="nw">PayPay</span>・<wbr><span class="nw">d払い</span>・<wbr><span class="nw">au PAY</span>・<wbr><span class="nw">楽天ペイ ほか</span>）</small></dd></div>
+          <!-- お支払い：括弧をやめ、名前の行を1段下げる。2行になっても2行目は1行目と同じ位置から（11/6 本人「文字がそろっていない」3回目。名前は span.nw で途中で折らない） -->
+          <div><dt>お支払い</dt><dd class="pay"><span class="pay-k">現金</span><span class="pay-k">クレジットカード</span><span class="pay-v"><span class="nw">Visa</span>・<wbr><span class="nw">Mastercard</span>・<wbr><span class="nw">JCB</span>・<wbr><span class="nw">AMEX ほか</span></span><span class="pay-k">電子マネー</span><span class="pay-v"><span class="nw">交通系</span>・<wbr><span class="nw">iD</span>・<wbr><span class="nw">QUICPay</span>・<wbr><span class="nw">楽天Edy</span></span><span class="pay-k">QR決済</span><span class="pay-v"><span class="nw">PayPay</span>・<wbr><span class="nw">d払い</span>・<wbr><span class="nw">au PAY</span>・<wbr><span class="nw">楽天ペイ ほか</span></span></dd></div>
           <div><dt>電話</dt><dd><a href="tel:08074744035">080-7474-4035</a></dd></div>
         </dl>
         <a class="route" href="https://www.google.com/maps/search/?api=1&amp;query=col%C3%B3re&amp;query_place_id=ChIJfzEnY-6TRDUR4VzRms3tsvo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Googleマップで<wbr>道順を見る</a>
