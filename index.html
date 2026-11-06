@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="format-detection" content="email=no">   <!-- iOS がメールアドレスを勝手にリンク（下線）にしない（確認画面のメール枠。2026/10/30）。電話は触らない -->
-<title>よもぎ蒸し/脱毛サロン colore（コロレ）｜山口県防府市</title>
-<meta name="description" content="山口県防府市岸津のプライベートサロン colore（コロレ）。看護師のオーナーが、よもぎ蒸し・脱毛・フェイシャル・ボディケアをご提供しています。完全予約制。">
+<title>よもぎ蒸し・脱毛・フェイシャル｜防府市のプライベートサロン colore（コロレ）</title>
+<meta name="description" content="山口県防府市岸津のプライベートサロン colore（コロレ）。看護師のオーナーが、よもぎ蒸し・脱毛（女性・メンズ）・フェイシャル・バストアップ・ボディケアをご提供しています。完全予約制。">
 <meta name="theme-color" content="#141011">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="よもぎ蒸し/脱毛サロン colore（コロレ）">
-<meta property="og:title" content="よもぎ蒸し/脱毛サロン colore（コロレ）｜山口県防府市">
+<meta property="og:title" content="よもぎ蒸し・脱毛・フェイシャル｜防府市のプライベートサロン colore（コロレ）">
 <meta property="og:description" content="防府市岸津のプライベートサロン。看護師のオーナーが、よもぎ蒸し・脱毛・フェイシャル・ボディケアをご提供しています。">
 <!-- LINE のカードの番号 ?v=12（og:url・canonical・下の JS の3か所でそろえる。check_site が見る）。カードの画像を変えたら、画像の名前を変えて番号を次にする（LINE はページの URL ごとにカードを覚えるため。?v=11 までは使用済み） -->
 <meta property="og:url" content="https://colore-yomogi.com/?v=12">
@@ -32,11 +32,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Shippori+Mincho+B1:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BeautySalon","name":"よもぎ蒸し/脱毛サロン colore（コロレ）","url":"https://colore-yomogi.com/","image":"https://colore-yomogi.com/images/og-20261007.jpg","logo":"https://colore-yomogi.com/images/logo-pink.png","telephone":"+81-80-7474-4035","address":{"@type":"PostalAddress","postalCode":"747-0011","addressRegion":"山口県","addressLocality":"防府市","streetAddress":"岸津2丁目3-10 ハイム桜の園203号室","addressCountry":"JP"},"geo":{"@type":"GeoCoordinates","latitude":34.0513781,"longitude":131.5930905},"openingHours":"Mo-Su 10:00-18:00","sameAs":["https://www.instagram.com/yomogimushi.colore/","https://www.threads.com/@yomogimushi.colore"]}
+{"@context":"https://schema.org","@type":"BeautySalon","name":"よもぎ蒸し/脱毛サロン colore（コロレ）","url":"https://colore-yomogi.com/","image":"https://colore-yomogi.com/images/og-20261007.jpg","logo":"https://colore-yomogi.com/images/logo-pink.png","telephone":"+81-80-7474-4035","address":{"@type":"PostalAddress","postalCode":"747-0011","addressRegion":"山口県","addressLocality":"防府市","streetAddress":"岸津2丁目3-10 ハイム桜の園203号室","addressCountry":"JP"},"geo":{"@type":"GeoCoordinates","latitude":34.0513781,"longitude":131.5930905},"openingHours":"Mo-Su 10:00-18:00","description":"防府市岸津のプライベートサロン。よもぎ蒸し・脱毛（女性・メンズ）・フェイシャル・バストアップ・ボディケア。完全予約制。","makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"よもぎ蒸し"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"脱毛（女性・メンズ）"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"フェイシャル"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"ボディケア"}}],"sameAs":["https://www.instagram.com/yomogimushi.colore/","https://www.threads.com/@yomogimushi.colore"]}
 </script>
 <style>
 /* 言葉の切れ目で折り返す（ は BudouX で入れた。2026/10/8） */
 .nw{white-space:nowrap}
+.ig-feed{margin:28px auto 0;max-width:640px}
+.ig-note{font-size:.82rem;color:var(--stone);text-align:center;margin:0 0 10px}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-gap:6px;gap:6px}
+.ig-cell{position:relative;display:block;padding-top:100%;background:#f3e6e9;border-radius:6px;text-decoration:none}
+.ig-cell span{position:absolute;top:50%;left:0;right:0;margin-top:-.6em;text-align:center;font-size:.78rem;color:var(--stone)}
 body{word-break:keep-all;overflow-wrap:anywhere;line-break:strict}
 
 /* =========================================================
@@ -634,7 +639,7 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
       </figure>
       <div class="hero-info">
         <p class="eyebrow">完全予約制の<wbr>プライベートサロン</p>
-        <p class="lead">看護師の<wbr>オーナーが、<br>よもぎ蒸し・脱毛・フェイシャル・<br>ボディケアを<wbr>ご提供しています。</p>
+        <p class="lead">防府市岸津の、<wbr>よもぎ蒸し・脱毛・<wbr>フェイシャルの<wbr>サロンです。<br>看護師の<wbr>オーナーが、<wbr>ボディケアも<wbr>ご提供しています。</p>
         <!-- 住所は白 -->
         <p class="addr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span>〒747-0011　山口県防府市岸津2丁目3-10<br>ハイム桜の園203号室</span></p>
         <div class="hero-btns">
@@ -754,7 +759,7 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
             </table>
               </div>
               <div class="dm-tbl" id="dm-m">
-              <h4>男性の脱毛</h4>
+              <h4>男性の脱毛<small>（メンズ脱毛）</small></h4>
             <table class="tbl dm-t">
               <thead><tr><th scope="col">部位<span class="dm-unit">（円・税込）</span></th><th scope="col" class="yen">1回</th><th scope="col" class="yen">5回券</th><th scope="col" class="yen">10回券</th></tr></thead>
               <tbody>
@@ -917,6 +922,8 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
       <div class="sec-head center"><i><svg class="heart"><use href="#h"/></svg><span>Q<b class="amp">&amp;</b>A</span><svg class="heart r"><use href="#h"/></svg></i><h2>よくある<wbr>ご質問</h2></div>
       <div class="faq-list">
         <details><summary><span class="q">Q</span>男性も<wbr>利用できますか？</summary><p><span class="a">A</span>はい、男性の方も<wbr>ご利用いただけます。</p></details>
+        <details><summary><span class="q">Q</span>全身脱毛は<wbr>どのくらい<wbr>時間が<wbr>かかりますか？</summary><p><span class="a">A</span>体の<wbr>大きさによって、<wbr>1時間〜<wbr>1時間半ほどです。</p></details>
+        <details><summary><span class="q">Q</span>フェイシャルの<wbr>時間と<wbr>料金を<wbr>教えてください。</summary><p><span class="a">A</span>30分・<wbr>5,500円<wbr>（税込）です。<wbr>よもぎ蒸しとの<wbr>組み合わせも<wbr>できます。</p></details>
         <details><summary><span class="q">Q</span>駐車場は<wbr>ありますか？</summary><p><span class="a">A</span>あります（15番）。<wbr>お車でお越しの<wbr>際はご利用ください。</p></details>
         <details><summary><span class="q">Q</span>当日の<wbr>予約は<wbr>できますか？</summary><p><span class="a">A</span>空きがあれば<wbr>承ります。<wbr>LINEかお電話で<wbr>お問い合わせください。</p></details>
         <details><summary><span class="q">Q</span>支払い<wbr>方法を<wbr>教えてください。</summary><p><span class="a">A</span>現金のほか、<wbr>クレジットカード・<wbr>電子マネー・<wbr><span class="nw">QR決済</span><wbr><span class="nw">（PayPay など）</span>が<wbr>お使いいただけます。</p></details>
@@ -938,6 +945,11 @@ button.ec-d:focus-visible,.ec-tabs button:focus-visible{outline:3px solid var(--
         <a href="https://lin.ee/nDeKjiW" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#06c755"/><path fill="#fff" d="M12 5.2c-4.1 0-7.4 2.7-7.4 6 0 2.9 2.6 5.4 6.2 5.9.2.1.6.2.7.4.1.2 0 .5 0 .7l-.1.7c0 .2-.2.8.7.4.9-.4 4.4-2.6 6-4.4 1.1-1.2 1.6-2.4 1.6-3.8 0-3.3-3.3-6-7.4-6z"/></svg>LINE</a>
         <a href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f9a13a"/><stop offset=".5" stop-color="#e1306c"/><stop offset="1" stop-color="#833ab4"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#ig)"/><rect x="5.5" y="5.5" width="13" height="13" rx="4" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3.1" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="16.1" cy="7.9" r=".9" fill="#fff"/></svg>Instagram</a>
         <a href="https://www.threads.com/@yomogimushi.colore" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#111"/><text x="12" y="16.6" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#fff">@</text></svg>Threads</a>
+      </div>
+      <!-- インスタの最新の投稿（2026/11/6 案・本番は本人の OK 後）。Behold（無料：最新 6 枚・1 日 1 回の更新・月 1,200 回の表示）の部品をこの div に貼る。しほさんがインスタをつないだあと、下の見本の6マスを部品に置きかえる -->
+      <div class="ig-feed" id="ig-feed">
+        <p class="ig-note">（見本）インスタの<wbr>最新の<wbr>投稿 6 枚が、<wbr>ここに<wbr>自動で<wbr>並びます</p>
+        <div class="ig-grid"><a class="ig-cell" href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener"><span>見本</span></a><a class="ig-cell" href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener"><span>見本</span></a><a class="ig-cell" href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener"><span>見本</span></a><a class="ig-cell" href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener"><span>見本</span></a><a class="ig-cell" href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener"><span>見本</span></a><a class="ig-cell" href="https://www.instagram.com/yomogimushi.colore/" target="_blank" rel="noopener"><span>見本</span></a></div>
       </div>
     </div>
   </section>
